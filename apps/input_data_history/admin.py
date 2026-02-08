@@ -41,15 +41,16 @@ class InputDataHistoryAdmin(CustomAdmin):
 	class Media:
 		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
 
-	readonly_fields = ('created_at', )
+	readonly_fields = ('created_at', 'get_data_dev_num', )
 
 	# Campos que se editan
-	fields = []
-
-	def get_pro_mode(self, obj):
-		if not obj.userprofile:
-			return "-"
-		return obj.userprofile.license_access_enable
+	def get_fields(self, request, obj=None):
+		return (
+			'created_at',
+			'get_data_dev_num',
+			'data_temp',
+			'data_hum',
+		)
 
 	# filtros
 	# Construir list_filter añadiendo uno a uno
@@ -111,16 +112,10 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 		_list_display.extend([
 			'created_at',
-			'data_dev_num',
+			'get_data_dev_num',
 			'data_temp', 'data_hum',
 		])
 		return tuple(_list_display)
-
-	# Campos que va a usar cuando usamos el search
-	def get_search_fields(self, request):
-		if get_realuser_is_superuser(request):
-			return ('user_id__username',)
-		return ()  # Devuelve un tupla vacía para usuarios normales
 
 
 	# def has_view_permission(self, request, obj=None):
@@ -137,6 +132,22 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 	# def has_delete_permission(self, request, obj=None):
 	# 	return admin_has_permission(request, InputDataHistory, "delete_inputdatahistory", obj)
+
+	def get_data_dev_num(self, obj):
+		"""Muestra data_dev_num formateado."""
+		if obj.data_dev_num is None:
+			return "-"
+		if obj.data_dev_num == 1:
+			return "Calle"
+		if obj.data_dev_num == 2:
+			return "Matrimonio"
+		if obj.data_dev_num == 3:
+			return "Oficina"
+		if obj.data_dev_num == 4:
+			return "Wc-arriba"
+		return f"Device {obj.data_dev_num}"
+	get_data_dev_num.short_description = 'data_dev_num'
+	get_data_dev_num.admin_order_field = 'data_dev_num'
 
 	def get_data_dev_num_description(self):
 		return "Número de dispositivo"
