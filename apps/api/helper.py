@@ -183,16 +183,16 @@ def insert_input_data(request):
 	def strip_seconds(dt):
 		return localtime(dt).replace(second=0, microsecond=0)
 
-	updated_at = timezone.now()
+	created_at = timezone.now()
 
-	# Obtener la versión truncada de updated_at
-	updated_at_trimmed = strip_seconds(updated_at)
+	# Obtener la versión truncada de created_at
+	created_at_trimmed = strip_seconds(created_at)
 
-	# Intentar encontrar un registro con el mismo data_dev_num y updated_at (sin segundos)
+	# Intentar encontrar un registro con el mismo data_dev_num y created_at (sin segundos)
 	obj, created = InputDataHistory.objects.update_or_create(
 		data_dev_num=input_data_row.data_dev_num,
-		updated_at__gte=updated_at_trimmed,  # Buscar registros en el mismo minuto
-		updated_at__lt=updated_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
+		created_at__gte=created_at_trimmed,  # Buscar registros en el mismo minuto
+		created_at__lt=created_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
 		defaults=history_data  # Datos a actualizar si ya existe
 	)
 
