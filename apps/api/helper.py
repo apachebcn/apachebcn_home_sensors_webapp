@@ -1,0 +1,284 @@
+# author PEDRO REINA ROJAS <apachebcn@gmail.com>
+# copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+# license comercial
+
+from django.http import JsonResponse
+from apps.decorators import apikey_required
+import json
+
+
+from django.utils.translation import gettext as _
+
+from django.utils import timezone
+from apps.common_functions import is_bool, is_int, is_float
+from django.utils.timezone import localtime
+from datetime import timedelta
+
+from apps.input_data.models import InputData
+from apps.input_data_history.models import InputDataHistory
+from apps.input_data_history.helper import save_graphic_settings
+from apps.input_data_history.helper import get_json_data_graph
+from apps.input_data_history.views import data_graph_view
+from apps.common_functions import test_is_numeric
+from project.settings import MODE
+
+from apps.common_functions import responseToThermostate
+
+import logging
+logger = logging.getLogger('django')
+
+
+@apikey_required(app_name="graph_realtime")
+def api_realtime_data_graph(request):
+
+	"""
+	Es llamado por javascript desde la vista graph_realtime.html
+	"""
+
+	user_apikey = request.user_apikey
+	message_error = ""
+	if request.POST.get("save", False):
+		result = save_graphic_settings(request, realtime = True)
+		if result is True:
+			message_error = ""
+		else:
+			message_error = result
+	return data_graph_view(request = request, realtime = True, message_error = message_error, apikey = user_apikey)
+
+
+@apikey_required(app_name="graph_realtime")
+def api_get_json_data_graph(request):
+
+	"""
+	Es llamado por javascript desde la vista graph_history.html
+	"""
+	return get_json_data_graph(request)
+
+
+def get_user_admin():
+	from django.contrib.auth import get_user_model
+	User = get_user_model()
+	try:
+		user_apikey = User.objects.get(username="admin")
+		return user_apikey
+	except User.DoesNotExist:
+		return None
+
+
+@apikey_required(app_name="thermostat_inputs")
+def insert_input_data(request):
+
+	"""
+		Esta función la usa como api el termostato
+		Envía aquí su url, y hacemos lo siguiente:
+			- Almacenamos los datos de sus parametros, que son los valores de sensores y relés como entrada
+			- Registramos los datos como histórico
+			- Respondemos con los datos del modelo RemoteConfig, que son los valores de fuerces de reles que el usuario quiere comandar desde aquí
+
+	Ejemplo de input:
+		http://localhost/api/write_data/?apikey=xxx&ip=127.0.0.5&&num=1&t=12&h=22
+	RESPUESTAS QUE SE ENVIARÁN AL TERMOSTATO:
+		WEBAPP_OK
+		WEBAPP_GET_CONFIG_FROM_THERMOSTATE
+		WEBAPP_SET_CONFIG_TO_THERMOSTATE
+		WEBAPP_UPDATE
+		error
+	"""
+
+	from apps.global_config import LIMIT_API_INPUT_SECONDS
+
+	def parse_int(value):
+		if value is None or value == "DISABLED" or not is_int(value):
+			return 0
+		return int(value) if value is not None and is_int(value) else 0
+
+	def parse_float(value):
+		if value is None or value == "DISABLED" or not is_float(value):
+			return 0
+		return float(value)
+
+	def parse_bool(value):
+		if value is None or value == "DISABLED" or not is_bool(value):
+			return 0
+		if (value == "0"):
+			return False
+		if (value == "1"):
+			return True
+		return bool(value)
+
+	def set_max_value(row, field_name):
+
+		field_name_max = field_name + "_max"
+		actual_value = getattr(row, field_name, 0)
+		if not test_is_numeric(actual_value):
+			return
+		max_value = getattr(row, field_name_max, 0)
+		if max_value:
+			max_value = parse_float(max_value)
+		actual_value = parse_float(actual_value)
+		if max_value is None or actual_value > max_value:
+			setattr(row, field_name_max, actual_value)
+		return
+
+	def set_min_value(row, field_name):
+
+		field_name_min = field_name + "_min"
+		actual_value = getattr(row, field_name, 0)
+		if not test_is_numeric(actual_value):
+			return
+		min_value = getattr(row, field_name_min, 0)
+		if min_value:
+			min_value = parse_float(min_value)
+		actual_value = parse_float(actual_value)
+		if min_value is None or actual_value < min_value:
+			setattr(row, field_name_min, actual_value)
+		return
+
+	user_ip = request.META.get('REMOTE_ADDR', 'unknown')
+
+	if request.method != 'GET':
+		message = "Bad protocol"
+		logger.warning(user_ip + ": " + message)
+		result = "error"
+		return responseToThermostate(request, result = result, message = message)
+
+	user_apikey = get_user_admin()
+	if not user_apikey or user_apikey is None:
+		raise PermissionDenied("admin user not found")
+
+	logger.info(f"RECIBIENDO DATOS del termostato de IP: {user_ip}")
+
+	times_repeated_answer = 0
+	input_data_row = InputData.objects.filter(user_id=user_apikey).first()
+	if input_data_row:
+		now = timezone.now()
+		time_difference = now - input_data_row.updated_at
+		time_difference_seconds = int(time_difference.total_seconds())
+		times_repeated_answer = input_data_row.times_repeated_answer
+		if time_difference_seconds > LIMIT_API_INPUT_SECONDS:
+			InputData.objects.filter(user_id=user_apikey).update(times_repeated_answer=0)
+			times_repeated_answer = 0
+			input_data_row.times_repeated_answer = times_repeated_answer
+		else:
+			if MODE != "DEV":
+				times_repeated_answer += 1
+				InputData.objects.filter(user_id=user_apikey).update(times_repeated_answer=times_repeated_answer)
+				input_data_row.times_repeated_answer = times_repeated_answer
+				if time_difference_seconds < LIMIT_API_INPUT_SECONDS and times_repeated_answer > 3:
+					message = 'No se pueden registar más datos en menos de 60 segundos' + " [Han pasado " + str(time_difference_seconds) + "]"
+					result = "error"
+					return responseToThermostate(request, result = result, message = message)
+
+	data_from_thermostate_local_ip = request.GET.get('ip', None)
+	data_from_thermostate_public_ip = request.META.get('REMOTE_ADDR', 'unknown')
+
+	field_values = {}
+
+	num = request.GET.get('num', None)
+	try:
+		num = int(num)
+	except Exception as e:
+		message = str(e)
+		result = "error"
+		return responseToThermostate(request, result = result, message = message)
+
+	if num is None or not is_int(num):
+		message = "El parámetro 'num' es obligatorio y ha de ser un número entero"
+		result = "error"
+		return responseToThermostate(request, result = result, message = message)
+
+	if num > 4 or num < 1:
+		message = "El parámetro 'num' ha de ser un número entero entre 1 y 4"
+		result = "error"
+		return responseToThermostate(request, result = result, message = message)
+
+	field_values["data_s" + str(num) + "_temp"] = request.GET.get('t', None)
+	field_values["data_s" + str(num) + "_hum"] = request.GET.get('h', None)
+
+	updated_at = timezone.now()
+
+	if not input_data_row:
+		input_data_row = InputData.objects.create(user_id=user_apikey)
+
+	# Validación de longitud de campos antes de guardar
+	# field_values: dict con {nombre_de_campo: valor}
+	for field_name, field_value in field_values.items():
+		try:
+			db_field = input_data_row._meta.get_field(field_name)
+		except Exception as e:
+			message = f"Campo '{field_name}' no existe en el modelo: {e}"
+			result = "error"
+			return responseToThermostate(request, result = result, message = message)
+
+		if field_name.endswith("_forced") and not testRelayForced(field_values[field_name]):
+			message = f"'{field_name}' valor inválido ('{field_values[field_name]}')"
+			result = "error"
+			return responseToThermostate(request, result = result, message = message)
+
+		max_length = getattr(db_field, "max_length", None)
+
+		# Solo validamos si hay límite y tenemos un valor
+		if max_length is not None and field_value is not None:
+			# Evitamos que None se convierta en "None"
+			value_str = field_value if isinstance(field_value, str) else str(field_value)
+
+			if len(value_str) > max_length:
+				message = f"Campo '{field_name}' excede max_length={max_length}: "
+				f"valor='{value_str}' (len={len(value_str)})"
+				result = "error"
+				return responseToThermostate(request, result = result, message = message)
+
+		# Asignación segura tras validar
+		setattr(input_data_row, field_name, field_value)
+
+
+	input_data_row.times_repeated_answer = times_repeated_answer
+	input_data_row.data_from_thermostate_local_ip = data_from_thermostate_local_ip
+	input_data_row.data_from_thermostate_public_ip = data_from_thermostate_public_ip
+	input_data_row.updated_at = updated_at
+
+	input_data_row.save()
+	set_max_value(input_data_row, 'data_s1_temp')
+	set_min_value(input_data_row, 'data_s1_temp')
+
+	set_min_value(input_data_row, 'data_temp_depup')
+	set_max_value(input_data_row, 'data_temp_depup')
+
+	set_min_value(input_data_row, 'data_temp_depdown')
+	set_max_value(input_data_row, 'data_temp_depdown')
+
+	set_min_value(input_data_row, 'data_temp_air')
+	set_max_value(input_data_row, 'data_temp_air')
+
+	input_data_row.save()
+
+	history_data = {
+		"user_id": user_apikey,
+		"created_at": updated_at,
+		"data_s1_temp": parse_float(input_data_row.data_s1_temp),
+		"data_s1_hum": parse_float(input_data_row.data_s1_hum),
+		"data_s2_temp": parse_float(input_data_row.data_s2_temp),
+		"data_s2_hum": parse_float(input_data_row.data_s2_hum),
+		"data_s3_temp": parse_float(input_data_row.data_s3_temp),
+		"data_s3_hum": parse_float(input_data_row.data_s3_hum),
+		"data_s4_temp": parse_float(input_data_row.data_s4_temp),
+		"data_s4_hum": parse_float(input_data_row.data_s4_hum),
+	}
+
+	# Remover segundos y microsegundos
+	def strip_seconds(dt):
+		return localtime(dt).replace(second=0, microsecond=0)
+
+	# Obtener la versión truncada de updated_at
+	updated_at_trimmed = strip_seconds(updated_at)
+
+	# Intentar encontrar un registro con el mismo user_id y created_at (sin segundos)
+	obj, created = InputDataHistory.objects.update_or_create(
+		user_id=user_apikey,
+		created_at__gte=updated_at_trimmed,  # Buscar registros en el mismo minuto
+		created_at__lt=updated_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
+		defaults=history_data  # Datos a actualizar si ya existe
+	)
+
+	result = "WEBAPP_OK"
+	return responseToThermostate(request, result = result)

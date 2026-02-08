@@ -1,0 +1,128 @@
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+<div style='
+margin: auto;
+padding: 10px;
+display: table;'>
+
+    <div>
+        <ul class="pagination">
+
+            {% if pagina > 1 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-1 }}";document.getElementById("formulario").submit();'>
+                        {% trans 'Anterior' %}
+                    </span>
+                </li>
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="1";document.getElementById("formulario").submit();'>
+                        {% trans 'Primero' %}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_atras_5 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-5 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:-5 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_atras_4 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-4 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:-4 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_atras_3 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-3 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:-3 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_atras_2 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-2 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:-2 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_atras_1 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:-1 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:-1 }}
+                    </span>
+                </li>
+            {% endif %}
+            
+            
+            <span class="page-link" style='color:black'>
+                {{ pagina }}
+            </span>
+
+            {% if paginador_alante_1 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:1 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:1 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_alante_2 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:2 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:2 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_alante_3 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:3 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:3 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_alante_4 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:4 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:4 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if paginador_alante_5 %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:5 }}";document.getElementById("formulario").submit();'>
+                        {{ pagina | add:5 }}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if pagina < paginador_ultima_pagina %}
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ paginador_ultima_pagina }}";document.getElementById("formulario").submit();'>
+                        {% trans 'Último' %} [{{ paginador_ultima_pagina }}]
+                    </span>
+                </li>
+                <li class="page-item" style='cursor:pointer'>
+                    <span class="page-link" onclick='document.getElementById("pagina").value="{{ pagina | add:1 }}";document.getElementById("formulario").submit();'>
+                        {% trans 'Siguiente' %}
+                    </span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+</div>

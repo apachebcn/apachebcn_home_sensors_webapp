@@ -1,0 +1,101 @@
+# author PEDRO REINA ROJAS <apachebcn@gmail.com>
+# copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+# license comercial
+
+from django.contrib import admin
+
+from apps.common_functions import get_realuser_is_superuser
+from apps.custom_admin import CustomAdmin
+from apps.user.models import UserProfile
+# from apps.custom_admin import admin_has_permission
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(CustomAdmin):
+
+	class Media:
+		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
+
+	# Campos que se muestran
+	def get_list_display(self, request):
+		if get_realuser_is_superuser(request):
+			return (
+				"user_id",
+				"license_access_enable",
+				"license_access_datetime",
+				"log_to_console",
+				"first_name",
+				"last_name",
+				"email",
+				"pais",
+				"provincia",
+				"poblacion",
+				"language",
+				"timezone",
+				"user_selected",
+			)
+		else:
+			return (
+				"user_id",
+				"first_name",
+				"last_name",
+				"email",
+				"pais",
+				"provincia",
+				"poblacion",
+				"language",
+				"timezone",
+			)
+
+	# Campos que se editan
+	def get_fields(self, request, obj=None):
+		if get_realuser_is_superuser(request):
+			return (
+				"user_id",
+				"license_access_enable",
+				"license_access_datetime",
+				"log_to_console",
+				"first_name",
+				"last_name",
+				"email",
+				"pais",
+				"provincia",
+				"poblacion",
+				"language",
+				"timezone",
+				"user_selected",
+			)
+		else:
+			return (
+				"first_name",
+				"last_name",
+				"email",
+				"pais",
+				"provincia",
+				"poblacion",
+				"language",
+				"timezone",
+			)
+
+	# Campos que va a usar cuando usamos el search
+	def get_search_fields(self, request):
+		if get_realuser_is_superuser(request):
+			return ('user_id__username',)
+		else:
+			return ()
+
+
+	# def has_view_permission(self, request, obj=None):
+	# 	return admin_has_permission(request, UserProfile, "view_userprofile", obj)
+
+
+	# def has_add_permission(self, request, obj=None):
+	# 	return admin_has_permission(request, UserProfile, "add_userprofile", obj)
+
+
+	# def has_change_permission(self, request, obj=None):
+	# 	return admin_has_permission(request, UserProfile, "change_userprofile", obj)
+
+
+	# def has_delete_permission(self, request, obj=None):
+	# 	return admin_has_permission(request, UserProfile, "delete_userprofile", obj)

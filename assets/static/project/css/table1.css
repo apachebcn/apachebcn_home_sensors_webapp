@@ -1,0 +1,29 @@
+
+table .termostato-user {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.termostato-user th ,
+.termostato-user td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.termostato-user th {
+    background-color: #f2f2f2;
+}
+
+.termostato-user tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.termostato-user tr:hover {
+    background-color: #ddd;
+}
+
+.termostato-user tr:nth-child(even)
+{
+    background-color:#e1e1e1 !important;
+}

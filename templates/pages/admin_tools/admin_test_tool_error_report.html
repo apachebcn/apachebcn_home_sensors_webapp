@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+{% block theme_content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'project/css/front_pages.css' %}?v=20251202">
+
+{% include '../../print_title.html' with title=title %}
+
+<style>
+    .table-striped tbody tr {
+        height: auto;
+        line-height: 1.2;
+        padding: 5px 10px;
+    }
+    .table-striped tbody td {
+        padding: 5px;
+        vertical-align: middle;
+    }
+</style>
+
+{% if link %}
+Link generado:<br>
+<a target="_blank" href="{{link}}">{{link}}</a>
+<br><br>
+{% endif %}
+
+Generar error para envío:<br>
+    <form method="post" class="show-loading">
+        <input type="submit" class="btn btn-primary" name="admin_test_tool_mail_error_generate_submit_button" value="{% trans "Generar" %}">
+        {% csrf_token %}
+        <input type="hidden" name="form_id" value="admin_test_tool_error_report">
+    </form>
+<br>
+
+Mensajes pendientes de enviar:<br>
+<div style="padding:5px;border:1px solid blue;">
+    <form method="post" class="show-loading">
+        <input type="submit" class="btn btn-primary" name="admin_test_tool_mail_error_send_submit_button" value="{% trans "Enviar" %}">
+        <br><br>
+        {% csrf_token %}
+        <input type="hidden" name="form_id" value="admin_test_tool_error_report">
+        <table class='table table-striped'>
+            {% for item in cue %}
+                <tr>
+                    <td>{{ item.created_at}}</td>
+                    <td>{{ item.report_message }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+<br>
+
+{% endblock %}

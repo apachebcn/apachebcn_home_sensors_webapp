@@ -1,0 +1,207 @@
+body {
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    /* margin-top: 40px; */
+    background-color: #f4f6f9
+}
+
+html {
+    font-size: 14px !important;
+}
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 12px !important;
+    }
+}
+
+.footer-info {
+    margin-top:25px;
+    border-top:1px dashed white;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+.sidebar-info {
+    margin-top: 5px;
+}
+
+.brand-link {
+    padding: 0px;
+}
+
+.div-sidebar-text {
+    margin-left: 5px;
+    display: inline;
+}
+.debug-tag {
+    display: block;
+    background-color: darkred;
+    color: white;
+    font-size: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+.site-ident-div {
+    width: 100%;
+    text-align: center;
+}
+.site-ident-div-inner {
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 300px;
+    margin: auto;
+    background: white;
+    color: black;
+    
+}
+.site-ident-div-inner img {
+    padding: 5px;
+}
+.btn-lang {
+    padding: 0px;
+    background-color: white;
+}
+.copyleft,
+.copyleft-text {
+    display: inline-block;
+    font-weight: bold;
+}
+.copyleft {
+    transform: rotate(180deg);
+}
+
+.button-logout {
+    margin: 15px;
+}
+
+.float-info-span-head {
+    padding: 5px;
+    border: 1px solid darkgray;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(0, 0, 0, 0.2);
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.float-info-div {
+    padding: 1px;
+    display: inline-block;
+}
+@media screen and (max-width: 768px) {
+    .float-info-div {
+        margin-bottom:6px;
+    }
+}
+
+.float-info-div .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    font-size: 12px;
+    background-color: white;
+    color: blue;
+    font-weight: bold;
+    text-align: left;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Posiciona el tooltip debajo del icono */
+    transform: translateX(-50%); /* Centra el tooltip horizontalmente */
+    transition: opacity 0.3s;
+    white-space: nowrap; /* Permite el salto de línea */
+    max-width: 400px; /* Ancho máximo para evitar tooltip demasiado grande */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    word-wrap: break-word; /* Ajusta el texto largo dentro del tooltip */
+    border: 1px solid blue;
+    border-radius: 5px;
+    padding:5px;
+    width: auto;
+}
+.float-info-div .tooltip-text:after {
+    content: "";
+    position: absolute;
+    top: -5px; /* Posiciona la flecha arriba del tooltip */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #555 transparent; /* Flecha hacia arriba */
+}
+.float-info-div:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.float-info-relay-disabled {
+    color: darkgray;
+    font-weight: normal;
+}
+
+.float-info-relay-on {
+    color: lightgreen;
+    font-weight: bold;
+}
+
+.float-info-relay-off {
+    color: red;
+    font-weight: bold;
+}
+
+#float-info-div-logout span {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.modal-dialog {
+    width: auto; /* Solo el ancho necesario para el contenido */
+    border: 1px solid black;
+    border-radius: 5px;
+    background: white;
+}
+
+#DialogMod {
+    padding-top: 15%;
+    overflow-y: visible;
+}
+.modal-header {
+    padding: 5px;
+    text-align: center;
+    background-color: blue;
+    color: white;
+}
+#dialog_head {
+    margin: 0;
+}
+
+#load-json-progressbar-time {
+    height: 2px;
+    width: 0%;
+    background: yellow;
+}
+
+.flag-bool-yes {
+    background: red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.flag-bool-no {
+    background: transparent;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+}

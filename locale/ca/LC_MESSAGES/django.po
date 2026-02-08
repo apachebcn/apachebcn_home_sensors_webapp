@@ -1,0 +1,1448 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-23 06:52+0000\n"
+"PO-Revision-Date: 2024-07-23 06:54-0015\n"
+"Last-Translator: Pedro2 Reina <apachebcn@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: apps/common_functions_dates.py:145
+msgid "años"
+msgstr "anys"
+
+#: apps/common_functions_dates.py:146
+msgid "meses"
+msgstr "mesos"
+
+#: apps/common_functions_dates.py:147
+msgid "días"
+msgstr ""
+
+#: apps/common_functions_dates.py:148
+msgid "horas"
+msgstr "hores"
+
+#: apps/common_functions_dates.py:149
+msgid "minutos"
+msgstr ""
+
+#: apps/common_functions_dates.py:150
+msgid "segundos"
+msgstr ""
+
+#: apps/common_functions_user.py:35 apps/common_functions_user.py:41
+#: apps/input_data_history/models.py:117 apps/input_data_history/models.py:118
+#: apps/input_data_history/models.py:119 apps/input_data_history/models.py:120
+#: apps/input_data_history/models.py:121 apps/input_data_history/models.py:122
+#: apps/input_data_history/models.py:123 apps/input_data_history/models.py:125
+#: apps/input_data_history/models.py:126 apps/input_data_history/models.py:127
+#: apps/input_data_history/models.py:128 apps/input_data_history/models.py:129
+#: apps/input_data_history/models.py:130 apps/input_data_history/models.py:131
+#: apps/input_data_history/models.py:133 apps/input_data_history/models.py:134
+#: apps/input_data_history/models.py:135 apps/input_data_history/models.py:136
+#: apps/input_data_history/models.py:137 apps/input_data_history/models.py:138
+#: apps/input_data_history/models.py:139 apps/input_data_history/models.py:141
+#: apps/input_data_history/models.py:142 apps/input_data_history/models.py:143
+#: apps/input_data_history/models.py:144 apps/input_data_history/models.py:145
+#: apps/input_data_history/models.py:146 apps/input_data_history/models.py:147
+#: apps/input_data_history/models.py:149 apps/input_data_history/models.py:150
+#: apps/input_data_history/models.py:151 apps/input_data_history/models.py:152
+#: apps/input_data_history/models.py:153 apps/input_data_history/models.py:154
+#: apps/input_data_history/models.py:155 apps/input_data_history/models.py:157
+#: apps/input_data_history/models.py:158 apps/input_data_history/models.py:159
+#: apps/input_data_history/models.py:160 apps/input_data_history/models.py:161
+#: apps/input_data_history/models.py:162 apps/input_data_history/models.py:163
+#: apps/input_data_history/models.py:165 apps/input_data_history/models.py:166
+#: apps/input_data_history/models.py:167 apps/input_data_history/models.py:168
+#: apps/input_data_history/models.py:169 apps/input_data_history/models.py:170
+#: apps/input_data_history/models.py:171 apps/input_data_history/models.py:173
+#: apps/input_data_history/models.py:174 apps/input_data_history/models.py:175
+#: apps/input_data_history/models.py:176 apps/input_data_history/models.py:177
+#: apps/input_data_history/models.py:178 apps/input_data_history/models.py:179
+#: templates/pages/remote_config_edit.html:345
+#: templates/pages/remote_config_edit.html:365
+#: templates/pages/remote_config_edit.html:379
+#: templates/pages/remote_config_edit.html:419
+#: templates/pages/remote_config_edit.html:459
+#: templates/pages/remote_config_edit.html:499
+#: templates/pages/remote_config_edit.html:539
+#: templates/pages/remote_config_edit.html:579
+#: templates/pages/user_option.html:26
+#: templates/pages/user_option.html:47
+#: templates/pages/user_option.html:68
+#: templates/pages/user_option.html:89
+#: templates/pages/user_option.html:110
+#: templates/pages/user_option.html:131
+#: templates/pages/user_option.html:152
+#: templates/pages/user_option.html:173
+#: templates/pages/graph_history.html:374
+#: templates/pages/graph_history.html:376
+#: templates/pages/graph_history.html:420
+#: templates/pages/graph_history.html:422
+#: templates/pages/graph_history.html:466
+#: templates/pages/graph_history.html:468
+#: templates/pages/graph_history.html:512
+#: templates/pages/graph_history.html:514
+#: templates/pages/graph_history.html:558
+#: templates/pages/graph_history.html:560
+#: templates/pages/graph_history.html:604
+#: templates/pages/graph_history.html:606
+#: templates/pages/graph_history.html:650
+#: templates/pages/graph_history.html:652
+#: templates/pages/graph_history.html:696
+#: templates/pages/graph_history.html:698
+msgid "Relé"
+msgstr ""
+
+#: apps/home/views.py:26
+msgid "Datos del termostato"
+msgstr ""
+
+#: apps/home/views.py:62
+msgid "OK"
+msgstr ""
+
+#: apps/home/views.py:64
+msgid "ERROR"
+msgstr ""
+
+#: apps/home/views.py:66
+msgid "Encendida"
+msgstr ""
+
+#: apps/home/views.py:68
+msgid "Apagada"
+msgstr ""
+
+#: apps/input_data/models.py:19
+msgid "Dato de entrada"
+msgstr ""
+
+#: apps/input_data/models.py:20
+msgid "Datos de entrada"
+msgstr ""
+
+#: apps/input_data/models.py:26 apps/remote_config/models.py:27
+msgid "Automático"
+msgstr ""
+
+#: apps/input_data/models.py:27 apps/remote_config/models.py:28
+msgid "Forzado ON"
+msgstr ""
+
+#: apps/input_data/models.py:28 apps/remote_config/models.py:29
+msgid "Forzado OFF"
+msgstr ""
+
+#: apps/input_data/models.py:31 apps/input_data_history/models.py:26
+#: apps/input_data_history/models.py:63 apps/remote_firmware/models.py:24
+#: apps/user_alarm/models.py:40
+msgid "Usuario"
+msgstr ""
+
+#: apps/input_data/models.py:32 apps/input_data_history/models.py:27
+#: apps/input_data_history/models.py:64 apps/remote_firmware/models.py:25
+#: apps/user_alarm/models.py:41 apps/user_alarm/models.py:73
+msgid "Fecha de Creación"
+msgstr ""
+
+#: apps/input_data/models.py:33 apps/input_data_history/models.py:65
+#: apps/remote_config/models.py:44 apps/user_alarm/models.py:42
+#: apps/user_alarm/models.py:74
+msgid "Fecha de Actualización"
+msgstr ""
+
+#: apps/input_data/models.py:35 apps/input_data_history/models.py:29
+msgid "Temperatura de Colector"
+msgstr ""
+
+#: apps/input_data/models.py:36 apps/input_data_history/models.py:30
+msgid "Temperatura de Depósito alto"
+msgstr ""
+
+#: apps/input_data/models.py:37 apps/input_data_history/models.py:31
+msgid "Temperatura de Depósito bajo"
+msgstr ""
+
+#: apps/input_data/models.py:38 apps/input_data_history/models.py:32
+msgid "Temperatura de Aire"
+msgstr ""
+
+#: apps/input_data/models.py:39 apps/input_data_history/admin_filters.py:80
+#: apps/input_data_history/models.py:33
+#: templates/pages/remote_config_edit.html:182
+msgid "Bomba de agua"
+msgstr ""
+
+#: apps/input_data/models.py:40 apps/input_data_history/models.py:28
+#: templates/pages/graph_history.html:291
+msgid "Error en sondas"
+msgstr ""
+
+#: apps/input_data/models.py:41 apps/input_data_history/models.py:34
+msgid "Estado de Relé #1"
+msgstr ""
+
+#: apps/input_data/models.py:42
+msgid "Estado Forzado del Relé #1"
+msgstr ""
+
+#: apps/input_data/models.py:43 apps/input_data_history/models.py:35
+msgid "Estado de Relé #2"
+msgstr ""
+
+#: apps/input_data/models.py:44
+msgid "Estado Forzado del Relé #2"
+msgstr ""
+
+#: apps/input_data/models.py:45 apps/input_data_history/models.py:36
+msgid "Estado de Relé #3"
+msgstr ""
+
+#: apps/input_data/models.py:46
+msgid "Estado Forzado del Relé #3"
+msgstr ""
+
+#: apps/input_data/models.py:47 apps/input_data_history/models.py:37
+msgid "Estado de Relé #4"
+msgstr ""
+
+#: apps/input_data/models.py:48
+msgid "Estado Forzado del Relé #4"
+msgstr ""
+
+#: apps/input_data/models.py:49 apps/input_data_history/models.py:38
+msgid "Estado de Relé #5"
+msgstr ""
+
+#: apps/input_data/models.py:50
+msgid "Estado Forzado del Relé #5"
+msgstr ""
+
+#: apps/input_data/models.py:51 apps/input_data_history/models.py:39
+msgid "Estado de Relé #6"
+msgstr ""
+
+#: apps/input_data/models.py:52
+msgid "Estado Forzado del Relé #6"
+msgstr ""
+
+#: apps/input_data/models.py:53 apps/input_data_history/models.py:40
+msgid "Estado de Relé #7"
+msgstr ""
+
+#: apps/input_data/models.py:54
+msgid "Estado Forzado del Relé #7"
+msgstr ""
+
+#: apps/input_data/models.py:55 apps/input_data_history/models.py:41
+msgid "Estado de Relé #8"
+msgstr ""
+
+#: apps/input_data/models.py:56
+msgid "Estado Forzado del Relé #8"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:16
+msgid "Temp colector valor 0"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:21
+#: apps/input_data_history/admin_filters.py:37
+#: apps/input_data_history/admin_filters.py:53
+#: apps/input_data_history/admin_filters.py:69
+msgid "Zero"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:32
+msgid "Temp depósito alto valor 0"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:48
+msgid "Temp depósito bajo valor 0"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:64
+msgid "Temp aire valor 0"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:85
+#: apps/input_data_history/admin_filters.py:106
+#: apps/input_data_history/admin_filters.py:127
+#: apps/input_data_history/admin_filters.py:148
+#: apps/input_data_history/admin_filters.py:169
+#: apps/input_data_history/admin_filters.py:190
+#: apps/input_data_history/admin_filters.py:211
+#: apps/input_data_history/admin_filters.py:232
+#: apps/input_data_history/admin_filters.py:253
+#: templates/pages/remote_firmware.html:51
+msgid "No"
+msgstr ""
+
+#: apps/input_data_history/admin_filters.py:86
+#: apps/input_data_history/admin_filters.py:107
+#: apps/input_data_history/admin_filters.py:128
+#: apps/input_data_history/admin_filters.py:149
+#: apps/input_data_history/admin_filters.py:170
+#: apps/input_data_history/admin_filters.py:191
+#: apps/input_data_history/admin_filters.py:212
+#: apps/input_data_history/admin_filters.py:233
+#: apps/input_data_history/admin_filters.py:254
+#: templates/pages/remote_firmware.html:49
+msgid "Sí"
+msgstr ""
+
+#: apps/input_data_history/apps.py:12
+msgid "Historial de Datos de Entrada"
+msgstr ""
+
+#: apps/input_data_history/models.py:19
+msgid "Historial de Datos de Entrada de Termostato"
+msgstr ""
+
+#: apps/input_data_history/models.py:20
+msgid "Historiales de Datos de Entradas de Termostatos"
+msgstr ""
+
+#: apps/input_data_history/models.py:51
+msgid "Configuración del historial de Datos de Entrada de Termostato"
+msgstr ""
+
+#: apps/input_data_history/models.py:52
+msgid "Configuraciones de los historiales de Datos de Entradas de Termostatos"
+msgstr ""
+
+#: apps/input_data_history/models.py:58
+msgid "Lineas rectas"
+msgstr ""
+
+#: apps/input_data_history/models.py:59
+msgid "Lineas curvadas"
+msgstr ""
+
+#: apps/input_data_history/models.py:60
+msgid "Columnas"
+msgstr ""
+
+#: apps/input_data_history/models.py:67 apps/input_data_history/models.py:70
+#: templates/pages/graph_history.html:65
+#: templates/pages/graph_history.html:256
+msgid "Escala mínima"
+msgstr ""
+
+#: apps/input_data_history/models.py:68 apps/input_data_history/models.py:71
+#: templates/pages/graph_history.html:76
+#: templates/pages/graph_history.html:267
+msgid "Escala máxima"
+msgstr ""
+
+#: apps/input_data_history/models.py:73 apps/input_data_history/models.py:74
+#: apps/input_data_history/models.py:75 apps/input_data_history/models.py:76
+#: apps/input_data_history/models.py:77 apps/input_data_history/models.py:78
+#: templates/pages/graph_history.html:99
+msgid "Colector"
+msgstr ""
+
+#: apps/input_data_history/models.py:73 apps/input_data_history/models.py:80
+#: apps/input_data_history/models.py:87 apps/input_data_history/models.py:94
+#: apps/input_data_history/models.py:101 apps/input_data_history/models.py:109
+#: apps/input_data_history/models.py:117 apps/input_data_history/models.py:125
+#: apps/input_data_history/models.py:133 apps/input_data_history/models.py:141
+#: apps/input_data_history/models.py:149 apps/input_data_history/models.py:157
+#: apps/input_data_history/models.py:165 apps/input_data_history/models.py:173
+#: templates/pages/graph_history.html:90
+#: templates/pages/graph_history.html:281
+msgid "Visible"
+msgstr ""
+
+#: apps/input_data_history/models.py:74 apps/input_data_history/models.py:81
+#: apps/input_data_history/models.py:88 apps/input_data_history/models.py:95
+#: apps/input_data_history/models.py:102 apps/input_data_history/models.py:110
+#: apps/input_data_history/models.py:118 apps/input_data_history/models.py:126
+#: apps/input_data_history/models.py:134 apps/input_data_history/models.py:142
+#: apps/input_data_history/models.py:150 apps/input_data_history/models.py:158
+#: apps/input_data_history/models.py:166 apps/input_data_history/models.py:174
+#: templates/pages/graph_history.html:91
+#: templates/pages/graph_history.html:282
+msgid "Tipo"
+msgstr ""
+
+#: apps/input_data_history/models.py:75 apps/input_data_history/models.py:82
+#: apps/input_data_history/models.py:89 apps/input_data_history/models.py:96
+#: apps/input_data_history/models.py:128
+#: templates/pages/graph_history.html:93
+#: templates/pages/graph_history.html:284
+msgid "Relleno"
+msgstr ""
+
+#: apps/input_data_history/models.py:76 apps/input_data_history/models.py:83
+#: apps/input_data_history/models.py:90 apps/input_data_history/models.py:97
+#: apps/input_data_history/models.py:105 apps/input_data_history/models.py:113
+#: apps/input_data_history/models.py:121 apps/input_data_history/models.py:129
+#: apps/input_data_history/models.py:137 apps/input_data_history/models.py:145
+#: apps/input_data_history/models.py:153 apps/input_data_history/models.py:161
+#: apps/input_data_history/models.py:169 apps/input_data_history/models.py:177
+msgid "Opacidad del relleno"
+msgstr ""
+
+#: apps/input_data_history/models.py:77 apps/input_data_history/models.py:84
+#: apps/input_data_history/models.py:91 apps/input_data_history/models.py:98
+#: apps/input_data_history/models.py:106 apps/input_data_history/models.py:114
+#: templates/pages/graph_history.html:92
+#: templates/pages/graph_history.html:283
+msgid "Color"
+msgstr ""
+
+#: apps/input_data_history/models.py:78 apps/input_data_history/models.py:85
+#: apps/input_data_history/models.py:92 apps/input_data_history/models.py:99
+#: apps/input_data_history/models.py:107 apps/input_data_history/models.py:115
+#: apps/input_data_history/models.py:123 apps/input_data_history/models.py:131
+#: apps/input_data_history/models.py:139 apps/input_data_history/models.py:147
+#: apps/input_data_history/models.py:155 apps/input_data_history/models.py:163
+#: apps/input_data_history/models.py:171 apps/input_data_history/models.py:179
+msgid "Mostrar puntos"
+msgstr ""
+
+#: apps/input_data_history/models.py:80 apps/input_data_history/models.py:81
+#: apps/input_data_history/models.py:82 apps/input_data_history/models.py:83
+#: apps/input_data_history/models.py:84
+#: templates/pages/graph_history.html:136
+msgid "Depósito alto"
+msgstr ""
+
+#: apps/input_data_history/models.py:85
+msgid "Depósito alto "
+msgstr ""
+
+#: apps/input_data_history/models.py:87 apps/input_data_history/models.py:88
+#: apps/input_data_history/models.py:89 apps/input_data_history/models.py:90
+#: apps/input_data_history/models.py:91 apps/input_data_history/models.py:92
+#: templates/pages/graph_history.html:173
+msgid "Depósito bajo"
+msgstr ""
+
+#: apps/input_data_history/models.py:94 apps/input_data_history/models.py:95
+#: apps/input_data_history/models.py:96 apps/input_data_history/models.py:97
+#: apps/input_data_history/models.py:98 apps/input_data_history/models.py:99
+#: templates/pages/graph_history.html:210
+msgid "Aire"
+msgstr ""
+
+#: apps/input_data_history/models.py:101 apps/input_data_history/models.py:102
+#: apps/input_data_history/models.py:103 apps/input_data_history/models.py:104
+#: apps/input_data_history/models.py:105 apps/input_data_history/models.py:106
+#: apps/input_data_history/models.py:107
+#: templates/pages/graph_history.html:915
+msgid "Error"
+msgstr ""
+
+#: apps/input_data_history/models.py:103 apps/input_data_history/models.py:111
+#: apps/input_data_history/models.py:119 apps/input_data_history/models.py:127
+#: apps/input_data_history/models.py:135 apps/input_data_history/models.py:143
+#: apps/input_data_history/models.py:151 apps/input_data_history/models.py:159
+#: apps/input_data_history/models.py:167 apps/input_data_history/models.py:175
+#: templates/pages/graph_history.html:287
+msgid "Altura"
+msgstr ""
+
+#: apps/input_data_history/models.py:109 apps/input_data_history/models.py:110
+#: apps/input_data_history/models.py:111 apps/input_data_history/models.py:112
+#: apps/input_data_history/models.py:113 apps/input_data_history/models.py:114
+#: apps/input_data_history/models.py:115
+msgid "Bomba"
+msgstr ""
+
+#: apps/input_data_history/models.py:122 apps/input_data_history/models.py:130
+#: apps/input_data_history/models.py:138 apps/input_data_history/models.py:146
+#: apps/input_data_history/models.py:154 apps/input_data_history/models.py:162
+#: apps/input_data_history/models.py:170 apps/input_data_history/models.py:178
+msgid "color"
+msgstr ""
+
+#: apps/input_data_history/views.py:84
+msgid "Temp Colector"
+msgstr ""
+
+#: apps/input_data_history/views.py:85
+msgid "Temp Depósito alto"
+msgstr ""
+
+#: apps/input_data_history/views.py:86 apps/user_alarm/models.py:29
+msgid "Temp depósito bajo"
+msgstr ""
+
+#: apps/input_data_history/views.py:87
+msgid "Temp Aire"
+msgstr ""
+
+#: apps/input_data_history/views.py:88
+msgid "Sensor Error"
+msgstr ""
+
+#: apps/input_data_history/views.py:89
+#: templates/pages/graph_history.html:331
+msgid "Función Bomba de agua"
+msgstr ""
+
+#: apps/input_data_history/views.py:119
+msgid "Histórico Gráfico del termostato"
+msgstr ""
+
+#: apps/input_data_history/views.py:228 apps/input_data_history/views.py:233
+msgid "Importador de datos del termostato"
+msgstr ""
+
+#: apps/minicaptcha/helper.py:96
+msgid "Escribe el captcha"
+msgstr ""
+
+#: apps/minicaptcha/helper.py:121
+msgid "Captcha incorrecto"
+msgstr ""
+
+#: apps/remote_config/models.py:20
+msgid "Configuración del Termostato"
+msgstr ""
+
+#: apps/remote_config/models.py:21
+msgid "Configuración de los Termostatos"
+msgstr ""
+
+#: apps/remote_config/models.py:33
+msgid "Todo"
+msgstr ""
+
+#: apps/remote_config/models.py:34
+msgid "Warnings&Errores"
+msgstr ""
+
+#: apps/remote_config/models.py:35
+msgid "Sólo errores"
+msgstr ""
+
+#: apps/remote_config/models.py:39
+msgid "Celsius"
+msgstr ""
+
+#: apps/remote_config/models.py:40
+msgid "Farenheit"
+msgstr ""
+
+#: apps/remote_config/models.py:46 apps/remote_firmware/models.py:28
+msgid "Enviar a termostato"
+msgstr ""
+
+#: apps/remote_config/views.py:29
+msgid "Gestión remota del Configuración del termostato"
+msgstr ""
+
+#: apps/remote_firmware/admin.py:58
+msgid "Acciones"
+msgstr ""
+
+#: apps/remote_firmware/apps.py:12
+msgid "Firmware del termostato"
+msgstr ""
+
+#: apps/remote_firmware/models.py:17
+msgid "Firmware del Termostato"
+msgstr ""
+
+#: apps/remote_firmware/models.py:18
+msgid "Firmware de los termostatos"
+msgstr ""
+
+#: apps/remote_firmware/models.py:26
+msgid "Fecha de ultima información"
+msgstr ""
+
+#: apps/remote_firmware/models.py:27
+msgid "Versión informada por el termostato"
+msgstr ""
+
+#: apps/remote_firmware/views.py:27
+msgid "Gestión remota del remoteFirmware del termostato"
+msgstr ""
+
+#: apps/user_alarm/admin.py:62 apps/user_alarm/admin.py:90
+#: apps/user_alarm/management/commands/alarms_process.py:29
+msgid "El proceso ya está en ejecución. (fichero {})"
+msgstr ""
+
+#: apps/user_alarm/admin.py:78
+msgid ""
+"La función validar alarmas se ha ejecutado para las alarmas seleccionadas"
+msgstr ""
+
+#: apps/user_alarm/admin.py:80
+msgid "Validar alarmas activadas"
+msgstr ""
+
+#: apps/user_alarm/admin.py:106
+msgid ""
+"La función enviar alarmas validadas se ha ejecutado para las alarmas "
+"seleccionadas"
+msgstr ""
+
+#: apps/user_alarm/admin.py:108
+msgid "Enviar alarmas activadas y validadas"
+msgstr ""
+
+#: apps/user_alarm/admin.py:141
+msgid "Sin eventos"
+msgstr ""
+
+#: apps/user_alarm/admin.py:152
+msgid "Último evento"
+msgstr ""
+
+#: apps/user_alarm/management/commands/alarms_process.py:57
+msgid "VALIDANDO ALARMAS - INICIO"
+msgstr ""
+
+#: apps/user_alarm/management/commands/alarms_process.py:68
+msgid "VALIDANDO ALARMAS - FIN"
+msgstr ""
+
+#: apps/user_alarm/management/commands/alarms_process.py:70
+msgid "ENVIANDO EMAILS - INICIO"
+msgstr ""
+
+#: apps/user_alarm/models.py:19
+msgid "Alarma del termostato"
+msgstr ""
+
+#: apps/user_alarm/models.py:20
+msgid "Alarmas del termostato"
+msgstr ""
+
+#: apps/user_alarm/models.py:26
+msgid "Tiempo de sincronización del termostato"
+msgstr ""
+
+#: apps/user_alarm/models.py:27
+msgid "Temp colector"
+msgstr ""
+
+#: apps/user_alarm/models.py:28
+msgid "Temp depósito alto"
+msgstr ""
+
+#: apps/user_alarm/models.py:30
+msgid "Temp aire"
+msgstr ""
+
+#: apps/user_alarm/models.py:31
+msgid "Error sondas"
+msgstr ""
+
+#: apps/user_alarm/models.py:43
+msgid "Activo"
+msgstr ""
+
+#: apps/user_alarm/models.py:44 apps/user_profile/models.py:53
+#: templates/pages/user_profile_view.html:27
+#: templates/pages/graph_history.html:59
+#: templates/pages/graph_history.html:89
+#: templates/pages/graph_history.html:251
+#: templates/pages/graph_history.html:280
+msgid "Nombre"
+msgstr "Nom"
+
+#: apps/user_alarm/models.py:45
+msgid "Variable"
+msgstr ""
+
+#: apps/user_alarm/models.py:46
+msgid "Operador"
+msgstr ""
+
+#: apps/user_alarm/models.py:47 templates/pages/remote_config_edit.html:383
+#: templates/pages/remote_config_edit.html:423
+#: templates/pages/remote_config_edit.html:463
+#: templates/pages/remote_config_edit.html:503
+#: templates/pages/remote_config_edit.html:543
+#: templates/pages/remote_config_edit.html:583
+#: templates/pages/graph_history.html:60
+#: templates/pages/graph_history.html:252
+msgid "Valor"
+msgstr ""
+
+#: apps/user_alarm/models.py:48 templates/pages/user_profile_view.html:41
+msgid "Email"
+msgstr ""
+
+#: apps/user_alarm/models.py:58
+msgid "Evento de alarma del termostato"
+msgstr ""
+
+#: apps/user_alarm/models.py:59
+msgid "Eventos de alarmas del termostato"
+msgstr ""
+
+#: apps/user_alarm/models.py:66
+msgid "Fin de alarma"
+msgstr ""
+
+#: apps/user_alarm/models.py:67
+msgid "Alarma pendiente de envío"
+msgstr ""
+
+#: apps/user_alarm/models.py:68
+msgid "Alarma Enviada por email"
+msgstr ""
+
+#: apps/user_alarm/models.py:69
+msgid "Alarm con Error de envío"
+msgstr ""
+
+#: apps/user_alarm/models.py:72
+msgid "Alarma"
+msgstr ""
+
+#: apps/user_alarm/models.py:75
+msgid "Estado"
+msgstr ""
+
+#: apps/user_alarm/models.py:76
+msgid "Detalle de estado"
+msgstr ""
+
+#: apps/user_alarm/views.py:23
+msgid "El termostato no ha registrado datos"
+msgstr ""
+
+#: apps/user_alarm/views.py:41
+msgid "Alarma activa. Evento esperando en estado pendiente"
+msgstr ""
+
+#: apps/user_alarm/views.py:43
+msgid "Alarma activa. Evento ya fue enviado con email"
+msgstr ""
+
+#: apps/user_alarm/views.py:45
+msgid "Alarma activa. Evento ya fue enviado con email (con error)"
+msgstr ""
+
+#: apps/user_alarm/views.py:48 apps/user_alarm/views.py:50
+msgid "Alarma activa. Añadido nuevo evento de alarma"
+msgstr ""
+
+#: apps/user_alarm/views.py:54
+msgid ""
+"Alarma inactiva. Estaba en estado pendiente. Se genera nuevo evento con "
+"estado 'end'"
+msgstr ""
+
+#: apps/user_alarm/views.py:57
+msgid ""
+"Alarma inactiva. Estaba en estado 'enviado'. Se genera nuevo evento con "
+"estado 'end'"
+msgstr ""
+
+#: apps/user_alarm/views.py:60
+msgid ""
+"Alarma inactiva. Estaba en estado 'enviado con error'. Se genera nuevo "
+"evento con estado 'end'"
+msgstr ""
+
+#: apps/user_alarm/views.py:62 apps/user_alarm/views.py:64
+msgid "Alarma inactiva. Nada que hacer"
+msgstr ""
+
+#: apps/user_alarm/views.py:99
+msgid "No está pendiente de envío"
+msgstr ""
+
+#: apps/user_alarm/views.py:103
+#, python-brace-format
+msgid ""
+"No está pendiente de envío. (estado actual:{last_useralarm_event_status})"
+msgstr ""
+
+#: apps/user_option/models.py:15
+msgid "Opción del Termostato"
+msgstr ""
+
+#: apps/user_option/models.py:16
+msgid "Opciones de los Termostatos"
+msgstr ""
+
+#: apps/user_option/models.py:34
+msgid "Relé #1"
+msgstr ""
+
+#: apps/user_option/models.py:35
+msgid "Relé #2"
+msgstr ""
+
+#: apps/user_option/models.py:36
+msgid "Relé #3"
+msgstr ""
+
+#: apps/user_option/models.py:37
+msgid "Relé #4"
+msgstr ""
+
+#: apps/user_option/models.py:38
+msgid "Relé #5"
+msgstr ""
+
+#: apps/user_option/models.py:39
+msgid "Relé #6"
+msgstr ""
+
+#: apps/user_option/models.py:40
+msgid "Relé #7"
+msgstr ""
+
+#: apps/user_option/models.py:41
+msgid "Relé #8"
+msgstr ""
+
+#: apps/user_option/models.py:44
+msgid "Filas por página"
+msgstr ""
+
+#: apps/user_option/views.py:59
+msgid "Opciones del usuario"
+msgstr ""
+
+#: apps/user_profile/apps.py:15 apps/user_profile/models.py:34
+#: templates/base_menu.html:103
+msgid "Perfil"
+msgstr ""
+
+#: apps/user_profile/models.py:35
+msgid "Perfiles"
+msgstr ""
+
+#: apps/user_profile/models.py:60 templates/pages/user_profile_view.html:34
+msgid "Apellidos"
+msgstr ""
+
+#: apps/user_profile/models.py:76
+msgid "País"
+msgstr ""
+
+#: apps/user_profile/models.py:84
+msgid "Lenguaje"
+msgstr ""
+
+#: apps/user_profile/models.py:93
+msgid "Apikey de lectura"
+msgstr ""
+
+#: apps/user_profile/models.py:102
+msgid "Apikey de escritura/lectura"
+msgstr ""
+
+#: apps/user_profile/models.py:110
+msgid "Zona horaria"
+msgstr ""
+
+#: apps/user_profile/models.py:127
+msgid "Fecha de límite de acceso"
+msgstr ""
+
+#: apps/user_profile/views.py:51 apps/user_profile/views.py:65
+msgid "Nombre de usuario o contraseña incorrecto"
+msgstr ""
+
+#: apps/user_profile/views.py:62
+#, python-format
+msgid "Bienvenido %s. Gracias por volver"
+msgstr ""
+
+#: apps/user_profile/views.py:71
+#, python-format
+msgid "Hasta la proxima %s. Gracias por tu visita"
+msgstr ""
+
+#: apps/user_profile/views.py:142
+msgid "Perfil de usuario"
+msgstr ""
+
+#: project/settings.py:132
+msgid "Español"
+msgstr ""
+
+#: project/settings.py:133
+msgid "Catalán"
+msgstr ""
+
+#: project/settings.py:134
+msgid "Portugués"
+msgstr ""
+
+#: project/settings.py:135
+msgid "Francés"
+msgstr ""
+
+#: templates/admin/base_site.html:8
+msgid "Django site admin"
+msgstr ""
+
+#: templates/base.html:55
+msgid "Procesando"
+msgstr ""
+
+#: templates/base.html:58
+msgid "Espere un momento por favor"
+msgstr ""
+
+#: templates/base.html:108
+msgid "BACKOFFICE"
+msgstr ""
+
+#: templates/base.html:121
+msgid "YO"
+msgstr ""
+
+#: templates/base_menu.html:35
+msgid "Login"
+msgstr ""
+
+#: templates/base_menu.html:48
+msgid "Panel"
+msgstr ""
+
+#: templates/base_menu.html:57
+msgid "Historial - Gráficos"
+msgstr ""
+
+#: templates/base_menu.html:66
+msgid "Termostato Config"
+msgstr ""
+
+#: templates/base_menu.html:75
+msgid "Termostato Firmware"
+msgstr ""
+
+#: templates/base_menu.html:94
+msgid "Opciones"
+msgstr ""
+
+#: templates/base_menu.html:112
+msgid "Import"
+msgstr ""
+
+#: templates/login.html:121
+msgid "Nombre de usuario"
+msgstr ""
+
+#: templates/login.html:127
+msgid "Contraseña"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:9
+#: templates/pages/graph_date_selector.html:17
+msgid "Fecha"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:25
+msgid "Cargar"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:30
+#: templates/pages/graph_date_selector.html:36
+#: templates/pages/graph_date_selector.html:42
+#: templates/pages/graph_date_selector.html:48
+msgid "-"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:31
+msgid "Hoy"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:32
+#: templates/pages/graph_date_selector.html:38
+#: templates/pages/graph_date_selector.html:44
+#: templates/pages/graph_date_selector.html:50
+msgid "+"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:37
+msgid "Esta semana"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:43
+msgid "Este mes"
+msgstr ""
+
+#: templates/pages/graph_date_selector.html:49
+msgid "Este año"
+msgstr ""
+
+#: templates/pages/home.html:48
+msgid "Temperatura Colector"
+msgstr ""
+
+#: templates/pages/home.html:69
+msgid "Temperatura Depósito alto"
+msgstr ""
+
+#: templates/pages/home.html:93
+msgid "Temperatura Aire"
+msgstr ""
+
+#: templates/pages/home.html:106
+msgid "Temperatura Depósito bajo"
+msgstr ""
+
+#: templates/pages/home.html:130
+msgid "Estado Error"
+msgstr ""
+
+#: templates/pages/home.html:144
+msgid "Estado Bomba"
+msgstr ""
+
+#: templates/pages/home.html:160
+msgid "Forzado de Relés"
+msgstr ""
+
+#: templates/pages/home.html:168
+msgid "Errores sondas"
+msgstr ""
+
+#: templates/pages/home.html:188
+msgid "Temp Colector >"
+msgstr ""
+
+#: templates/pages/home.html:198
+msgid "Temp Colector <"
+msgstr ""
+
+#: templates/pages/home.html:208
+msgid "Temp Depósito alto >"
+msgstr ""
+
+#: templates/pages/home.html:218
+msgid "Temp Depósito alto <"
+msgstr ""
+
+#: templates/pages/home.html:228
+msgid "(Temp Depósito bajo >"
+msgstr ""
+
+#: templates/pages/home.html:238
+msgid "(Temp Depósito bajo <"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:26
+#: templates/pages/user_option.html:20
+#: templates/pages/user_option.html:222
+#: templates/pages/user_profile_view.html:19
+#: templates/pages/user_profile_view.html:76
+msgid "Guardar"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:27
+#: templates/pages/remote_config_edit.html:727
+#: templates/pages/remote_firmware.html:20
+#: templates/pages/remote_firmware.html:59
+msgid "Enviar"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:28
+#: templates/pages/remote_config_edit.html:728
+#: templates/pages/remote_firmware.html:21
+#: templates/pages/remote_firmware.html:60
+msgid "Cancelar Envío"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:31
+msgid "Sensores"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:41
+msgid "Colector activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:50
+msgid "Depósito alto activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:60
+msgid "Depósito bajo activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:71
+msgid "Aire activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:82
+msgid "Tiempo Loop<br>(intervalo de tiempo entre lecturas)"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:89
+msgid "Escala<br>(intervalo de tiempo entre lecturas)"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:100
+msgid "Simulación en Sensores:"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:111
+msgid "Temperatura simulada en colector"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:122
+msgid "Simular error simulado en colector"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:133
+msgid "Temperatura simulada en depósito alto"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:144
+msgid "Simular error en depósito alto"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:155
+msgid "Temperatura simulada en depósito bajo"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:166
+msgid "Simular error simulado en depósito bajo"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:194
+msgid "Bomba activada"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:204
+msgid "Arrancar con diferencia al colector bajo"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:211
+msgid "Detener con diferencia al colector bajo"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:222
+msgid "Protección térmica"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:233
+msgid "Detener bomba cuando temperatura en colector >"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:244
+msgid "Detener bomba cuando temperatura en colector <"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:255
+msgid "Detener bomba cuando temperatura en depósito alto >"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:266
+msgid "Detener bomba cuando temperatura en depósito bajo <"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:281
+msgid "Bomba intermitente"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:293
+msgid "Activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:303
+msgid "Tiempo circulando"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:303
+#: templates/pages/remote_config_edit.html:310
+msgid "Segundos"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:310
+msgid "Tiempo pausa"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:320
+#: templates/pages/user_option.html:23
+msgid "Relés"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:332
+msgid "Relés activados"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:345
+msgid "Relé de error"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:348
+#: templates/pages/remote_config_edit.html:392
+#: templates/pages/remote_config_edit.html:432
+#: templates/pages/remote_config_edit.html:472
+#: templates/pages/remote_config_edit.html:512
+#: templates/pages/remote_config_edit.html:552
+#: templates/pages/remote_config_edit.html:592
+msgid "Suspensión (segundos)"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:348
+#: templates/pages/remote_config_edit.html:392
+#: templates/pages/remote_config_edit.html:432
+#: templates/pages/remote_config_edit.html:472
+#: templates/pages/remote_config_edit.html:512
+#: templates/pages/remote_config_edit.html:552
+#: templates/pages/remote_config_edit.html:592
+msgid "0 es desactivado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:355
+#: templates/pages/remote_config_edit.html:368
+#: templates/pages/remote_config_edit.html:399
+#: templates/pages/remote_config_edit.html:439
+#: templates/pages/remote_config_edit.html:479
+#: templates/pages/remote_config_edit.html:519
+#: templates/pages/remote_config_edit.html:559
+#: templates/pages/remote_config_edit.html:599
+msgid "Modo forzado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:365
+msgid "Relé de bomba de agua"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:379
+msgid "Relé de temperatura de colector en exceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:406
+#: templates/pages/remote_config_edit.html:446
+#: templates/pages/remote_config_edit.html:486
+#: templates/pages/remote_config_edit.html:526
+#: templates/pages/remote_config_edit.html:566
+#: templates/pages/remote_config_edit.html:606
+msgid "Inhibir con bomba"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:419
+msgid "Relé de temperatura de colector en deceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:459
+msgid "Relé de temperatura de depósito alto en exceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:499
+msgid "Relé de temperatura de depósito alto en deceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:539
+msgid "Relé de temperatura de depósito bajo en exceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:579
+msgid "Relé de temperatura de depósito bajo en deceso"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:630
+msgid "Emoncms Activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:640
+msgid "Emoncms url"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:647
+msgid "Emoncms apikey_write"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:654
+msgid "Emoncms refresco (segundos)"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:676
+msgid "Imprimir log en consola serie"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:686
+msgid "Printar en consola"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:686
+msgid "Las variables de configuración en arranque"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:696
+msgid "Log Loop Activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:706
+msgid "Log Wifi Activado"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:716
+msgid "Log nivel"
+msgstr ""
+
+#: templates/pages/remote_config_edit.html:726
+msgid "Sólo Guardar"
+msgstr ""
+
+#: templates/pages/remote_firmware.html:24
+msgid "Firmware"
+msgstr ""
+
+#: templates/pages/remote_firmware.html:28
+msgid "Primera recepción de la información"
+msgstr ""
+
+#: templates/pages/remote_firmware.html:34
+msgid "Última recepción de la información"
+msgstr ""
+
+#: templates/pages/remote_firmware.html:40
+msgid "Versión"
+msgstr ""
+
+#: templates/pages/remote_firmware.html:46
+msgid "Enviando firmware a termostato"
+msgstr ""
+
+#: templates/pages/user_option.html:195
+msgid ""
+"La disponibilidad de relés es para liberar carga textual y funcional en "
+"algunas páginas"
+msgstr ""
+
+#: templates/pages/user_option.html:198
+msgid "Tabla de datos"
+msgstr ""
+
+#: templates/pages/user_option.html:210
+msgid "Gráficos de datos"
+msgstr ""
+
+#: templates/pages/graph_history.html:33
+msgid "Ver datos perdidos"
+msgstr ""
+
+#: templates/pages/graph_history.html:37
+msgid "Izquierda"
+msgstr ""
+
+#: templates/pages/graph_history.html:40
+msgid "Derecha"
+msgstr ""
+
+#: templates/pages/graph_history.html:49
+msgid "La tecla shift permite el desplazamiento horizontal"
+msgstr ""
+
+#: templates/pages/graph_history.html:51
+#: templates/pages/graph_history.html:740
+msgid "PROBAR"
+msgstr ""
+
+#: templates/pages/graph_history.html:51
+#: templates/pages/graph_history.html:740
+msgid "GUARDAR"
+msgstr ""
+
+#: templates/pages/graph_history.html:55
+msgid "Parámetros en las gráficas de temperatura"
+msgstr ""
+
+#: templates/pages/graph_history.html:61
+msgid "Info"
+msgstr ""
+
+#: templates/pages/graph_history.html:71
+#: templates/pages/graph_history.html:82
+#: templates/pages/graph_history.html:262
+#: templates/pages/graph_history.html:273
+msgid "Cero representa automático"
+msgstr ""
+
+#: templates/pages/graph_history.html:94
+#: templates/pages/graph_history.html:285
+msgid "Opacidad relleno"
+msgstr ""
+
+#: templates/pages/graph_history.html:95
+#: templates/pages/graph_history.html:286
+msgid "Ver puntos"
+msgstr ""
+
+#: templates/pages/graph_history.html:247
+msgid "Parámetros en las gráficas de booleanos"
+msgstr ""
+
+#: templates/pages/graph_history.html:846
+msgid "Histórico de temperaturas"
+msgstr ""
+
+#: templates/pages/graph_history.html:863
+msgid "Estado booleano"
+msgstr ""
+
+#: templates/pages/graph_history.html:871
+msgid "Temperatura"
+msgstr ""
+
+#: templates/pages/graph_history.html:975
+#: templates/pages/graph_history.html:1023
+msgid "Cargando datos"
+msgstr ""
+
+#: templates/pages/graph_history.html:1007
+#: templates/pages/graph_history.html:1028
+#: templates/pages/graph_history.html:1041
+msgid "Datos"
+msgstr ""
+
+#: templates/pages/graph_history.html:1007
+#: templates/pages/graph_history.html:1028
+#: templates/pages/graph_history.html:1139
+msgid "Dibujando"
+msgstr ""
+
+#: templates/pages/graph_history.html:1041
+msgid "Guardando datos"
+msgstr ""
+
+#: templates/pages/graph_history.html:1079
+#: templates/pages/graph_history.html:1094
+msgid "Aplicando zoom"
+msgstr ""
+
+#: templates/pages/graph_history.html:1109
+#: templates/pages/graph_history.html:1124
+msgid "Desplazando"
+msgstr ""
+
+#: templates/paginador.html:17
+msgid "Anterior"
+msgstr ""
+
+#: templates/paginador.html:22
+msgid "Primero"
+msgstr ""
+
+#: templates/paginador.html:115
+msgid "Último"
+msgstr ""
+
+#: templates/paginador.html:120
+msgid "Siguiente"
+msgstr ""

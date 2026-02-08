@@ -1,0 +1,58 @@
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+{% if messages %}
+<!--
+    DEBUG	10
+    INFO	20
+    SUCCESS	25
+    WARNING	30
+    ERROR	40
+-->
+
+<style>
+    .div-messages {
+    }
+
+    .div-messages-item {
+        padding: 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom:5px;
+    }
+
+    .div-messages-item-error {
+        background-color: red;
+        color: white;
+    }
+
+    .div-messages-item-warning {
+        background-color: orange;
+        color: black;
+    }
+
+    .div-messages-item-success {
+        background-color: green;
+        color: white;
+    }
+
+    .div-messages-item-debug {
+        background-color: black;
+        color: white;
+    }
+
+    .div-messages-item-info {
+        background-color: blue;
+        color: white;
+    }
+</style>
+
+<div class="div-messages">
+    {% for message in messages %}
+        <div class="div-messages-item div-messages-item-{{ message.tags }}">{{ message|safe }}</div>
+    {% endfor %}
+</div>
+{% endif %}

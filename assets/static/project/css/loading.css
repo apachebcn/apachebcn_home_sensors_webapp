@@ -1,0 +1,67 @@
+#loading {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background: rgba(255,255,255,0.8);
+  z-index:9999;
+}
+
+.sun-spinner {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+/* Sol centrado */
+.sun-center {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #FFD700;
+  box-shadow: 0 0 40px #FFD700;
+  top:0;
+  left:0;
+}
+
+/* Contenedor de rayos */
+.ray-container {
+  position: absolute;
+  top:50%; left:50%;
+  width:0; height:0;
+  transform-origin: center center;
+  animation: rotateRays 2s linear infinite;
+}
+
+/* Rayos */
+.ray {
+  position: absolute;
+  width: 12px;
+  height: 40px;
+  background: #FFD700;
+  border-radius: 6px;
+  top:-20px;
+  left:-6px;
+}
+
+/* Distribución de 12 rayos alrededor del sol */
+.ray:nth-child(1)  { transform: rotate(0deg) translateY(-100px); }
+.ray:nth-child(2)  { transform: rotate(30deg) translateY(-100px); }
+.ray:nth-child(3)  { transform: rotate(60deg) translateY(-100px); }
+.ray:nth-child(4)  { transform: rotate(90deg) translateY(-100px); }
+.ray:nth-child(5)  { transform: rotate(120deg) translateY(-100px); }
+.ray:nth-child(6)  { transform: rotate(150deg) translateY(-100px); }
+.ray:nth-child(7)  { transform: rotate(180deg) translateY(-100px); }
+.ray:nth-child(8)  { transform: rotate(210deg) translateY(-100px); }
+.ray:nth-child(9)  { transform: rotate(240deg) translateY(-100px); }
+.ray:nth-child(10) { transform: rotate(270deg) translateY(-100px); }
+.ray:nth-child(11) { transform: rotate(300deg) translateY(-100px); }
+.ray:nth-child(12) { transform: rotate(330deg) translateY(-100px); }
+
+@keyframes rotateRays {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

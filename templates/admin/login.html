@@ -1,0 +1,153 @@
+{% spaceless %}
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="{{ user_language }}">
+<head>
+    <title>Iniciar sesión | APP HOME SENSORS</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css?v=20251004-2">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css?v=20251001">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css?v=20251001">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    {% block head %}
+    {% endblock %}
+    <style>
+        #branding h1 {
+            margin: 0px;
+        }
+
+        #container {
+            width: 90%;
+        }
+
+        #content {
+            margin: auto;
+            width: 80%;
+        }
+
+        .login #header {
+            height: auto;
+            justify-content: center;
+            padding: 0px;
+            padding-bottom: 10px;
+            background-color: black;
+        }
+
+        body.login {
+            background: black;
+        }
+
+        .login .submit-row {
+            margin: 0px;
+            background: none;
+            text-align: center;
+        }
+
+        #header {
+            background-color: white;
+        }
+
+        .module h2,
+        .module caption,
+        .inline-group h2 {
+            background-color: black;
+        }
+
+        div.breadcrumbs {
+            background-color: black;
+            color: yellow;
+        }
+
+        .object-tools a:link,
+        .object-tools a:visited {
+            background-color: black;
+            color: yellow;
+        }
+
+        #user-tools {
+            background-color: black;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        {% comment %} #content-main {
+            width: 80%;
+        } {% endcomment %}
+
+        #login-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #span-title {
+            font-size:20px;
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
+    
+</head>
+
+<body class=" login">
+
+    <!-- Container -->
+    <div id="container">
+        <span id='span-title'>HOME SENSORS APP LOGIN</span>
+        <!-- Header -->
+        <div id="header">
+            <div id="branding">
+                <h1 id="site-name">
+                    {% comment %} <img id="login-img" src="{% static "project/img/logo.jpeg" %}" height="500px" /> {% endcomment %}
+                </h1>
+            </div>
+        </div>
+        <!-- END Header -->
+        <!-- Content -->
+
+        <div id="content" class="colM">
+
+            {% include "messages.html" %}
+
+            <div id="content-main">
+                <form action='/action_login/' method="post" id="login-form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <label class="required" for="id_username">{% trans "Nombre de usuario" %}:</label> <input type="text"
+                            name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150"
+                            required id="id_username">
+                    </div>
+                    <div class="form-row">
+
+                        <label class="required" for="id_password">{% trans "Contraseña" %}:</label> <input type="password"
+                            name="password" autocomplete="current-password" required id="id_password">
+                        <input type="hidden" name="next" value="/">
+                    </div>
+
+                    {% comment %} <div class="form-row" style='margin-top:15px;'>
+                        {{ captcha_html | safe }}
+                    </div> {% endcomment %}
+
+                    <div class="submit-row">
+                        <label>&nbsp;</label><input style='background-color:black;color:white;font-weight:bolder'
+                            type="submit" value="Iniciar la sesión">
+                    </div>
+                </form>
+            </div>
+            <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer">
+        </div>
+        <img id="login-img" src="{% static "project/img/logo.jpeg" %}" height="500px" />
+    </div>
+    <!-- END Container -->
+</body>
+
+</html>
+{% endspaceless %}

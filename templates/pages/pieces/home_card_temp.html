@@ -1,0 +1,67 @@
+<div class="col-{{col}} col-md-{{col_md}} d-flex">
+	<div id="card_{{fieldname_sensor}}" class="card w-100 d-flex flex-column">
+
+		<div id="card-header_{{fieldname_sensor}}" class="card-header home-card-header">
+			<div class="row col-12" style="margin:0px;padding:0px;">
+				<div class="col-8">
+					{% trans "T" %} {{title}}
+					<div id="{{fieldname_sensor}}_value" style="display:inline;"></div>
+					<div id="{{fieldname_sensor}}_append_to_value" style="display:inline;"></div>
+				</div>
+				<div class="col-4 d-flex justify-content-end align-items-center" style="padding:0px;">
+					<div id="{{fieldname_sensor}}_min" style="display:inline" title="{% trans 'Temperatura mínima alcanzada' %}"></div>
+					&nbsp;/&nbsp;<div id="{{fieldname_sensor}}_max" style="display:inline" title="{% trans 'Temperatura máxima alcanzada' %}"></div>
+					<form method='post' style='display:inline;margin-left:5px'>
+						{% csrf_token %}
+						<input type='hidden' name='action' value='reset-stat'>
+						<input type='hidden' name='fieldname' value='{{fieldname_sensor}}'>
+						<button class='show-loading btn-stat-reset' style='padding:0px'>reset</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="card-body_{{fieldname_sensor}}" div class="card-body" style="padding:0px;">
+			<div id="highcharts-gauge-{{fieldname_sensor}}" style="width: 100%;"></div>
+		</div>
+
+		{% if fieldname_relay_value_name %}
+			<div class="card-footer" style="padding:5px">
+				<div style="display:flex">
+						<div class="col-6">
+							<div id="{{fieldname_relay_value_name}}_higher_notify" class='tag-notify' style="text-align:center"></div>
+							<div class="div-ledandtext justify-content-start">
+								<div style="font-size:12px">
+									<div id="{{fieldname_relay_value_name}}_higher" class="card-value led" title="{% trans 'Relé evento' %} &gt"></div>
+									{% if fieldname_relay_higher_title %}
+										[#{{relay_high_num}}] {{ fieldname_relay_higher_title }}
+									{% else %}
+										[#{{relay_high_num}}] {% trans "Rele exceso" %}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div id="{{fieldname_relay_value_name}}_lower_notify" class='tag-notify' style="text-align:center"></div>
+							<div class="div-ledandtext justify-content-md-end">
+								<div style="font-size:12px">
+									<div id="{{fieldname_relay_value_name}}_lower" class="card-value led" title="{% trans 'Relé evento' %} &lt"></div>
+									{% if fieldname_relay_lower_title %}
+										[#{{relay_low_num}}] {{ fieldname_relay_lower_title }}
+									{% else %}
+										[#{{relay_low_num}}] {% trans "Rele deceso" %}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		{% endif %}
+
+
+	</div>
+</div>
+<script>
+		var gauge_{{fieldname_sensor}} = crearGauge('highcharts-gauge-{{fieldname_sensor}}');
+console.log("gauge_{{fieldname_sensor}}", gauge_{{fieldname_sensor}});
+</script>

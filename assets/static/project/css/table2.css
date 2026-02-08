@@ -1,0 +1,33 @@
+/* Estilos básicos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.th-filter
+{
+    text-align: center;
+    padding:0px !important;
+    font-weight:initial !important;
+}
+
+.th-sticky {
+    background-color: #f2f2f2;
+    position: sticky; 
+    top: 0;
+    z-index: 1050;
+}
+
+.td-center {
+    text-align: center;
+}
+

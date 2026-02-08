@@ -1,0 +1,4 @@
+<div class="range-container">
+    <input type="range" id="id_{{ name }}" name="{{ name }}" min="{{ min }}" max="{{ max }}" value="{{ value }}" class="form-range"{% if include_savefield %} data-field="field-save"{% endif %}>
+    <output for="id_{{ name }}" id="output-id_{{ name }}">{{ value }}%</output>
+</div>

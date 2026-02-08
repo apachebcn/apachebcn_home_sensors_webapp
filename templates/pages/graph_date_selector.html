@@ -1,0 +1,92 @@
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	license comercial
+{% endcomment %}
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var controls = document.getElementById('date-controls');
+		var hiddenInput = document.getElementById('form_showDateControls');
+		var form_showDateControlValue = {{form_showDateControls}};
+		// Iniciar con 'show' si form_showDateControlValue es 1
+		if (form_showDateControlValue == 1) {
+			controls.classList.add('show');
+			if (hiddenInput) hiddenInput.value = "1";
+		}
+		document.getElementById('toggle-controls').addEventListener('click', function() {
+			if (controls.classList.contains('show')) {
+				controls.classList.remove('show');
+				if (hiddenInput) hiddenInput.value = "0";
+			} else {
+				controls.classList.add('show');
+				if (hiddenInput) hiddenInput.value = "1";
+			}
+		});
+	});
+</script>
+
+
+<div class="div-dates">
+	<div class="div2-dates">
+		<div class="div4-dates">
+
+				<div class="div4-dates-date_start">
+					<span >{% trans "Inicio" %}:</span>
+					&nbsp;<input type="datetime-local" id="start_local_date_str" name="start_local_date_str" value="{{start_local_date_str}}">
+				</div>
+
+				<div class="div4-dates-date_end">
+					<span >{% trans "Fin" %}:</span>
+					&nbsp;<input type="datetime-local" id="end_local_date_str" name="end_local_date_str" value="{{end_local_date_str}}">
+				</div>
+
+		</div>
+
+		<input type='hidden' name='date_selector_graph' id='date_selector_graph' value='1'>
+		<input type='hidden' name='form_showMissingData' id='form_showMissingData' value='{{form_showMissingData}}'>
+		<input type='hidden' name='form_showDateControls' id='form_showDateControls' value='{{form_showDateControls}}'>
+
+		<div class="div3-dates">
+			<button type="submit" class="show-loading mr-1 btn btn-success" value="1" style="white-space: nowrap;">{% trans "Cargar / Recargar" %}</button>
+		</div>
+
+		<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-plus" id='daily-minus' title='{% trans "Resta día" %}'>-</button>
+		<button type="button" class="show-loading mr-1 btn btn-primary button-date button-date-center" id='daily'>{% trans "Hoy" %}</button>
+		<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-minus" id='daily-plus' title='{% trans "Suma día" %}'>+</button>
+		<br>
+
+		<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-plus" id='weekly-minus' title='{% trans "Resta semana" %}'>-</button>
+		<button type="button" class="show-loading mr-1 btn btn-primary button-date button-date-center" id='weekly'>{% trans "Esta semana" %}</button>
+		<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-minus" id='weekly-plus' title='{% trans "Suma semana" %}'>+</button>
+		<br>
+
+
+		<!-- Botón para desplegar/plegar los controles -->
+		<button type="button" class="btn btn-info" id="toggle-controls">{% trans "Mostrar/Ocultar más controles de fecha" %}</button>
+
+		<!-- Contenedor desplegable -->
+		<div id="date-controls" class="date-controls">
+
+			<div class="date-controls-inner">
+
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-plus" id='monthly-minus' title='{% trans "Resta mes" %}'>-</button>
+			<button type="button" class="show-loading mr-1 btn btn-primary button-date button-date-center" id='monthly'>{% trans "Este mes" %}</button>
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-minus" id='monthly-plus' title='{% trans "Suma mes" %}'>+</button>
+
+			<br>
+
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-plus" id='halfmonthly-minus' title='{% trans "Resta semestre" %}'>-</button>
+			<button type="button" class="show-loading mr-1 btn btn-primary button-date button-date-center" id='halfmonthly'>{% trans "Este semestre" %}</button>
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-minus" id='halfmonthly-plus' title='{% trans "Suma semestre" %}'>+</button>
+
+			<br>
+
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-plus" id='yearly-minus' title='{% trans "Resta año" %}'>-</button>
+			<button type="button" class="show-loading mr-1 btn btn-primary button-date button-date-center" id='yearly'>{% trans "Este año" %}</button>
+			<button type="button" class="show-loading mr-1 btn btn-secondary button-date button-date-minus" id='yearly-plus' title='{% trans "Suma año" %}'>+</button>
+
+			</div>
+
+		</div>
+	</div>
+</div>

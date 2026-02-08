@@ -1,0 +1,41 @@
+<div id="loading">
+  <div class="sun-spinner">
+    <div class="sun-center"></div>
+    <div class="ray-container">
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  const loading = loading_get();
+  function load_listener_objects(s,e){
+    document.querySelectorAll(s).forEach(el=>
+      el.addEventListener(e,()=>requestAnimationFrame(()=>{
+        if(loading)loading_on()
+      }))
+    )
+  }
+  load_listener_objects("a.show-loading","click")
+  load_listener_objects("form.show-loading","submit")
+  load_listener_objects("button.show-loading","click")
+});
+
+// Al volver atrás (bfcache o historial)
+window.addEventListener('pageshow', function() {
+  loading_off();
+});
+window.addEventListener('popstate', function() {
+  loading_off();
+});
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible') loading_off();
+});
+if (document.visibilityState === 'visible') {
+  loading_off();
+}
+</script>

@@ -1,0 +1,46 @@
+/* Semáforo realista CSS */
+
+ul.semaforo {
+    padding-left:5px;
+    padding-right:5px;
+    float:left;
+    position: relative;
+    width: 5px;
+    list-style-type: none;
+    border: 2px double grey;
+    background: black;
+    background: linear-gradient( -90deg, #45484d 0%, #000000 100%);
+    border-radius: 20%;
+    }
+    ul.semaforo li {
+    list-style-type: none;
+    position:relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: lightgrey;
+    margin: 2px 0;
+    background: linear-gradient(top, rgba(187,187,187,1) 0%,rgba(119,119,119,1) 99%);
+    # box-shadow: inset 0 -5px 15px rgba(255,255,255,0.4),
+    inset -2px -1px 40px rgba(0,0,0,0.4),
+    0 0 1px #000;
+    }
+    ul.semaforo li:after {
+    content: "";
+    width: 10x;
+    height: 3px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    box-shadow: 0px 1px 10px 10px rgba(20,20,20,.1);
+    border-radius: 15px / 7px;
+    }
+    .rojo li:nth-of-type(1) {
+    background: #FF0000;
+    }
+    .naranja li:nth-of-type(2) {
+    background: #FF9326;
+    }
+    .verde li:nth-of-type(3) {
+    background: #00ff00;
+    }

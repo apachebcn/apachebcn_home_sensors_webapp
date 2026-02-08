@@ -1,0 +1,225 @@
+Highcharts.setOptions({
+    lang: {
+        months: [
+            "{% trans 'Enero' %}", "{% trans 'Febrero' %}", "{% trans 'Marzo' %}",
+            "{% trans 'Abril' %}", "{% trans 'Mayo' %}", "{% trans 'Junio' %}",
+            "{% trans 'Julio' %}", "{% trans 'Agosto' %}", "{% trans 'Septiembre' %}",
+            "{% trans 'Octubre' %}", "{% trans 'Noviembre' %}", "{% trans 'Diciembre' %}"
+        ],
+        weekdays: [
+            "{% trans 'Domingo' %}", "{% trans 'Lunes' %}", "{% trans 'Martes' %}",
+            "{% trans 'Miércoles' %}", "{% trans 'Jueves' %}", "{% trans 'Viernes' %}",
+            "{% trans 'Sábado' %}"
+        ],
+        shortMonths: [
+            "{% trans 'Ene' %}", "{% trans 'Feb' %}", "{% trans 'Mar' %}", "{% trans 'Abr' %}",
+            "{% trans 'May' %}", "{% trans 'Jun' %}", "{% trans 'Jul' %}", "{% trans 'Ago' %}",
+            "{% trans 'Sep' %}", "{% trans 'Oct' %}", "{% trans 'Nov' %}", "{% trans 'Dic' %}"
+        ],
+    }
+});
+
+function updateChart(graph_title) {
+    var booleans_scale_min = getScale("id_booleans_scale_min");
+    var booleans_scale_max = getScale("id_booleans_scale_max");
+    var temps_scale_min = getScale("id_temps_scale_min");
+    var temps_scale_max = getScale("id_temps_scale_max");
+    fetchSeriesData.forEach(serie => {
+        obj_select_missing_data = document.getElementById("id_showMissingData");
+        if (obj_select_missing_data) {
+            serie.connectNulls = !obj_select_missing_data.checked;
+        }
+        else {
+            serie.connectNulls = true
+        }
+        if (serie.object_name === 'data_s1_temp') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s1_hum') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s2_temp') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s2_hum') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s3_temp') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s3_hum') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s3_temp') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        if (serie.object_name === 'data_s3_hum') {
+            formatSerie(serie, "id_" + serie.object_name, 0);
+        }
+        });
+    {% comment %} console.log(fetchSeriesData); {% endcomment %}
+
+    if (fetchSeriesData.length === 0) {
+        show_error("No valid data series available to plot.");
+        return;
+    }
+
+    // Quito el campo "id" para que no lo plotee
+    fetchSeriesData = fetchSeriesData.filter(serie => serie.object_name !== 'id');
+
+    if (chart) {
+        // chart update
+        chart.update({
+            series: fetchSeriesData,
+            legend: getLegendConfig(),
+            title: {
+                text: graph_title
+            },
+        });
+    } else {
+        // chart create
+        chart = Highcharts.chart('highcharts-container', {
+            title: {
+                text: graph_title
+            },
+            chart: {
+                zoomType: 'x',
+                panning: true,
+                panKey: "shift",
+                pinchType: 'x', // Permitir pinch-to-zoom horizontal
+                borderWidth: 5,
+                borderColor: '#AAAADD',
+                type: 'spline',
+                reflow: false, // Desactiva el ajuste automático
+                events: {
+                },
+            },
+            xAxis: {
+                type: 'datetime',
+                title: {
+                    text: 'Fecha'
+                },
+                labels: {
+                    rotation: -45,
+                    formatter: function () {
+                        return Highcharts.dateFormat('%A %d<br>%B %Y<br>%H:%M:%S', this.value);
+                    }
+                },
+                gridLineWidth: 1
+            },
+            yAxis: [
+                {
+                    title: {
+                        text: '{% trans "Estado booleano" %}'
+                    },
+                    min: booleans_scale_min,
+                    max: booleans_scale_max,
+                    // Configuración específica para el eje Y de los relés
+                },
+                {
+                    title: {
+                        text: '{% trans "Temperatura" %}'
+                    },
+                    min: temps_scale_min,
+                    max: temps_scale_max,
+                    opposite: true, // Mostrar este eje Y a la derecha
+                    // Configuración específica para el eje Y de las temperaturas
+                }
+            ],
+            series: fetchSeriesData,
+            plotOptions: {
+                series: {
+                    animation: {
+                        duration: 200 // animación (en milisegundos)
+                    },
+                    showInNavigator: true,
+                    turboThreshold: 0,
+                }
+            },
+            legend: getLegendConfig(),
+            {% if graph_tooltip_format_table %}
+                tooltip: {
+                    shared: true,
+                    useHTML: true,
+                    formatter: function () {
+                        let s = '<table>';
+                        // Obtener la fecha en UTC del primer punto
+                        let utcDate = new Date(this.points[0].x);
+                        // Convertir la fecha UTC a hora local usando Moment.js
+                        let localDate = moment.utc(utcDate);
+
+                        // Formatear la fecha local según tus requerimientos
+                        let dateFormatted = localDate.format('DD/MM/YY HH:mm:ss');
+
+                        // Construir el contenido del tooltip
+                        s += `<tr><th>Fecha</th><td>${dateFormatted}</td></tr>`;
+                        this.points.forEach(point => {
+                            let value = point.y;
+                            if (point.series.options.yAxis == 0) {
+                                if (point.y > 0) {
+                                    value = "<span style='color:green;font-weight:bold;'>ON</span>";
+                                    if (point.series.name == "{% trans 'Error' %}")
+                                        value = "<span style='color:red;font-weight:bold;'>ERROR</span>";
+                                }
+                                else {
+                                    value = "<span style='color:red;font-weight:bold;'>OFF</span>";
+                                }
+                            }
+                            s += `<tr><td style="color:${point.series.color}">${point.series.userOptions.name}</td><td><b>${value}</b></td></tr>`;
+                        });
+                        s += '</table>';
+                        return s;
+                    },
+                    //valueDecimals: 2,
+                    split: false
+                },
+            {% else %}
+                tooltip: {
+                    formatter: function () {
+                        let name = this.series.userOptions.name;
+                        let object_name = this.series.userOptions.object_name;
+                        let value = this.point.y;
+                        let is_data_binary = 0;
+
+                        if (object_name.startsWith("data_relay_")) is_data_binary = true;
+                        if (object_name.startsWith("data_pump")) is_data_binary = true;
+
+                        // Si el tipo de dato es binario mostramos ON/OFF con color
+                        if (is_data_binary) {
+                            if (value > 0) {
+                                value = "<span style='color:green;font-weight:bold;'>ON</span>";
+                            } else {
+                                value = "<span style='color:red;font-weight:bold;'>OFF</span>";
+                            }
+                        }
+
+                        // Formatear la fecha
+                        let dateStr = "" + Highcharts.dateFormat('%d/%m/%Y %H:%M:%S', this.x);
+
+                        return `<span>${dateStr}</span><br>` +
+                            `<span style="color:${this.point.color}">●</span>&nbsp;${name}: <b>${value}</b>`;
+                    }
+                    //pointFormat: `<span style="color:{point.color}">●</span>&nbsp;{series.userOptions.name}: <b>{point.y}</b>`,
+                    //valueDecimals: 2,
+                },
+            {% endif %}
+
+            credits:{
+                enabled:true,
+                href:"https://app.termostatodiferencial.com",
+                text:"termostatodiferencial.com",
+                style:{
+                    color:"#999999",
+                    cursor:"pointer",
+                    fontSize:"2em"
+                    }
+            },
+
+        });
+
+        // Restaura los extremos del eje X si están disponibles
+        if (xExtremes) {
+            chart.xAxis[0].setExtremes(xExtremes.min, xExtremes.max);
+        }
+    }
+}

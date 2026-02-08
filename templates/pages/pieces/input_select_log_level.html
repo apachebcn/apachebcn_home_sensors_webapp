@@ -1,0 +1,7 @@
+<select name="{{ name }}" id="id_{{ name }}" class="form-select">
+    <option value="0" {% if value == "0" or value == 0 %}selected{% endif %}>Ninguno</option>
+    <option value="1" {% if value == "1" or value == 1 %}selected{% endif %}>Error</option>
+    <option value="2" {% if value == "2" or value == 2 %}selected{% endif %}>Warning</option>
+    <option value="3" {% if value == "3" or value == 3 %}selected{% endif %}>Info</option>
+    <option value="4" {% if value == "4" or value == 4 %}selected{% endif %}>Debug</option>
+</select>

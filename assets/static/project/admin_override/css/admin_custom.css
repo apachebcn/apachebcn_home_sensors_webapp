@@ -1,0 +1,105 @@
+#branding h1 {
+    margin: 0px;
+}
+.login #header {
+    height: auto;
+    justify-content: center;
+    padding: 0px;
+    padding-bottom: 10px;
+    background-color: white;
+}
+body.login {
+    background: black;
+}
+.login .submit-row {
+    margin: 0px;
+    padding:0px;
+    padding-top:20px;
+    background: none;
+    text-align: center;
+}
+#header{
+    background-color:white;
+}
+.module h2, .module caption, .inline-group h2 {
+    background-color: darkblue;
+}
+div.breadcrumbs {
+    background-color: black;
+    color:yellow;
+}
+.object-tools a:link, .object-tools a:visited {
+    background-color: black;
+    color:yellow;
+}
+#user-tools {
+    background-color: black;
+    padding: 15px;
+    font-weight: bold;
+}
+
+html[data-theme="light"], :root {
+    --primary: #9774d5;
+    --secondary: #785cab;
+#--link-fg: #7c449b;
+    --link-selected-fg: yellow;
+  }
+
+.admin-action-button {
+    display: inline-block;
+    width: 100%;
+  }
+
+.admin-action-button-red {
+    background-color: #ff0000 !important; /* Color rojo */
+    color: #ffffff !important; /* Texto en color blanco para mayor contraste */
+    font-weight: bold !important;
+}
+
+.admin-action-button-green {
+    background-color: green !important; /* Color Verde */
+    color: #ffffff !important; /* Texto en color blanco para mayor contraste */
+    font-weight: bold !important;
+}
+
+.admin-action-button-blue {
+    background-color: darkblue !important; /* Color rojo */
+    color: #ffffff !important; /* Texto en color blanco para mayor contraste */
+    font-weight: bold !important;
+}
+
+.group-admin-list {
+    border-radius: 5px;
+    margin:2px;
+    cursor: pointer;
+}
+
+.group-UserManager {
+    background-color:darkcyan;
+    color:black;
+}
+
+.group-RemoteConfig {
+    background-color:red;
+    color:white;
+}
+
+.group-UserAlarmManager{
+    background-color:darkmagenta;
+    color:white;
+}
+
+.group-UserTranslator {
+    background-color:darkgreen;
+    color:white;
+}
+
+.group-UserHistoryDataExport {
+    background-color:darkgoldenrod;
+    color:white;
+}
+
+.group-UserHistoryDataImport {
+    background-color:#a8769a;
+    color:white;
+}

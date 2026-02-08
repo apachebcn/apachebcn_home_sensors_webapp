@@ -1,0 +1,187 @@
+.ursup_user {
+    font-weight: bold;
+    color: red;
+    font-size: 22px;
+}
+
+.card-img {
+    max-height: 200px;
+    max-width: 200px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.card-value {
+    font-size: 20px;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.card-background {
+    background-color: red;
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 576px) {
+    .card-img {
+        width: 50% !important;
+    }
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#card-body-date {
+    font-weight: bold;
+}
+
+.container-fluid {
+    padding-top: 15px;
+}
+
+/* Media query para pantallas móviles */
+@media screen and (max-width: 600px) {
+    .content-wrapper {
+        width: 100% !important;
+    }
+
+    .container-fluid {
+        padding: 0 !important;
+        /* Padding para móviles */
+        width: 100% !important;
+    }
+}
+
+.mySelect {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    /* Color de fondo */
+    color: white;
+    /* Color del texto */
+    padding: 12px 20px;
+    /* Espaciado interno */
+    border: none;
+    /* Sin borde */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cursor tipo puntero */
+    font-size: 16px;
+    /* Tamaño de la fuente */
+    transition: background-color 0.3s ease;
+    /* Transición suave */
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+    /* Cambio de color al pasar el mouse */
+}
+
+/* Estilo para mensajes flash de éxito */
+.flash {
+    display: block;
+    border: 1px solid transparent;
+    /* Borde transparente */
+    border-radius: .25rem;
+    /* Borde redondeado */
+    padding: 1rem;
+    /* Espaciado interno */
+    margin-bottom: 1rem;
+    /* Margen inferior */
+    font-weight: bold;
+}
+
+.flash-info {
+    background-color: lightblue;
+    /* Color de fondo verde claro */
+    border-color: lightblue;
+    /* Color del borde */
+}
+
+.flash-success {
+    background-color: #c3e6cb;
+    /* Color del borde */
+    border-color: #c3e6cb;
+    /* Color del borde */
+}
+
+.flash-danger {
+    border: 1px solid red;
+    background: red;
+    color: white;
+}
+
+.led {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* Hace que el div sea circular */
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.led-red {
+    background-color: red;
+}
+
+.led-green {
+    background-color: green;
+}
+
+.led-blue {
+    background-color: blue;
+}
+
+.led-blue-off {
+    opacity: 0.2;
+    background-color: blue;
+}
+
+.led-blue-on {
+    background-color: blue;
+}
+
+.led-red-on {
+    background-color: red;
+}
+
+.align-bottom {
+    vertical-align: bottom !important;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+.align-top {
+    vertical-align: top !important;
+}
+
+.legend-red {
+    color:red;
+    font-style: italic;
+}
+
+.config-title {
+    margin-top:25px;
+    color:blue;
+    font-weight:bold;
+    background-color:aqua;
+}

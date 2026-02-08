@@ -1,0 +1,58 @@
+.user-crud-form-td-tag {
+    background-color: gray;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.bg-white-fg-blue {
+    background-color: blue;
+    color: white;
+}
+.bg-white-fg-bluedark {
+    background-color: darkblue;
+    color: white;
+}
+
+.bg-white-fg-bluelight {
+    background-color: lightblue;
+    color: white;
+}
+
+.bg-white-fg-red {
+    background-color: red;
+    color: white;
+}
+.bg-white-fg-reddark {
+    background-color: darkred;
+    color: white;
+}
+
+.bg-white-fg-redlight {
+    background-color: lightcoral;
+    color: white;
+}
+
+.bg-white-fg-green {
+    background-color: green;
+    color: white;
+}
+.bg-white-fg-greendark {
+    background-color: darkgreen;
+    color: white;
+}
+.bg-white-fg-greenlight {
+    background-color: lightgreen;
+    color: white;
+}
+
+.user-crud-form-button-new {
+    margin-bottom: 15px;
+}
+
+.user-crud-form-create-form {
+    display: none;
+}

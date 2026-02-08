@@ -1,0 +1,178 @@
+# author PEDRO REINA ROJAS <apachebcn@gmail.com>
+# copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+# license comercial
+
+from django.contrib import admin
+from .models import GraphicRealtimeSettings
+from django.utils.translation import gettext as _
+
+from apps.common_functions import get_realuser_is_superuser
+from apps.custom_admin import CustomAdmin
+
+
+@admin.register(GraphicRealtimeSettings)
+class GraphicRealtimeSettingsAdmin(CustomAdmin):
+
+	class Media:
+		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
+
+	readonly_fields = ('user_id', 'created_at', 'updated_at', )
+
+	# Campos que se editan
+	def get_fieldsets(self, request, obj=None):
+
+		fieldsets = (
+			(None, {
+				'fields': ('user_id', 'created_at', 'updated_at',)
+			}),
+
+			(_('Leyenda'), {
+				'fields': (
+					'legend_enable',
+					'legend_position',
+					'legend_horizontal_align',
+					'legend_vertical_align',
+				),
+			}),
+
+			(_('Escala'), {
+				'fields': (
+					'temps_scale_min',
+					'temps_scale_max',
+					'booleans_scale_min',
+					'booleans_scale_max',
+				),
+			}),
+
+			(_('Sensor calle temps'), {
+				'fields': (
+					'data_s1_temp_colector1_visible',
+					'data_s1_temp_colector1_type',
+					'data_s1_temp_colector1_fill',
+					'data_s1_temp_colector1_opacity',
+					'data_s1_temp_colector1_color',
+					'data_s1_temp_colector1_points',
+				),
+			}),
+
+			(_('Sensor calle humidity'), {
+				'fields': (
+					'data_s1_hum_colector1_visible',
+					'data_s1_hum_colector1_type',
+					'data_s1_hum_colector1_fill',
+					'data_s1_hum_colector1_opacity',
+					'data_s1_hum_colector1_color',
+					'data_s1_hum_colector1_points',
+				),
+			}),
+
+			(_('Sensor dormitorio matrimonio temps'), {
+				'fields': (
+					'data_s2_temp_colector1_visible',
+					'data_s2_temp_colector1_type',
+					'data_s2_temp_colector1_fill',
+					'data_s2_temp_colector1_opacity',
+					'data_s2_temp_colector1_color',
+					'data_s2_temp_colector1_points',
+				),
+			}),
+
+			(_('Sensor dormitorio matrimonio humidity'), {
+				'fields': (
+					'data_s2_hum_colector1_visible',
+					'data_s2_hum_colector1_type',
+					'data_s2_hum_colector1_fill',
+					'data_s2_hum_colector1_opacity',
+					'data_s2_hum_colector1_color',
+					'data_s2_hum_colector1_points',
+				),
+			}),
+
+			(_('Sensor oficina temps'), {
+				'fields': (
+					'data_s3_temp_colector1_visible',
+					'data_s3_temp_colector1_type',
+					'data_s3_temp_colector1_fill',
+					'data_s3_temp_colector1_opacity',
+					'data_s3_temp_colector1_color',
+					'data_s3_temp_colector1_points',
+				),
+			}),
+
+			(_('Sensor oficina humidity'), {
+				'fields': (
+					'data_s3_hum_colector1_visible',
+					'data_s3_hum_colector1_type',
+					'data_s3_hum_colector1_fill',
+					'data_s3_hum_colector1_opacity',
+					'data_s3_hum_colector1_color',
+					'data_s3_hum_colector1_points',
+				),
+			}),
+
+			(_('Sensor wc arriba temps'), {
+				'fields': (
+					'data_s4_temp_colector1_visible',
+					'data_s4_temp_colector1_type',
+					'data_s4_temp_colector1_fill',
+					'data_s4_temp_colector1_opacity',
+					'data_s4_temp_colector1_color',
+					'data_s4_temp_colector1_points',
+				),
+			}),
+
+			(_('Sensor wc arriba humidity'), {
+				'fields': (
+					'data_s4_hum_colector1_visible',
+					'data_s4_hum_colector1_type',
+					'data_s4_hum_colector1_fill',
+					'data_s4_hum_colector1_opacity',
+					'data_s4_hum_colector1_color',
+					'data_s4_hum_colector1_points',
+				),
+			}),
+
+		)
+
+		return self.remove_fields_of_fieldsets_for_users(request, fieldsets, ['user_id'])
+
+	# Campos que se muestran
+	def get_list_display(self, request):
+		if get_realuser_is_superuser(request):
+			return ('pk', 'user_id', 'created_at', 'updated_at', )
+		else:
+			return ('__str__', 'created_at', 'updated_at',)
+
+	def get_search_fields(self, request):
+
+		if get_realuser_is_superuser(request):
+			return ('user_id__username',)
+		return ()  # Devuelve un tupla vacía para usuarios normales
+
+
+	# def has_view_permission(self, request, obj=None):
+	# 	"""
+	# 		Permisos aplicados a los users no admin
+	# 	"""
+	# 	return admin_has_permission(request, InputDataHistoryConfig, "view_inputdatahistoryconfig", obj)
+
+
+	# def has_add_permission(self, request, obj=None):
+	# 	"""
+	# 		Permisos aplicados a los users no admin
+	# 	"""
+	# 	return admin_has_permission(request, InputDataHistoryConfig, "add_inputdatahistoryconfig", obj)
+
+
+	# def has_change_permission(self, request, obj=None):
+	# 	"""
+	# 		Permisos aplicados a los users no admin
+	# 	"""
+	# 	return admin_has_permission(request, InputDataHistoryConfig, "change_inputdatahistoryconfig", obj)
+
+
+	# def has_delete_permission(self, request, obj=None):
+	# 	"""
+	# 		Permisos aplicados a los users no admin
+	# 	"""
+	# 	return admin_has_permission(request, InputDataHistoryConfig, "delete_inputdatahistoryconfig", obj)

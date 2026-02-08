@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	license comercial
+{% endcomment %}
+
+{% block theme_content %}
+
+    <script src="{% static 'js/highcharts/highcharts.src.js' %}?v=20251202"></script>
+    <script src="{% static 'js/highcharts/highcharts-more.js' %}?v=20251202"></script>
+    <script src="{% static 'js/highcharts/highcharts.js' %}?v=20251202"></script>
+    <script src="{% static 'js/highcharts/exporting.js' %}?v=20251202"></script>
+    <script src="{% static 'js/highcharts/export-data.js' %}?v=20251202"></script>
+    <script src="{% static 'js/highcharts/accessibility.js' %}?v=20251202"></script>
+    <script src="{% static 'project/js/data_graph_functions.js' %}?v=20251202"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/front_pages.css' %}?v=20251202">
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/table2.css' %}?v=20251202">
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/check-slider.css' %}?v=20251202">
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/data_graph.css' %}?v=20251202">
+    <link rel="stylesheet" type="text/css" href="{% static 'project/css/graph_date_selector.css' %}?v=20251202">
+
+    {% include '../print_title.html' with title=title %}
+
+    <form id="form_data_graph" method="GET" action="/history_data_graph_view/">
+        {% include "pages/graph_date_selector.html" %}
+    </form>
+    <br>
+
+    <button type="button" class="mr-1 btn-secondary" id="move-left">{% trans "Izquierda" %}</button>
+    <button type="button" class="mr-1 btn-secondary" id="zoom-out">Zoom -</button>
+    <button type="button" class="mr-1 btn-secondary" id="zoom-in">Zoom +</button>
+    <button type="button" class="mr-1 btn-secondary" id="move-right">{% trans "Derecha" %}</button>
+
+    <div style='display: inline;white-space: nowrap;'>
+    {% include './pieces/checkbox_switch_blue.html' with name='showMissingData' value=form.showMissingData.value include_savefield=1 %}
+    <label for="showMissingData" style="vertical-align: bottom;">&nbsp;&nbsp;{% trans "Ver datos perdidos" %}</label>
+    </div>
+
+    <div id="highcharts-container" style='border:1px solid blue;'></div>
+        {% include "./graph_form_config.html" with form_action="/history_data_graph_view/" form_for="historic" %}
+    </div>
+
+    <script>
+
+        {% if message_error %}
+            // No se puede pasar este mensaje por show_error
+            console.error("{{ message_error }}")
+        {% endif %}
+
+        function show_msg(msg) {
+            showDialogModMsg("{{ title }}", msg);
+        }
+
+        function show_error(msg) {
+            console.error("graph_history.html", msg);
+            showDialogModErrorMsg("{{ title }}", msg);
+        }
+
+        var xExtremes;
+        var fetchSeriesData;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var chart;
+            {% include "./pieces/data_graph_update_chart.html" %}
+            show_msg("{% trans 'Cargando datos' %}");
+
+            function fetchAndUpdateData() {
+                var startLocalDate = $('#start_local_date_str').val();
+                var endLocalDate = $('#end_local_date_str').val();
+                // Validar si las fechas están seleccionadas
+                if (!startLocalDate || !endLocalDate) {
+                    alert("Por favor selecciona ambas fechas.");
+                    hideDialogMod();
+                    return; // Salir de la función si las fechas no están seleccionadas
+                }
+                // Formatear las fechas en el formato "%Y-%m-%dT%H:%M"
+                var startFormatedDate = formatDateForServer(startLocalDate);
+                var endFormatedDate = formatDateForServer(endLocalDate);
+                var xExtremes = chart ? chart.xAxis[0].getExtremes() : null;
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'get_json_data_graph_view' %}",
+                    data: $('#dataForm').serialize(),
+                    data: {
+                        csrfmiddlewaretoken: $('#dataForm input[name="{{ csrf_token }}"]').val(),
+                        form_id: "form_data_graph",
+                        start_local_date_str: startFormatedDate,
+                        end_local_date_str: endFormatedDate,
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            // Mostrar el mensaje de error en un alert
+                            show_error(response.error);
+                        } else {
+console.debug(response.data);
+                            if (response && Array.isArray(response.data) && response.data.length > 0) {
+                                fetchSeriesData = response.data;
+                            } else {
+                                fetchSeriesData = [];  // No hay datos
+                                show_error("No data");
+                            }
+                            try {
+                                updateChart("{{graph_title}}");
+                                hideDialogMod();
+                            } catch (error) {
+                                show_error(error);
+                            }
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        msg_error = "Error al obtener datos del servidor:" + String(error);
+                        show_error(msg_error);
+                    },
+                });
+            }
+
+            show_msg("{% trans 'Cargando datos' %}");
+            fetchAndUpdateData();
+
+            function handleConfigButtonClick(button) {
+
+                //show_msg("{% trans 'Dibujando' %}");
+                var booleans_scale_min = getScale("id_booleans_scale_min");
+                var booleans_scale_max = getScale("id_booleans_scale_max");
+                var temps_scale_min = getScale("id_temps_scale_min");
+                var temps_scale_max = getScale("id_temps_scale_max");
+
+                var yAxis = chart.yAxis[0];
+                yAxis.setExtremes(booleans_scale_min, booleans_scale_max);
+                yAxis = chart.yAxis[1];
+                yAxis.setExtremes(temps_scale_min, temps_scale_max);
+                //chart.redraw();
+                try {
+                    updateChart("{{graph_title}}");
+                    hideDialogMod();
+                } catch (error) {
+                    show_error(error);
+                }
+            }
+
+            var zoominButton = document.getElementById('zoom-in');
+            if (zoominButton) {
+                document.getElementById('zoom-in').addEventListener('click', function () {
+                    if (chart) {
+                        show_msg("{% trans 'Aplicando zoom' %}");
+                        const extremes = chart.xAxis[0].getExtremes();
+                        const newMin = extremes.min + (extremes.max - extremes.min) * 0.25;
+                        const newMax = extremes.max - (extremes.max - extremes.min) * 0.25;
+                        chart.xAxis[0].setExtremes(newMin, newMax);
+                        chart.showResetZoom();
+                        hideDialogMod();
+                    }
+                });
+            }
+
+            var zoomoutButton = document.getElementById('zoom-out');
+            if (zoomoutButton) {
+                document.getElementById('zoom-out').addEventListener('click', function () {
+                    if (chart) {
+                        show_msg("{% trans 'Aplicando zoom' %}");
+                        const extremes = chart.xAxis[0].getExtremes();
+                        const newMin = extremes.min - (extremes.max - extremes.min) * 0.25;
+                        const newMax = extremes.max + (extremes.max - extremes.min) * 0.25;
+                        chart.xAxis[0].setExtremes(newMin, newMax);
+                        chart.showResetZoom();
+                        hideDialogMod();
+                    }
+                });
+            }
+
+            var moveleftButton = document.getElementById('move-left');
+            if (moveleftButton) {
+                document.getElementById('move-left').addEventListener('click', function () {
+                    if (chart) {
+                        show_msg("{% trans 'Desplazando' %}");
+                        const extremes = chart.xAxis[0].getExtremes();
+                        const range = extremes.max - extremes.min;
+                        const newMin = extremes.min - range * 0.25;
+                        const newMax = extremes.max - range * 0.25;
+                        chart.xAxis[0].setExtremes(newMin, newMax);
+                        hideDialogMod();
+                    }
+                });
+            }
+
+            var moverightButton = document.getElementById('move-right');
+            if (moverightButton) {
+                document.getElementById('move-right').addEventListener('click', function () {
+                    if (chart) {
+                        show_msg("{% trans 'Desplazando' %}");
+                        const extremes = chart.xAxis[0].getExtremes();
+                        const range = extremes.max - extremes.min;
+                        const newMin = extremes.min + range * 0.25;
+                        const newMax = extremes.max + range * 0.25;
+                        chart.xAxis[0].setExtremes(newMin, newMax);
+                        hideDialogMod();
+                    }
+                });
+            }
+
+            var showMissingDataButton = document.getElementById("id_showMissingData");
+            if (showMissingDataButton) {
+                document.getElementById("id_showMissingData").checked = false;
+                {% if form_showMissingData == "1" %}
+                    document.getElementById("id_showMissingData").checked = true;
+                {% endif %}
+                showMissingDataButton.addEventListener('change', function() {
+                    if (document.getElementById("form_showMissingData")) {
+                        if (document.getElementById("id_showMissingData").checked == true) {
+                            document.getElementById("form_showMissingData").value = 1;
+                        }
+                        else {
+                            document.getElementById("form_showMissingData").value = 0;
+                        }
+                    }
+                    if (chart) {
+                        //show_msg("{% trans 'Dibujando' %}");
+                        try {
+                            updateChart("{{graph_title}}");
+                            hideDialogMod();
+                        } catch (error) {
+                            show_error(error);
+                        }
+                    }
+                });
+            }
+        });
+
+        {% include "./pieces/data_graph_items_style.html" %}
+
+    </script>
+
+    <script src="{% static 'project/js/date_selector.js' %}?v=20251202"></script>
+
+{% endblock %}

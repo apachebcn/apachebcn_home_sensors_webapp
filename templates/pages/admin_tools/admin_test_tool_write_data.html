@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+{% block theme_content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'project/css/front_pages.css' %}?v=20251202">
+
+{% include '../../print_title.html' with title=title %}
+
+<style>
+    .table-striped tbody tr {
+        height: auto;
+        line-height: 1.2;
+        padding: 5px 10px;
+    }
+    .table-striped tbody td {
+        padding: 5px;
+        vertical-align: middle;
+    }
+</style>
+
+{% if link %}
+Link generado:<br>
+<a target="_blank" href="{{link}}">{{link}}</a>
+<br><br>
+{% endif %}
+
+<form method="post" class="show-loading">
+
+    <input type="submit" class="btn btn-primary" name="send-button" value="{% trans "Enviar" %}">
+    <br><br>
+
+    {% csrf_token %}
+    <input type="hidden" name="form_id" value="admin_test_tool_write_data_save">
+
+    <select name='selected_apikey'>
+        {% for apikey in apikeys %}
+            <option value="{{ apikey.apikey }}">{{ apikey.apikey }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <table class='table table-striped' style="width:auto">
+
+        <tr>
+            <th>Variable</th>
+            <th>Valor</th>
+            <th>Descripción</th>
+            <th>Valores esperados</th>
+        <tr>
+
+        {% for item in form_data %}
+            <tr>
+                <td>
+                    {% if "rel_" in item.var %}
+                        <b>{{ item.var|slice:"2:" }}</b>
+                    {% else %}
+                        {{ item.var|slice:"2:" }}
+                    {% endif %}
+                </td>
+                <td><input type="text" name="{{ item.var }}" value="{{ item.value }}"></td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.values }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+</form>
+<br><br>
+
+{% endblock %}

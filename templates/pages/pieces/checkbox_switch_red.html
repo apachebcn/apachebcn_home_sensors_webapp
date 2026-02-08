@@ -1,0 +1,6 @@
+{# checkbox_switch_red.html #}
+<label class="switch">
+    <input type="hidden" name="{{ name }}" value="0">
+    <input type="checkbox" id="id_{{ name }}" name="{{ name }}" value="1" {% if value == 1 or value == "1" %}checked{% endif %}{% if include_savefield %} data-field="field-save"{% endif %}>
+    <span class="slider slider-red"></span>
+</label>

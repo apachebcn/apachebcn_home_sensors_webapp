@@ -1,0 +1,65 @@
+.p-menu-icon icon-adjust {
+    font-size:20px;
+    vertical-align: top;
+}
+
+.img-adjust {
+    vertical-align:sub;
+    width:20px;
+    height:20px;
+}
+.menu-p-superuser
+{
+    color:red;
+}
+.nav-item {
+    margin-top:5px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1030;
+    padding: 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    padding: 5px;
+    width: 100%;
+}
+
+.nav-link-horizontal {
+    padding: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        width: 100%; /* Ocupa todo el ancho en pantallas móviles */
+        position: sticky; /* Asegura que se ajuste al ancho del contenedor */
+    }
+}
+
+.p-menu-group {
+    color: yellow;
+    padding-left:5px !important;
+}
+
+.nav-link:hover{
+    color: red;
+}
+
+.p-menu-icon  {
+    color: yellow;
+}
+
+.p-menu-item {
+    margin-left: 5px !important;
+}
+
+.nav-link:hover .p-menu-item,
+.nav-link:hover i {
+    color: red;
+    cursor: pointer;
+}

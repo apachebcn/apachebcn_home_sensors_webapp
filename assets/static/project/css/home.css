@@ -1,0 +1,53 @@
+.table.table-striped .tight-row {
+    height: 25px; /* Ajusta la altura según sea necesario */
+  }
+  
+  .table.table-striped .tight-row td, 
+  .table.table-striped .tight-row th {
+    padding: 4px 8px; /* Reduce el padding para hacer la fila más estrecha */
+    font-size: 14px;  /* Opcional: reduce el tamaño de fuente */
+  }
+
+.div-ledandtext {
+display: flex;
+align-items: center;
+}
+
+.card-body {
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        max-height: 210px; /* Ajuste para pantallas móviles */
+        padding:5px !important;
+    }
+}
+
+.tag-notify {
+    margin-left:2px;
+    margin-right:2px;
+    background: red;
+    color:white;
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 5px;
+    visibility: hidden;
+    font-size:12px;
+}
+
+.btn-stat-reset {
+  background: darkred;
+  color: white;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  font-size:10px;
+}
+
+.home-card-header {
+  background-color:black;
+  color:white;
+  font-size: 14px;
+  padding:5px;
+  vertical-align: middle;
+}

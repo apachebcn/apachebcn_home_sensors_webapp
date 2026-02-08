@@ -1,0 +1,93 @@
+{% spaceless %}
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        {% if user.is_staff %}
+            {% comment %} LINK BACKOFFICE {% endcomment %}
+            <a target="_blank" class="nav-link" href="{% url 'admin:index' %}" style='color:white'>
+                <i class="icon-adjust fa fa-university" aria-hidden="true"></i>
+                    {% trans 'BACKOFFICE' %}
+            </a>
+        {% endif %}
+
+        <div style='border-bottom:1px solid gray; border-top:1px solid gray; color:white;margin-top:15px;'>
+            <span class="nav-link" style="padding-top:2px;padding-bottom:2px;" id='{{ menu_url }}'>
+                <i class="p-menu-icon icon-adjust fas fa-eye"></i>
+                <p class="p-menu-group">{% trans 'Vistas' %}</p>
+            </span>
+        </div>
+
+        {% if not user.is_authenticated %}
+            {% with menu_url='/form_login/' %}
+                <li class="nav-item">
+                    <a href="{{ menu_url }}" class="nav-link {% if menu_url in request.path_info %} active{% endif %} show-loading" id='{{ menu_url }}'>
+                    <i class="p-menu-icon icon-adjust fas fa-user"></i>
+                    <p class='p-menu-item'>{% trans 'Login' %}</p>
+                    </a>
+                </li>
+            {% endwith %}
+        {% endif %}
+
+        {% if user.is_authenticated %}
+
+            {% with menu_url='/' %}
+                <li class="nav-item"></li>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='home'>
+                        <i class="fas fa-temperature-low"></i>
+                        <p class='p-menu-item'>{% trans "Panel" %}</p>
+                    </a>
+                </li>
+            {% endwith %}
+
+            {% with menu_url='/history_data_graph_view/' %}
+                <li class="nav-item"></li>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='history_data_graph_view'>
+                        <i class="fas fa-chart-line"></i>
+                        <p class='p-menu-item'>{% trans "Gráficos - Historial" %}</p>
+                    </a>
+                </li>
+            {% endwith %}
+
+            {% with menu_url='/realtime_data_graph_info_view/' %}
+                <li class="nav-item"></li>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='api/realtime_data_graph_view'>
+                        <i class="fas fa-chart-line"></i><i class="fas fa-clock"></i>
+                        <p class='p-menu-item'>{% trans "Gráficos - Tiempo Real" %}</p>
+                    </a>
+                </li>
+            {% endwith %}
+
+            <div style='border-bottom:1px solid gray; border-top:1px solid gray; color:white;margin-top:25px;'>
+                <span class="nav-link" style="padding-top:2px;padding-bottom:2px;" id='{{ menu_url }}'>
+                    <i class="fa fa-ellipsis-v"></i>
+                    <p class="p-menu-group">{% trans 'Otros' %}</p>
+                </span>
+            </div>
+
+            {% with menu_url='/action_logout/' %}
+                <li class="nav-item"></li>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='action_logout'>
+                        <i class="fas fa-power-off"></i>
+                        <p class='p-menu-item'>Logout</p>
+                    </a>
+                </li>
+            {% endwith %}
+
+        {% endif %}
+
+    </ul>
+</nav>
+
+<div class="footer-info">
+    <p>APP HOME SENSORS</p>
+    <p>PEDRO REINA ROJAS (apachebcn@gmail.com)</p>
+    <p>Django {{ django_version }}</p>
+</div>
+
+{% endspaceless %}

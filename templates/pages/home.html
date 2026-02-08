@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% comment %}
+	author PEDRO REINA ROJAS <apachebcn@gmail.com>
+	copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
+	license comercial
+{% endcomment %}
+
+{% block theme_content %}
+
+<script src="{% static 'js/highcharts/highcharts.js' %}"></script>
+<script src="{% static 'js/highcharts/highcharts-more.js' %}"></script>
+<script src="{% static 'js/highcharts/solid-gauge.js' %}"></script>
+<script src="{% static 'project/js/home_gauge.js' %}?v=20251202"></script>
+<script src="{% static 'project/js/home.js' %}?v=20251202"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'project/css/front_pages.css' %}?v=20251202">
+<style>
+</style>
+
+{% include '../print_title.html' with title=title %}
+
+<div class="container" style="max-width:2000px">
+<input type="hidden" id="home_page" value="1">
+
+        <div class="row">
+            <div class="col-12 col-md-12 mb-12 d-flex">
+                <div class="card w-100 d-flex flex-column">
+
+                    <div class="card-header p-1 home-card-header">
+                        <div class="d-flex flex-wrap px-1"> <!-- reemplaza padding-left/right inline -->
+                            <div class="col-12 col-md-6 d-flex align-items-center justify-content-start mb-1 mb-md-0" id="data_ip">
+                                <i class="fa fa-icon me-1"></i>
+                                <span><i class="fa-solid fa-laptop"></i>&nbsp;{% trans "Dirección IP" %}</span>
+                            </div>
+                            <div class="col-12 col-md-6 d-flex align-items-center justify-content-end text-end" id="data_updated_at">
+                                <i class="fa fa-icon me-1"></i>
+                                <span><i class="fa-regular fa-clock"></i>&nbsp;{% trans "Último synch" %}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+            {% include "./pieces/home_card_temp.html" with title=data_temps_colector1_title fieldname_sensor="data_s1_temp" fieldname_relay_higher_title=data_relay_colector1_higher_title fieldname_relay_lower_title=data_relay_colector1_lower_title fieldname_relay_value_name="data_relay_colector1" relay_high_num=3 relay_low_num=4 col=12 col_md=6 %}
+            {% include "./pieces/home_card_temp.html" with title=data_temps_colector1_title fieldname_sensor="data_s1_hum" fieldname_relay_higher_title=data_relay_colector1_higher_title fieldname_relay_lower_title=data_relay_colector1_lower_title fieldname_relay_value_name="data_relay_colector1" relay_high_num=3 relay_low_num=4 col=12 col_md=6 %}
+    </div>
+
+
+{% endblock %}
