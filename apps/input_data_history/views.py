@@ -28,6 +28,7 @@ from apps.graphic_realtime_settings.models import GraphicRealtimeSettings
 from apps.graphic_history_settings.forms import GraphicHistorySettingsForm
 from apps.graphic_history_settings.models import GraphicHistorySettings
 from apps.graphic_realtime_settings.forms import GraphicRealtimeSettingsForm
+from project.settings_common import APIKEY_PASS
 
 
 import logging
@@ -49,20 +50,9 @@ def history_data_graph_view(request):
 @login_required(login_url='/form_login/')
 def realtime_data_graph_info_view(request):
 
-	username = str(user_selected.username)
-	rows = UserApikey.objects.filter(user_id__id = user_selected.id, app_access='graph_realtime')
-
 	base_url = f"//{request.get_host()}/"
-
-	# Construimos las URLs completas usando el dominio actual
-	list_urls = [urljoin(base_url, f"api/realtime_data_graph_view?apikey={apikey.apikey}") for apikey in rows]
-
-	context = {
-		'title': _("Tiempo real Gráfico del termostato de {}".format(username)),
-		'list_urls': list_urls
-	}
-
-	return render(request, 'pages/graph_realtime_info.html', context)
+	url = urljoin(base_url, f"api/realtime_data_graph_view?apikey={APIKEY_PASS}")
+	return redirect(url)
 
 
 """

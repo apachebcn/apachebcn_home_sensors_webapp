@@ -34,8 +34,7 @@ def api_realtime_data_graph(request):
 	"""
 	Es llamado por javascript desde la vista graph_realtime.html
 	"""
-
-	user_apikey = request.user_apikey
+	apikey = request.apikey
 	message_error = ""
 	if request.POST.get("save", False):
 		result = save_graphic_settings(request, realtime = True)
@@ -43,7 +42,7 @@ def api_realtime_data_graph(request):
 			message_error = ""
 		else:
 			message_error = result
-	return data_graph_view(request = request, realtime = True, message_error = message_error, apikey = user_apikey)
+	return data_graph_view(request = request, realtime = True, message_error = message_error, apikey = apikey)
 
 
 @apikey_required(app_name="graph_realtime")
@@ -76,7 +75,7 @@ def insert_input_data(request):
 			- Respondemos con los datos del modelo RemoteConfig, que son los valores de fuerces de reles que el usuario quiere comandar desde aquí
 
 	Ejemplo de input:
-		http://localhost/api/write_data/?apikey=xxx&ip=127.0.0.5&&num=1&t=12&h=22
+		http://localhost/api/write_data/?apikey=APIKEY_PASS&ip=127.0.0.5&&num=1&t=12&h=22
 	RESPUESTAS QUE SE ENVIARÁN AL TERMOSTATO:
 		WEBAPP_OK
 		WEBAPP_GET_CONFIG_FROM_THERMOSTATE

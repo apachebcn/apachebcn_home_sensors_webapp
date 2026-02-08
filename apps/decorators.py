@@ -10,8 +10,6 @@ from apps.common_functions import get_realuser_is_superuser
 import logging
 logger = logging.getLogger('django')
 
-APIKEY_PASS = "XCDEFGHI1234221390"
-
 
 def superuser_required(view_func):
 	"""
@@ -33,6 +31,7 @@ def apikey_required(app_name):
 	Decorador que permite el acceso solo a superusuarios.
 	Si el usuario no es un superusuario, devuelve un error 403.
 	"""
+	from project.settings_common import APIKEY_PASS
 	def decorador(view_func):
 		@wraps(view_func)  # Mantiene los metadatos de la vista original
 		def _wrapped_view(request, *args, **kwargs):
