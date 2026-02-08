@@ -2,11 +2,10 @@
 # copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
 # license comercial
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
+from apps.common_functions import get_dev_num_str
 
 class InputDataHistory(models.Model):
 
@@ -15,19 +14,18 @@ class InputDataHistory(models.Model):
 	"""
 
 	class Meta:
-		verbose_name = _("Historial de Datos de Entrada de Termostato")
-		verbose_name_plural = _("Historiales de Datos de Entradas de Termostatos")
+		verbose_name = "Historial de Datos de Entrada de Termostato"
+		verbose_name_plural = "Historiales de Datos de Entradas de Termostatos"
 		constraints = [
-			models.UniqueConstraint(fields=['user_id', 'created_at'], name='unique_user_created_at')
+			models.UniqueConstraint(fields=['data_dev_num', 'created_at'], name='unique_user_created_at')
 		]
 
 	def __str__(self):
-		return _("Dato historico del termostato ID [{id}] del usuario [{user}]").format(
+		return "Dato historico ID [{id}] del sensor [{data_dev_num_str}]".format(
 			id=self.pk,
-			user=self.user_id.username
+			data_dev_num_str=get_dev_num_str(self.data_dev_num)
 		)
 
-	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
 	created_at = models.DateTimeField(blank = True, null = True)
 	data_dev_num = models.IntegerField(blank = True, null = True)
 	data_temp = models.FloatField(blank = True, null = True)

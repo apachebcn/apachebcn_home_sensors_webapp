@@ -5,9 +5,8 @@
 from django.contrib import admin
 from .models import InputData
 
-from apps.common_functions import get_realuser_is_superuser
 from apps.custom_admin import CustomAdmin
-
+from .admin_filters import FilterDataDevNum
 
 @admin.register(InputData)
 class InputDataAdmin(CustomAdmin):
@@ -26,15 +25,17 @@ class InputDataAdmin(CustomAdmin):
 			'data_hum', 'data_hum_min', 'data_hum_max',
 		)
 
+	# filtros
+	# Construir list_filter añadiendo uno a uno
+	_list_filters = []
+	_list_filters.append(FilterDataDevNum)
+	list_filter = tuple(_list_filters)
+
 	# Campos que se muestran
 	def get_list_display(self, request):
 
-		_list_display = []
-		if get_realuser_is_superuser(request):
-			_list_display.append('pk')
-			_list_display.append('user_id')
-
 		_list_display.extend([
+			'pk',
 			'updated_at',
 			'data_from_thermostate_local_ip',
 			'data_from_thermostate_public_ip',

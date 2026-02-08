@@ -268,3 +268,17 @@ def get_user_admin():
 		return user_apikey
 	except User.DoesNotExist:
 		return None
+
+
+def get_dev_num_str(dev_num):
+
+	dev_num_str = str(dev_num)
+	if dev_num == 1:
+		dev_num_str = "Calle"
+	elif dev_num == 2:
+		dev_num_str = "Dormitorio matrimonio"
+	elif dev_num == 3:
+		dev_num_str = "Oficina"
+	elif dev_num == 4:
+		dev_num_str = "Wc arriba"
+	return dev_num_str

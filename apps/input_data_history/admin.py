@@ -9,30 +9,7 @@ from django.utils.html import format_html
 
 from apps.common_functions import get_realuser_is_superuser
 from apps.custom_admin import CustomAdmin
-# from .admin_filters import \
-# 	FilterCmsPageId, \
-# 	FilterRelayErrors, \
-# 	FilterDataColector1, \
-# 	FilterDataColector2, \
-# 	FilterDataColector3, \
-# 	FilterDataDepUpFilter, \
-# 	FilterDataDepDownFilter, \
-# 	FilterDataAirFilter, \
-# 	FilterPump1, \
-# 	FilterRelayPump1, \
-# 	FilterPump2, \
-# 	FilterRelayPump2, \
-# 	FilterPump3, \
-# 	FilterRelayPump3, \
-# 	FilterRelayCol1Higher, \
-# 	FilterRelayCol1Lower, \
-# 	FilterRelayCol2Higher, \
-# 	FilterRelayCol2Lower, \
-# 	FilterRelayCol3Higher, \
-# 	FilterRelayCol3Lower, \
-# 	FilterRelayDepUpHigher, \
-# 	FilterRelayDepUpLower, \
-# 	FilterRelayDepDownHigher
+from .admin_filters import FilterDataDevNum
 
 
 @admin.register(InputDataHistory)
@@ -54,32 +31,9 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 	# filtros
 	# Construir list_filter añadiendo uno a uno
-	#_list_filters = []
-	#_list_filters.append(FilterCmsPageId)
-	#_list_filters.append(('created_at', DateRangeFilter))
-	#_list_filters.append(FilterRelayErrors)
-	#_list_filters.append(FilterDataColector1)
-	#_list_filters.append(FilterDataColector2)
-	#_list_filters.append(FilterDataColector3)
-	#_list_filters.append(FilterDataDepUpFilter)
-	#_list_filters.append(FilterDataDepDownFilter)
-	#_list_filters.append(FilterDataAirFilter)
-	#_list_filters.append(FilterPump1)
-	#_list_filters.append(FilterPump2)
-	#_list_filters.append(FilterPump3)
-	#_list_filters.append(FilterRelayPump1)
-	#_list_filters.append(FilterRelayPump2)
-	#_list_filters.append(FilterRelayPump3)
-	#_list_filters.append(FilterRelayCol1Higher)
-	#_list_filters.append(FilterRelayCol1Lower)
-	#_list_filters.append(FilterRelayCol2Higher)
-	#_list_filters.append(FilterRelayCol2Lower)
-	#_list_filters.append(FilterRelayCol3Higher)
-	#_list_filters.append(FilterRelayCol3Lower)
-	#_list_filters.append(FilterRelayDepUpHigher)
-	#_list_filters.append(FilterRelayDepUpLower)
-	#_list_filters.append(FilterRelayDepDownHigher)
-	#list_filter = tuple(_list_filters)
+	_list_filters = []
+	_list_filters.append(FilterDataDevNum)
+	list_filter = tuple(_list_filters)
 
 	def format_col_temp_with_diff(self, temp1, temp2):
 		"""Recibe dos temperaturas y devuelve: "<temp1> (<temp1 - temp2>)" con 2 decimales."""
@@ -106,11 +60,8 @@ class InputDataHistoryAdmin(CustomAdmin):
 	def get_list_display(self, request):
 
 		_list_display = []
-		if get_realuser_is_superuser(request):
-			_list_display.append('pk')
-			_list_display.append('user_id')
-
 		_list_display.extend([
+			'pk',
 			'created_at',
 			'get_data_dev_num',
 			'data_temp', 'data_hum',

@@ -2,9 +2,10 @@
 # copyright PEDRO REINA ROJAS (apachebcn@gmail.com)
 # license comercial
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from apps.common_functions import get_dev_num_str
 
 
 class InputData(models.Model):
@@ -15,26 +16,25 @@ class InputData(models.Model):
 	"""
 
 	class Meta:
-		verbose_name = _("Dato de entrada")
-		verbose_name_plural = _("Datos de entrada")
+		verbose_name = "Dato de entrada"
+		verbose_name_plural = "Datos de entrada"
 
 	def __str__(self):
-		return _("Dato de entrada del termostato ID [{id}] del usuario [{user}]").format(
+		return _("Dato ID [{id}] del sensor [{data_dev_num_str}]").format(
 			id=self.pk,
-			user=self.user_id.username
+			data_dev_num_str=get_dev_num_str(self.data_dev_num)
 		)
 
 	RELAY_CHOICES = [
-		('0', _('Automático')),
-		('1', _('Forzado ON')),
-		('2', _('Forzado OFF'))
+		('0', 'Automático'),
+		('1', 'Forzado ON'),
+		('2', 'Forzado OFF')
 	]
 
-	user_id = models.OneToOneField(User, on_delete = models.CASCADE, primary_key=True)
 	updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Fecha de Actualización"))
 	times_repeated_answer = models.IntegerField(blank = False, null = False, default = 0)
 
-	data_dev_num = models.IntegerField(null = False, blank=False)
+	data_dev_num = models.IntegerField(null=False, blank=False, unique=True)
 	data_temp = models.FloatField(null = False, blank=False)
 	data_temp_min = models.FloatField(default = 0, null = True, blank=True)
 	data_temp_max = models.FloatField(default = 0, null = True, blank=True)

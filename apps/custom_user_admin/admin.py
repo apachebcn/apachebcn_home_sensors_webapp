@@ -18,9 +18,6 @@ class CustomUserAdmin(BaseUserAdmin):
 		'is_staff',
 		'is_active',
 		'get_is_superuser',
-		'get_license_access_enable',
-		'get_license_access_datetime',
-		'get_pro_mode',
 		'get_groups'
 	)
 
@@ -30,27 +27,6 @@ class CustomUserAdmin(BaseUserAdmin):
 		return format_html("<img src='/static/admin/img/icon-no.svg'")
 	get_is_superuser.short_description = "S.U."
 	get_is_superuser.admin_order_field = 'is_superuser'
-
-	def get_license_access_enable(self, obj):
-		if not obj.userprofile:
-			return "-"
-		return obj.userprofile.license_access_enable
-	get_license_access_enable.short_description = "Licencia Activada"
-	get_license_access_enable.admin_order_field = "userprofile__license_access_enable"
-
-	def get_pro_mode(self, obj):
-		if not obj.userprofile:
-			return "-"
-		return obj.userprofile.license_access_enable
-	get_pro_mode.short_description = "Modo PRO"
-	get_pro_mode.admin_order_field = "userprofile__pro_mode"
-
-	def get_license_access_datetime(self, obj):
-		if not obj.userprofile:
-			return "-"
-		return obj.userprofile.license_access_datetime
-	get_license_access_datetime.short_description = "Licencia fin"
-	get_license_access_datetime.admin_order_field = "userprofile__license_access_datetime"
 
 	def get_groups(self, obj):
 		group_html = ""

@@ -147,7 +147,7 @@ def insert_input_data(request):
 	field_values["data_temp"] = request.GET.get('t', None)
 	field_values["data_hum"] = request.GET.get('h', None)
 
-	input_data_row = InputData.objects.filter(user_id=user_apikey).first()
+	input_data_row = InputData.objects.filter(user_id=user_apikey, data_dev_num=num).first()
 
 	if not input_data_row:
 		input_data_row = InputData.objects.create(
@@ -166,8 +166,11 @@ def insert_input_data(request):
 		input_data_row.data_from_thermostate_public_ip = data_from_thermostate_public_ip
 		input_data_row.save()
 
+	set_min_value(input_data_row, 'data_temp')
 	set_max_value(input_data_row, 'data_temp')
+
 	set_min_value(input_data_row, 'data_hum')
+	set_max_value(input_data_row, 'data_hum')
 
 	input_data_row.save()
 
