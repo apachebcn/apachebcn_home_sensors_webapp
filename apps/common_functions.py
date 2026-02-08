@@ -281,4 +281,6 @@ def get_dev_num_str(dev_num):
 		dev_num_str = "Oficina"
 	elif dev_num == 4:
 		dev_num_str = "Wc arriba"
+	elif dev_num == 5:
+		dev_num_str = "Comedor"
 	return dev_num_str

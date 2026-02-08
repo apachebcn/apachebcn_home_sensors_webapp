@@ -7,7 +7,7 @@ from .models import InputDataHistory
 from rangefilter.filters import DateRangeFilter
 from django.utils.html import format_html
 
-from apps.common_functions import get_realuser_is_superuser
+from apps.common_functions import get_dev_num_str
 from apps.custom_admin import CustomAdmin
 from .admin_filters import FilterDataDevNum
 
@@ -86,17 +86,7 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 	def get_data_dev_num(self, obj):
 		"""Muestra data_dev_num formateado."""
-		if obj.data_dev_num is None:
-			return "-"
-		if obj.data_dev_num == 1:
-			return "Calle"
-		if obj.data_dev_num == 2:
-			return "Matrimonio"
-		if obj.data_dev_num == 3:
-			return "Oficina"
-		if obj.data_dev_num == 4:
-			return "Wc-arriba"
-		return f"Device {obj.data_dev_num}"
+		return get_dev_num_str(obj.data_dev_num)
 	get_data_dev_num.short_description = 'data_dev_num'
 	get_data_dev_num.admin_order_field = 'data_dev_num'
 
