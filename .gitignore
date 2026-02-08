@@ -1,0 +1,23 @@
+**/migrations/
+**/**/migrations/
+*.pyc
+**/*.pyc
+__pycache__
+**/__pycache__/**
+
+# Ignorar todo en /assets/static excepto /assets/static/project
+/assets/static/*
+!/assets/static/project/
+!/assets/static/project/*
+!/assets/static/error_report/
+!/assets/static/error_report/*
+
+# Ignora todo en logs excepto .gitkeep
+logs/*
+!logs/
+!logs/.gitkeep
+
+# Ignorar archivos de configuracion del project
+project/settings.py
+project/settings-files
+!project/settings-files/defaults
