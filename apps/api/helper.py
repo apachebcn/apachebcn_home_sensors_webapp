@@ -147,11 +147,10 @@ def insert_input_data(request):
 	field_values["data_temp"] = request.GET.get('t', None)
 	field_values["data_hum"] = request.GET.get('h', None)
 
-	input_data_row = InputData.objects.filter(user_id=user_apikey, data_dev_num=num).first()
+	input_data_row = InputData.objects.filter(data_dev_num=num).first()
 
 	if not input_data_row:
 		input_data_row = InputData.objects.create(
-			user_id=user_apikey,
 			data_dev_num = num,
 			data_temp = field_values["data_temp"],
 			data_hum = field_values["data_hum"],
@@ -175,7 +174,6 @@ def insert_input_data(request):
 	input_data_row.save()
 
 	history_data = {
-		"user_id": user_apikey,
 		"data_dev_num": parse_int(input_data_row.data_dev_num),
 		"data_temp": parse_float(input_data_row.data_temp),
 		"data_hum": parse_float(input_data_row.data_hum),
@@ -190,9 +188,9 @@ def insert_input_data(request):
 	# Obtener la versión truncada de updated_at
 	updated_at_trimmed = strip_seconds(updated_at)
 
-	# Intentar encontrar un registro con el mismo user_id y updated_at (sin segundos)
+	# Intentar encontrar un registro con el mismo data_dev_num y updated_at (sin segundos)
 	obj, created = InputDataHistory.objects.update_or_create(
-		user_id=user_apikey,
+		data_dev_num=input_data_row.data_dev_num,
 		updated_at__gte=updated_at_trimmed,  # Buscar registros en el mismo minuto
 		updated_at__lt=updated_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
 		defaults=history_data  # Datos a actualizar si ya existe
