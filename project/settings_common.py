@@ -241,15 +241,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Configuración de zona horaria e internacionalización
-TIME_ZONE = 'UTC'
-USE_TZ = True
+TIME_ZONE = 'Europe/Madrid'
+USE_TZ = True  # asegúrate de que esté activado
+
 LANGUAGE_CODE = 'es'
 ugettext = lambda s: s
 LANGUAGES = (
 	('es', ugettext('Español')),
-	('ca', ugettext('Catalán')),
-	('pt', ugettext('Portugués')),
-	('fr', ugettext('Francés')),
 )
 LOCALE_PATHS = (
 	BASE_DIR + '/locale',
