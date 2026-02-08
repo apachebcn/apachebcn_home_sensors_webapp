@@ -24,6 +24,7 @@ class FilterDataDevNum(admin.SimpleListFilter):
 			('2', get_dev_num_str(2)),
 			('3', get_dev_num_str(3)),
 			('4', get_dev_num_str(4)),
+			('5', get_dev_num_str(5)),
 		)
 
 	def queryset(self, request, queryset):

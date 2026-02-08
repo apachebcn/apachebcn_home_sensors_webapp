@@ -22,7 +22,7 @@ from apps.input_data_history.views import data_graph_view
 from apps.common_functions import test_is_numeric
 from project.settings import MODE
 
-from apps.common_functions import responseToThermostate
+from apps.common_functions import responseToThermostate, get_last_dev_num
 
 import logging
 logger = logging.getLogger('django')
@@ -138,8 +138,8 @@ def insert_input_data(request):
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	if num > 4 or num < 1:
-		message = "El parámetro 'num' ha de ser un número entero entre 1 y 4"
+	if num < 1 or num > get_last_dev_num():
+		message = f"El parámetro 'num' ha de ser un número entero entre 1 y {get_last_dev_num()}"
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 

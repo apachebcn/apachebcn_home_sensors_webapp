@@ -284,3 +284,8 @@ def get_dev_num_str(dev_num):
 	elif dev_num == 5:
 		dev_num_str = "Comedor"
 	return dev_num_str
+
+
+def get_last_dev_num():
+
+	return 5
