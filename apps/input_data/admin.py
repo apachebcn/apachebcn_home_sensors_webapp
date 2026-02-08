@@ -15,12 +15,12 @@ class InputDataAdmin(CustomAdmin):
 	class Media:
 		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
 
-	readonly_fields = ('created_at', 'data_dev_num', )
+	readonly_fields = ('updated_at', 'data_dev_num', )
 
 	# Campos que se editan
 	def get_fields(self, request, obj=None):
 		return (
-			'created_at',
+			'updated_at',
 			'data_dev_num',
 			'data_temp', 'data_temp_min', 'data_temp_max',
 			'data_hum', 'data_hum_min', 'data_hum_max',
@@ -35,7 +35,7 @@ class InputDataAdmin(CustomAdmin):
 			_list_display.append('user_id')
 
 		_list_display.extend([
-			'created_at',
+			'updated_at',
 			'data_from_thermostate_local_ip',
 			'data_from_thermostate_public_ip',
 			'data_dev_num',

@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from apps.decorators import apikey_required
 import json
 
-
 from django.utils.translation import gettext as _
+from django.core.exceptions import PermissionDenied
 
 from django.utils import timezone
 from apps.common_functions import is_bool, is_int, is_float, get_user_admin
@@ -147,8 +147,6 @@ def insert_input_data(request):
 	field_values["data_temp"] = request.GET.get('t', None)
 	field_values["data_hum"] = request.GET.get('h', None)
 
-	created_at = timezone.now()
-
 	input_data_row = InputData.objects.filter(user_id=user_apikey).first()
 
 	if not input_data_row:
@@ -175,7 +173,6 @@ def insert_input_data(request):
 
 	history_data = {
 		"user_id": user_apikey,
-		"created_at": created_at,
 		"data_dev_num": parse_int(input_data_row.data_dev_num),
 		"data_temp": parse_float(input_data_row.data_temp),
 		"data_hum": parse_float(input_data_row.data_hum),
@@ -185,14 +182,16 @@ def insert_input_data(request):
 	def strip_seconds(dt):
 		return localtime(dt).replace(second=0, microsecond=0)
 
-	# Obtener la versión truncada de created_at
-	created_at_trimmed = strip_seconds(created_at)
+	updated_at = timezone.now()
 
-	# Intentar encontrar un registro con el mismo user_id y created_at (sin segundos)
+	# Obtener la versión truncada de updated_at
+	updated_at_trimmed = strip_seconds(updated_at)
+
+	# Intentar encontrar un registro con el mismo user_id y updated_at (sin segundos)
 	obj, created = InputDataHistory.objects.update_or_create(
 		user_id=user_apikey,
-		created_at__gte=created_at_trimmed,  # Buscar registros en el mismo minuto
-		created_at__lt=created_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
+		updated_at__gte=updated_at_trimmed,  # Buscar registros en el mismo minuto
+		updated_at__lt=updated_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
 		defaults=history_data  # Datos a actualizar si ya existe
 	)
 

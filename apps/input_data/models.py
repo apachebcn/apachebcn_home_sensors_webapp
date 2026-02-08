@@ -31,7 +31,7 @@ class InputData(models.Model):
 	]
 
 	user_id = models.OneToOneField(User, on_delete = models.CASCADE, primary_key=True)
-	created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Fecha de Creación"))
+	updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Fecha de Actualización"))
 	times_repeated_answer = models.IntegerField(blank = False, null = False, default = 0)
 
 	data_dev_num = models.IntegerField(null = False, blank=False)
