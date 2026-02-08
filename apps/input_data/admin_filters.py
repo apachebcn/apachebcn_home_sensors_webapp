@@ -38,5 +38,7 @@ class FilterDataDevNum(admin.SimpleListFilter):
 			return queryset.filter(data_dev_num=3)
 		if self.value() == '4':
 			return queryset.filter(data_dev_num=4)
+		if self.value() == '5':
+			return queryset.filter(data_dev_num=5)
 		return queryset
 
