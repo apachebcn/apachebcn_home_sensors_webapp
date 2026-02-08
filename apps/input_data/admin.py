@@ -34,6 +34,7 @@ class InputDataAdmin(CustomAdmin):
 	# Campos que se muestran
 	def get_list_display(self, request):
 
+		_list_display = []
 		_list_display.extend([
 			'pk',
 			'updated_at',
