@@ -10,12 +10,12 @@ class InputDataHistoryTests(TestCase):
         # Crear una instancia de InputDataHistory con el usuario de prueba
         self.obj = InputDataHistory.objects.create(
             user_id=self.user,
-            data_s1_temp=15,
+            data_temp=15,
         )
 
     def test_objeto_creado(self):
         # Verificar que la instancia del modelo se haya creado correctamente
-        self.assertEqual(self.obj.data_s1_temp, 15)
+        self.assertEqual(self.obj.data_temp, 15)
         self.assertEqual(self.obj.user_id, self.user)
 
     def test_otro_comportamiento(self):

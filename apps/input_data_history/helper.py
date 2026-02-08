@@ -8,7 +8,7 @@ from datetime import timedelta
 import time
 import pandas as pd
 
-from apps.common_functions import responseToThermostate
+from apps.common_functions import responseToThermostate, get_system_timezone
 from apps.common_functions_dates import convert_local_datetime_str_to_utc
 from apps.input_data_history.models import InputDataHistory
 
@@ -20,14 +20,9 @@ def get_sensors_data_list_all_names(request):
 
 	names = [
 		"id",
-		"data_s1_temp",
-		"data_s1_hum",
-		"data_s2_temp",
-		"data_s2_hum",
-		"data_s3_temp",
-		"data_s3_hum",
-		"data_s4_temp",
-		"data_s4_hum",
+		'data_dev_num',
+		"data_temp",
+		"data_hum",
 	]
 	return names
 
@@ -104,8 +99,6 @@ def get_time_difference(start_date, end_date):
 
 def get_history_data_graph_data(request, thermostate_data_fields_availables, start_local_date_str, end_local_date_str):
 
-	realtime = request.GET.get('realtime', False)
-
 	# Convertir las cadenas de fecha, a fecha UTC
 	utc_start_date = convert_local_datetime_str_to_utc(request, start_local_date_str)
 	utc_end_date = convert_local_datetime_str_to_utc(request, end_local_date_str)
@@ -114,17 +107,7 @@ def get_history_data_graph_data(request, thermostate_data_fields_availables, sta
 	minuts_difference = seconds_difference / 60
 	hours_difference = minuts_difference / 60
 	days_difference = hours_difference / 24
-	if realtime:
-		"""
-			realtime
-		"""
-		GroupId = 1
-		utc_start_date = utc_start_date
-		utc_end_date = utc_end_date
-		resample_time_name = 'min'  # minuto
-		resample_time_value = 1
-		result_from_cache, len_rows, elapsed_time_ms, data = get_rows(request, thermostate_data_fields_availables, days_difference, utc_start_date, utc_end_date, resample_time_name, resample_time_value)
-	elif days_difference <= 2:  # 2 días o inferior
+	if days_difference <= 2:  # 2 días o inferior
 		"""
 			2 días o inferior
 		"""
@@ -220,14 +203,9 @@ def get_history_data_graph_data(request, thermostate_data_fields_availables, sta
 	# Preparar los resultados
 	ids = []
 	dates = []
-	data_s1_temp = []
-	data_s1_hum = []
-	data_s2_temp = []
-	data_s2_hum = []
-	data_s3_temp = []
-	data_s3_hum = []
-	data_s4_temp = []
-	data_s4_hum = []
+	data_dev_num = []
+	data_temp = []
+	data_hum = []
 
 	for entry in data:
 
@@ -239,24 +217,14 @@ def get_history_data_graph_data(request, thermostate_data_fields_availables, sta
 		local_start = entry[index_time]
 		ids.append(convert_str_to_js_value(entry.get('id', None)))
 		dates.append(local_start.strftime('%Y-%m-%d %H:%M:%S'))
-		data_s1_temp.append(convert_str_to_js_value(entry.get('data_s1_temp', None)))
-		data_s1_hum.append(convert_str_to_js_value(entry.get('data_s1_hum', None)))
-		data_s2_temp.append(convert_str_to_js_value(entry.get('data_s2_temp', None)))
-		data_s2_hum.append(convert_str_to_js_value(entry.get('data_s2_hum', None)))
-		data_s3_temp.append(convert_str_to_js_value(entry.get('data_s3_temp', None)))
-		data_s3_hum.append(convert_str_to_js_value(entry.get('data_s3_hum', None)))
-		data_s4_temp.append(convert_str_to_js_value(entry.get('data_s4_temp', None)))
-		data_s4_hum.append(convert_str_to_js_value(entry.get('data_s4_hum', None)))
+		data_dev_num.append(convert_str_to_js_value(entry.get('data_dev_num', None)))
+		data_temp.append(convert_str_to_js_value(entry.get('data_temp', None)))
+		data_hum.append(convert_str_to_js_value(entry.get('data_hum', None)))
 	plot_data['id'] = ids
 	plot_data['dates'] = dates
-	plot_data['data_s1_temp'] = data_s1_temp
-	plot_data['data_s1_hum'] = data_s1_hum
-	plot_data['data_s2_temp'] = data_s2_temp
-	plot_data['data_s2_hum'] = data_s2_hum
-	plot_data['data_s3_temp'] = data_s3_temp
-	plot_data['data_s3_hum'] = data_s3_hum
-	plot_data['data_s4_temp'] = data_s4_temp
-	plot_data['data_s4_hum'] = data_s4_hum
+	plot_data['data_dev_num'] = data_dev_num
+	plot_data['data_temp'] = data_temp
+	plot_data['data_hum'] = data_hum
 
 	return result_from_cache, plot_data
 
@@ -279,24 +247,14 @@ def get_json_data_graph(request):
 		value = dt.strftime('%Y-%m-%d %H:%M:%S')
 		return value
 
-	realtime = request.GET.get('realtime', False)
-	if realtime:
-		user_timezone = request.user_timezone
-		user_otion = request.user_selected_option
-		last_minutes = int(getattr(user_otion, "graph_time_real_last_minutes", 60))
-		now_utc = datetime.now(pytz.UTC)  # Obtener la hora en UTC
-		now_local = now_utc.astimezone(user_timezone)  # Convertir a la zona horaria del usuario
-		start_local_date_str = str(now_local - timedelta(minutes=last_minutes))
-		end_local_date_str = str(now_local)
-	else:
-		start_local_date_str = get_GET_or_POST_start_datetime_str(request, None)
-		if start_local_date_str is None:
-			return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Inicio no puede ser nulo"))
-		end_local_date_str = get_GET_or_POST_end_datetime_str(request, None)
-		if end_local_date_str is None:
-			return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Fin no puede ser nulo"))
-		if start_local_date_str > end_local_date_str:
-			return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Fin no puede ser inferior a Fecha Inicio"))
+	start_local_date_str = get_GET_or_POST_start_datetime_str(request, None)
+	if start_local_date_str is None:
+		return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Inicio no puede ser nulo"))
+	end_local_date_str = get_GET_or_POST_end_datetime_str(request, None)
+	if end_local_date_str is None:
+		return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Fin no puede ser nulo"))
+	if start_local_date_str > end_local_date_str:
+		return responseToThermostate(request, result = "error", message = "error: " + _("Fecha Fin no puede ser inferior a Fecha Inicio"))
 
 	names = get_sensors_data_available_names(request)
 	titles = get_sensors_data_available_titles(request)
@@ -333,17 +291,6 @@ def get_json_data_graph(request):
 			else:
 				value = None
 			values.append([(timestamp * 1000), value])
-		if realtime:
-			# Insertar ultimo point para simular tiempo real
-			now_utc = datetime.now(pytz.UTC)
-			if now_utc.tzinfo is None:
-				now_utc = user_timezone.localize(now_utc)
-			now_local = now_utc.astimezone(user_timezone)
-			now_local_str = now_local.strftime('%Y-%m-%d %H:%M:%S')
-			datetime_obj = datetime.strptime(now_local_str, '%Y-%m-%d %H:%M:%S')
-			timestamp = datetime_obj.timestamp()
-			x.append(convert_timestamp(timestamp))
-			values.append([(timestamp * 1000), None])
 
 		title = ""
 		if name in titles:
@@ -374,7 +321,7 @@ def get_json_data_graph(request):
 
 def convert_data_created_date_to_local(request, data):
 
-	user_timezone = request.user_timezone  # Obtener la zona horaria del usuario
+	user_timezone = get_system_timezone()  # Obtener la zona horaria del usuario
 	# Iterar sobre la lista de diccionarios y actualizar el campo 'created_at'
 	for item in data:
 		original_time = item['created_at']
@@ -410,14 +357,9 @@ def get_rows(request, thermostate_data_fields_availables, days_difference, utc_s
 	fields = [
 		'id',
 		'created_at',
-		'data_s1_temp',
-		'data_s1_hum',
-		'data_s2_temp',
-		'data_s2_hum',
-		'data_s3_temp',
-		'data_s3_hum',
-		'data_s4_temp',
-		'data_s4_hum',
+		'data_dev_num',
+		'data_temp',
+		'data_hum',
 	]
 	for field in fields:
 		if field[:11] == "data_relay_":
@@ -468,7 +410,7 @@ def get_rows(request, thermostate_data_fields_availables, days_difference, utc_s
 
 	# Redondear los valores flotantes a 2 decimales (solo los que no son NaN)
 	float_columns = [
-		'data_s1_temp',
+		'data_temp',
 		'data_temp_depup',
 		'data_temp_depdown',
 		'data_temp_air'
@@ -489,7 +431,7 @@ def get_rows(request, thermostate_data_fields_availables, days_difference, utc_s
 	# logger.info(f"REINDEXED CHECK: user={request.user_selected}, freq={freq_str}, total={len(data_list)}")
 	# for i, entry in enumerate(data_list[:5]):  # Solo primeros 5
 	# 	timestamp = entry.get('created_at', 'N/A')
-	# 	temp = entry.get('data_s1_temp', 'NULL')
+	# 	temp = entry.get('data_temp', 'NULL')
 	# 	id_val = entry.get('id', 'NULL')
 	# 	logger.info(f"  [{i}] {timestamp} -> temp={temp}, id={id_val}")
 
@@ -499,23 +441,15 @@ def get_rows(request, thermostate_data_fields_availables, days_difference, utc_s
 	return False, len(data), elapsed_time_ms, data_list
 
 
-def save_graphic_settings(request, realtime=False):
+def save_graphic_settings(request):
 
-	from apps.graphic_realtime_settings.models import GraphicRealtimeSettings
 	from apps.graphic_history_settings.forms import GraphicHistorySettingsForm
 	from apps.graphic_history_settings.models import GraphicHistorySettings
-	from apps.graphic_realtime_settings.forms import GraphicRealtimeSettingsForm
 
-	if realtime:
-		row = GraphicRealtimeSettings.objects.filter(user_id=request.user).first()
-		if not row:
-			return "no config row found"
-		form = GraphicRealtimeSettingsForm(instance = row)
-	else:
-		row = GraphicHistorySettings.objects.filter(user_id=request.user).first()
-		if not row:
-			return "no config row found"
-		form = GraphicHistorySettingsForm(instance = row)
+	row = GraphicHistorySettings.objects.filter(user_id=request.user).first()
+	if not row:
+		return "no config row found"
+	form = GraphicHistorySettingsForm(instance = row)
 
 	if request.method == 'POST':
 		try:

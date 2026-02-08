@@ -4,12 +4,7 @@
     <input type="hidden" name="save" value="1"/>
     {% csrf_token %}
 
-    {% if form_for == "historic" %}
-        <button id="saveButtonTop" class="btn btn-danger btn-3d" style="margin-top: 25px;margin-bottom: 10px;margin-bottom: 0px;">{% trans "GUARDAR opciones para Gráfico de <span style='font-weight:bold;color:yellow;'>datos historicos</span>" %}</button>
-    {% endif %}
-    {% if form_for == "realtime" %}
-        <button id="saveButtonTop" class="btn btn-danger btn-3d" style="margin-top: 25px;margin-bottom: 10px;margin-bottom: 0px;">{% trans "GUARDAR opciones para Gráfico de <span style='font-weight:bold;color:yellow;'>datos tiempo real</span>" %}</button>
-    {% endif %}
+    <button id="saveButtonTop" class="btn btn-danger btn-3d" style="margin-top: 25px;margin-bottom: 10px;margin-bottom: 0px;">{% trans "GUARDAR opciones para Gráfico de <span style='font-weight:bold;color:yellow;'>datos historicos</span>" %}</button>
 
     <input type="hidden" id="id_showMissingData" name="showMissingData" value="{{showMissingData}}">
     <input type="hidden" id="start_local_date_str" name="start_local_date_str" value="{{start_local_date_str}}">
@@ -104,240 +99,49 @@
 
             <tr>
                 <td class="align-middle">
-                    {{data_s1_temp_title}}
+                    {{data_temp_title}}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_temp_visible' value=form.data_s1_temp_visible.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_temp_visible' value=form.data_temp_visible.value include_savefield=1 %}
                 </td>
                 <td class="td-center">
-                    {{ form.data_s1_temp_type }}
+                    {{ form.data_temp_type }}
                 </td>
                 <td class="td-center">
-                    {{ form.data_s1_temp_color }}
+                    {{ form.data_temp_color }}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_temp_fill' value=form.data_s1_temp_fill.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_temp_fill' value=form.data_temp_fill.value include_savefield=1 %}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s1_temp_opacity' min=0 max=100 value=form.data_s1_temp_opacity.value include_savefield=1 %}
+                    {% include './pieces/range_slider.html' with name='data_temp_opacity' min=0 max=100 value=form.data_temp_opacity.value include_savefield=1 %}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_temp_points' value=form.data_s1_temp_points.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_temp_points' value=form.data_temp_points.value include_savefield=1 %}
                 </td>
             </tr>
 
             <tr>
                 <td class="align-middle">
-                    {{data_s1_hum_title}}
+                    {{data_hum_title}}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_hum_visible' value=form.data_s1_hum_visible.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_hum_visible' value=form.data_hum_visible.value include_savefield=1 %}
                 </td>
                 <td class="td-center">
-                    {{ form.data_s1_hum_type }}
+                    {{ form.data_hum_type }}
                 </td>
                 <td class="td-center">
-                    {{ form.data_s1_hum_color }}
+                    {{ form.data_hum_color }}
                 </td>
             <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_hum_fill' value=form.data_s1_hum_fill.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_hum_fill' value=form.data_hum_fill.value include_savefield=1 %}
                 </td>
                 <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s1_hum_opacity' min=0 max=100 value=form.data_s1_hum_opacity.value include_savefield=1 %}
+                    {% include './pieces/range_slider.html' with name='data_hum_opacity' min=0 max=100 value=form.data_hum_opacity.value include_savefield=1 %}
                 </td>
             <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s1_hum_points' value=form.data_s1_hum_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s2_temp_title}}
-                </td>
-            <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_visible' value=form.data_s2_temp_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_fill' value=form.data_s2_temp_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s2_temp_opacity' min=0 max=100 value=form.data_s2_temp_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_points' value=form.data_s2_temp_points.value include_savefield=1 %}
-                </td>
-            </tr>
-            <tr>
-                <td class="align-middle">
-                    {{data_s2_hum_title}}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_hum_visible' value=form.data_s2_hum_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_hum_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_hum_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_hum_fill' value=form.data_s2_hum_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s2_hum_opacity' min=0 max=100 value=form.data_s2_hum_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_hum_points' value=form.data_s2_hum_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s2_temp_title}}
-                </td>
-            <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_visible' value=form.data_s2_temp_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_fill' value=form.data_s2_temp_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s2_temp_opacity' min=0 max=100 value=form.data_s2_temp_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_points' value=form.data_s2_temp_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s2_temp_title}}
-                </td>
-            <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_visible' value=form.data_s2_temp_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s2_temp_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_fill' value=form.data_s2_temp_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s2_temp_opacity' min=0 max=100 value=form.data_s2_temp_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s2_temp_points' value=form.data_s2_temp_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s3_temp_title}}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_temp_visible' value=form.data_s3_temp_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s3_temp_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s3_temp_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_temp_fill' value=form.data_s3_temp_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s3_temp_opacity' min=0 max=100 value=form.data_s3_temp_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_temp_points' value=form.data_s3_temp_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s3_hum_title}}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_hum_visible' value=form.data_s3_hum_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s3_hum_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s3_hum_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_hum_fill' value=form.data_s3_hum_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s3_hum_opacity' min=0 max=100 value=form.data_s3_hum_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s3_hum_points' value=form.data_s3_hum_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s4_temp_title}}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_temp_visible' value=form.data_s4_temp_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s4_temp_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s4_temp_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_temp_fill' value=form.data_s4_temp_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s4_temp_opacity' min=0 max=100 value=form.data_s4_temp_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_temp_points' value=form.data_s4_temp_points.value include_savefield=1 %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="align-middle">
-                    {{data_s4_hum_title}}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_hum_visible' value=form.data_s4_hum_visible.value include_savefield=1 %}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s4_hum_type }}
-                </td>
-                <td class="td-center">
-                    {{ form.data_s4_hum_color }}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_hum_fill' value=form.data_s4_hum_fill.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/range_slider.html' with name='data_s4_hum_opacity' min=0 max=100 value=form.data_s4_hum_opacity.value include_savefield=1 %}
-                </td>
-                <td class="td-center align-bottom">
-                    {% include './pieces/checkbox_switch_blue.html' with name='data_s4_hum_points' value=form.data_s4_hum_points.value include_savefield=1 %}
+                    {% include './pieces/checkbox_switch_blue.html' with name='data_hum_points' value=form.data_hum_points.value include_savefield=1 %}
                 </td>
             </tr>
 
@@ -345,13 +149,6 @@
 
     </div>
 
-    {% if form_for == "historic" %}
-        <button id="saveButtonBottom" class="btn btn-danger btn-3d" style="margin-bottom: 20px;">{% trans "GUARDAR opciones para Gráfico de " %}<span style='font-weight:bold;color:yellow;'>datos historicos</span></button>
-    {% endif %}
-
-    {% if form_for == "realtime" %}
-        <button id="saveButtonBottom" class="btn btn-danger btn-3d" style="margin-bottom: 20px;">{% trans "GUARDAR opciones para Gráfico de " %}<span style='font-weight:bold;color:yellow;'>datos tiempo real</span></button>
-    {% endif %}
-
+    <button id="saveButtonBottom" class="btn btn-danger btn-3d" style="margin-bottom: 20px;">{% trans "GUARDAR opciones para Gráfico de " %}<span style='font-weight:bold;color:yellow;'>datos historicos</span></button>
 </form>
 </div>

@@ -32,14 +32,9 @@ def home_view(request):
 				input_data = InputData.objects.filter(user_id=request.user).first()
 	context = {
 		'title': format_html(_("Datos del termostato")),
-		'data_s1_temp_title':"Calle - Temperatura",
-		'data_s1_hum_title':"Calle - Humedad",
-		'data_s2_temp_title':"Dormitorio Matrimonio - Temperatura",
-		'data_s2_hum_title':"Dormitorio Matrimonio - Humedad",
-		'data_s3_temp_title':"Oficina - Temperatura",
-		'data_s3_hum_title':"Oficina - Humedad",
-		'data_s4_temp_title':"Wc Arriba - Temperatura",
-		'data_s4_hum_title':"Wc Arriba - Humedad",
+		'data_dev_num': "Número de dispositivo",
+		'data_temp_title':"Temperatura",
+		'data_hum_title':"Humedad",
 	}
 	return render(request, 'pages/home.html', context)
 

@@ -54,15 +54,6 @@
                 </li>
             {% endwith %}
 
-            {% with menu_url='/realtime_data_graph_info_view/' %}
-                <li class="nav-item"></li>
-                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='api/realtime_data_graph_view'>
-                        <i class="fas fa-chart-line"></i><i class="fas fa-clock"></i>
-                        <p class='p-menu-item'>{% trans "Gráficos - Tiempo Real" %}</p>
-                    </a>
-                </li>
-            {% endwith %}
-
             <div style='border-bottom:1px solid gray; border-top:1px solid gray; color:white;margin-top:25px;'>
                 <span class="nav-link" style="padding-top:2px;padding-bottom:2px;" id='{{ menu_url }}'>
                     <i class="fa fa-ellipsis-v"></i>

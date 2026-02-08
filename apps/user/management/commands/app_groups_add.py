@@ -91,20 +91,4 @@ class Command(BaseCommand):
 		]
 		self.process_permissions_group(content_type, permissions, "UserManager")
 
-
-		"""
-			PERMISOS UserManager/GraphicRealtimeSettings
-		"""
-		# Obtener el content type para GraphicHistorySettings
-		from apps.graphic_realtime_settings.models import GraphicRealtimeSettings
-		content_type = ContentType.objects.get_for_model(GraphicRealtimeSettings)
-		# Definir permisos: add, change y delete para InputDataHistory
-		permissions = [
-			'change_graphicrealtimesettings',
-			'delete_graphicrealtimesettings',
-			'view_graphicrealtimesettings',
-		]
-		self.process_permissions_group(content_type, permissions, "UserManager")
-
-
 		self.stdout.write(self.style.SUCCESS('UserManager group setup complete'))

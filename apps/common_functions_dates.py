@@ -6,6 +6,8 @@ from django.utils.translation import gettext as _
 from dateutil import parser
 import os
 
+from apps.common_functions import get_system_timezone
+
 import logging
 logger = logging.getLogger('django')
 
@@ -21,7 +23,7 @@ def convert_local_datetime_str_to_utc(request, date_str):
 	naive_datetime = parse_str_to_naive_datetime(date_str)
 
 	# cojo user timezone
-	user_timezone = request.user_timezone
+	user_timezone = get_system_timezone()
 
 	# La vinculo a hora local
 	local_datetime = user_timezone.localize(naive_datetime)
@@ -43,7 +45,7 @@ def get_iso_datetime_days_ago(request, days_ago):
 	now_utc = timezone.now()
 
 	# cojo user timezone
-	user_timezone = request.user_timezone
+	user_timezone = get_system_timezone()
 
 	# Convertir la fecha y hora actual a la zona horaria local
 	now_local = now_utc.astimezone(user_timezone)
@@ -81,7 +83,7 @@ def get_iso_datetime_last_week(request):
 	now_utc = timezone.now()
 
 	# cojo user timezone
-	user_timezone = request.user_timezone
+	user_timezone = get_system_timezone()
 
 	# Convertir la fecha y hora actual a la zona horaria local
 	now_local = now_utc.astimezone(user_timezone)
@@ -97,21 +99,17 @@ def get_iso_datetime_last_week(request):
 
 def get_iso_datetime_end_of_today(request):
 
-	"""
-	Devuelve la fecha y hora actual en formato ISO 8601 (YYYY-MM-DDTHH:MM) en la zona horaria especificada.
-	"""
 	from django.utils import timezone
 
-	# cojo user timezone
-	user_timezone = request.user_timezone
+	user_timezone = get_system_timezone()
 
-	# Obtener la fecha y hora actual en UTC (tiempo universal coordinado)
+	# Obtener la fecha y hora actual en UTC
 	now_utc = timezone.now()
 
 	# Convertir la fecha y hora a la zona horaria especificada
 	today = now_utc.astimezone(user_timezone)
 
-	# Formatear la fecha y hora en ISO 8601
+	# Formatear la fecha y hora en ISO 8601 (fin del día)
 	return today.strftime('%Y-%m-%dT23:59')
 
 

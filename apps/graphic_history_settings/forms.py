@@ -36,14 +36,9 @@ class GraphicHistorySettingsForm(forms.ModelForm):
 			})
 
 			color_fields = [
-				"data_s1_temp_color",
-				"data_s1_hum_color",
-				"data_s2_temp_color",
-				"data_s2_hum_color",
-				"data_s3_temp_color",
-				"data_s3_hum_color",
-				"data_s4_temp_color",
-				"data_s4_hum_color",
+				"data_dev_num",
+				"data_temp_color",
+				"data_hum_color",
 			]
 			if field_name in color_fields:
 				field.widget.input_type = 'color'

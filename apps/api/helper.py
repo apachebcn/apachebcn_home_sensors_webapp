@@ -10,7 +10,7 @@ import json
 from django.utils.translation import gettext as _
 
 from django.utils import timezone
-from apps.common_functions import is_bool, is_int, is_float
+from apps.common_functions import is_bool, is_int, is_float, get_user_admin
 from django.utils.timezone import localtime
 from datetime import timedelta
 
@@ -28,24 +28,7 @@ import logging
 logger = logging.getLogger('django')
 
 
-@apikey_required(app_name="graph_realtime")
-def api_realtime_data_graph(request):
-
-	"""
-	Es llamado por javascript desde la vista graph_realtime.html
-	"""
-	apikey = request.apikey
-	message_error = ""
-	if request.POST.get("save", False):
-		result = save_graphic_settings(request, realtime = True)
-		if result is True:
-			message_error = ""
-		else:
-			message_error = result
-	return data_graph_view(request = request, realtime = True, message_error = message_error, apikey = apikey)
-
-
-@apikey_required(app_name="graph_realtime")
+@apikey_required()
 def api_get_json_data_graph(request):
 
 	"""
@@ -54,17 +37,7 @@ def api_get_json_data_graph(request):
 	return get_json_data_graph(request)
 
 
-def get_user_admin():
-	from django.contrib.auth import get_user_model
-	User = get_user_model()
-	try:
-		user_apikey = User.objects.get(username="admin")
-		return user_apikey
-	except User.DoesNotExist:
-		return None
-
-
-@apikey_required(app_name="thermostat_inputs")
+@apikey_required()
 def insert_input_data(request):
 
 	"""
@@ -145,35 +118,14 @@ def insert_input_data(request):
 	if not user_apikey or user_apikey is None:
 		raise PermissionDenied("admin user not found")
 
-	logger.info(f"RECIBIENDO DATOS del termostato de IP: {user_ip}")
-
-	times_repeated_answer = 0
-	input_data_row = InputData.objects.filter(user_id=user_apikey).first()
-	if input_data_row:
-		now = timezone.now()
-		time_difference = now - input_data_row.updated_at
-		time_difference_seconds = int(time_difference.total_seconds())
-		times_repeated_answer = input_data_row.times_repeated_answer
-		if time_difference_seconds > LIMIT_API_INPUT_SECONDS:
-			InputData.objects.filter(user_id=user_apikey).update(times_repeated_answer=0)
-			times_repeated_answer = 0
-			input_data_row.times_repeated_answer = times_repeated_answer
-		else:
-			if MODE != "DEV":
-				times_repeated_answer += 1
-				InputData.objects.filter(user_id=user_apikey).update(times_repeated_answer=times_repeated_answer)
-				input_data_row.times_repeated_answer = times_repeated_answer
-				if time_difference_seconds < LIMIT_API_INPUT_SECONDS and times_repeated_answer > 3:
-					message = 'No se pueden registar más datos en menos de 60 segundos' + " [Han pasado " + str(time_difference_seconds) + "]"
-					result = "error"
-					return responseToThermostate(request, result = result, message = message)
+	num = request.GET.get('num', None)
+	logger.info(f"RECIBIENDO DATOS del sensor num {num} del termostato con IP {user_ip}")
 
 	data_from_thermostate_local_ip = request.GET.get('ip', None)
 	data_from_thermostate_public_ip = request.META.get('REMOTE_ADDR', 'unknown')
 
 	field_values = {}
 
-	num = request.GET.get('num', None)
 	try:
 		num = int(num)
 	except Exception as e:
@@ -191,91 +143,56 @@ def insert_input_data(request):
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	field_values["data_s" + str(num) + "_temp"] = request.GET.get('t', None)
-	field_values["data_s" + str(num) + "_hum"] = request.GET.get('h', None)
+	field_values["data_dev_num"] = num
+	field_values["data_temp"] = request.GET.get('t', None)
+	field_values["data_hum"] = request.GET.get('h', None)
 
-	updated_at = timezone.now()
+	created_at = timezone.now()
+
+	input_data_row = InputData.objects.filter(user_id=user_apikey).first()
 
 	if not input_data_row:
-		input_data_row = InputData.objects.create(user_id=user_apikey)
+		input_data_row = InputData.objects.create(
+			user_id=user_apikey,
+			data_dev_num = num,
+			data_temp = field_values["data_temp"],
+			data_hum = field_values["data_hum"],
+			data_from_thermostate_local_ip = data_from_thermostate_local_ip,
+			data_from_thermostate_public_ip = data_from_thermostate_public_ip,
+		)
+	else:
+		input_data_row.data_dev_num = num
+		input_data_row.data_temp = field_values["data_temp"]
+		input_data_row.data_hum = field_values["data_hum"]
+		input_data_row.data_from_thermostate_local_ip = data_from_thermostate_local_ip
+		input_data_row.data_from_thermostate_public_ip = data_from_thermostate_public_ip
+		input_data_row.save()
 
-	# Validación de longitud de campos antes de guardar
-	# field_values: dict con {nombre_de_campo: valor}
-	for field_name, field_value in field_values.items():
-		try:
-			db_field = input_data_row._meta.get_field(field_name)
-		except Exception as e:
-			message = f"Campo '{field_name}' no existe en el modelo: {e}"
-			result = "error"
-			return responseToThermostate(request, result = result, message = message)
-
-		if field_name.endswith("_forced") and not testRelayForced(field_values[field_name]):
-			message = f"'{field_name}' valor inválido ('{field_values[field_name]}')"
-			result = "error"
-			return responseToThermostate(request, result = result, message = message)
-
-		max_length = getattr(db_field, "max_length", None)
-
-		# Solo validamos si hay límite y tenemos un valor
-		if max_length is not None and field_value is not None:
-			# Evitamos que None se convierta en "None"
-			value_str = field_value if isinstance(field_value, str) else str(field_value)
-
-			if len(value_str) > max_length:
-				message = f"Campo '{field_name}' excede max_length={max_length}: "
-				f"valor='{value_str}' (len={len(value_str)})"
-				result = "error"
-				return responseToThermostate(request, result = result, message = message)
-
-		# Asignación segura tras validar
-		setattr(input_data_row, field_name, field_value)
-
-
-	input_data_row.times_repeated_answer = times_repeated_answer
-	input_data_row.data_from_thermostate_local_ip = data_from_thermostate_local_ip
-	input_data_row.data_from_thermostate_public_ip = data_from_thermostate_public_ip
-	input_data_row.updated_at = updated_at
-
-	input_data_row.save()
-	set_max_value(input_data_row, 'data_s1_temp')
-	set_min_value(input_data_row, 'data_s1_temp')
-
-	set_min_value(input_data_row, 'data_temp_depup')
-	set_max_value(input_data_row, 'data_temp_depup')
-
-	set_min_value(input_data_row, 'data_temp_depdown')
-	set_max_value(input_data_row, 'data_temp_depdown')
-
-	set_min_value(input_data_row, 'data_temp_air')
-	set_max_value(input_data_row, 'data_temp_air')
+	set_max_value(input_data_row, 'data_temp')
+	set_min_value(input_data_row, 'data_hum')
 
 	input_data_row.save()
 
 	history_data = {
 		"user_id": user_apikey,
-		"created_at": updated_at,
-		"data_s1_temp": parse_float(input_data_row.data_s1_temp),
-		"data_s1_hum": parse_float(input_data_row.data_s1_hum),
-		"data_s2_temp": parse_float(input_data_row.data_s2_temp),
-		"data_s2_hum": parse_float(input_data_row.data_s2_hum),
-		"data_s3_temp": parse_float(input_data_row.data_s3_temp),
-		"data_s3_hum": parse_float(input_data_row.data_s3_hum),
-		"data_s4_temp": parse_float(input_data_row.data_s4_temp),
-		"data_s4_hum": parse_float(input_data_row.data_s4_hum),
+		"created_at": created_at,
+		"data_dev_num": parse_int(input_data_row.data_dev_num),
+		"data_temp": parse_float(input_data_row.data_temp),
+		"data_hum": parse_float(input_data_row.data_hum),
 	}
 
 	# Remover segundos y microsegundos
 	def strip_seconds(dt):
 		return localtime(dt).replace(second=0, microsecond=0)
 
-	# Obtener la versión truncada de updated_at
-	updated_at_trimmed = strip_seconds(updated_at)
+	# Obtener la versión truncada de created_at
+	created_at_trimmed = strip_seconds(created_at)
 
 	# Intentar encontrar un registro con el mismo user_id y created_at (sin segundos)
 	obj, created = InputDataHistory.objects.update_or_create(
 		user_id=user_apikey,
-		created_at__gte=updated_at_trimmed,  # Buscar registros en el mismo minuto
-		created_at__lt=updated_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
+		created_at__gte=created_at_trimmed,  # Buscar registros en el mismo minuto
+		created_at__lt=created_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
 		defaults=history_data  # Datos a actualizar si ya existe
 	)
 

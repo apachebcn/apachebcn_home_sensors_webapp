@@ -32,28 +32,13 @@ function updateChart(graph_title) {
         else {
             serie.connectNulls = true
         }
-        if (serie.object_name === 'data_s1_temp') {
+        if (serie.object_name == 'data_dev_num') {
             formatSerie(serie, "id_" + serie.object_name, 0);
         }
-        if (serie.object_name === 'data_s1_hum') {
+        if (serie.object_name === 'data_temp') {
             formatSerie(serie, "id_" + serie.object_name, 0);
         }
-        if (serie.object_name === 'data_s2_temp') {
-            formatSerie(serie, "id_" + serie.object_name, 0);
-        }
-        if (serie.object_name === 'data_s2_hum') {
-            formatSerie(serie, "id_" + serie.object_name, 0);
-        }
-        if (serie.object_name === 'data_s3_temp') {
-            formatSerie(serie, "id_" + serie.object_name, 0);
-        }
-        if (serie.object_name === 'data_s3_hum') {
-            formatSerie(serie, "id_" + serie.object_name, 0);
-        }
-        if (serie.object_name === 'data_s3_temp') {
-            formatSerie(serie, "id_" + serie.object_name, 0);
-        }
-        if (serie.object_name === 'data_s3_hum') {
+        if (serie.object_name === 'data_hum') {
             formatSerie(serie, "id_" + serie.object_name, 0);
         }
         });

@@ -95,11 +95,11 @@ class InputDataHistoryAdmin(CustomAdmin):
 			return f"{temp1} ({temp1}-{temp2})"
 		return format_html(f"{t1:.2f}<br>({diff:.2f})")
 
-	def get_data_s1_temp(self, obj):
-		"""Muestra data_s1_temp junto con la diferencia respecto a data_temp_depdown."""
-		return self.format_col_temp_with_diff(obj.data_s1_temp, obj.data_temp_depdown)
-	get_data_s1_temp.short_description = 'data_s1_temp'
-	get_data_s1_temp.admin_order_field = 'data_s1_temp'
+	def get_data_temp(self, obj):
+		"""Muestra data_temp junto con la diferencia respecto a data_temp_depdown."""
+		return self.format_col_temp_with_diff(obj.data_temp, obj.data_temp_depdown)
+	get_data_temp.short_description = 'data_temp'
+	get_data_temp.admin_order_field = 'data_temp'
 
 	# Campos que se muestran
 	def get_list_display(self, request):
@@ -111,10 +111,8 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 		_list_display.extend([
 			'created_at',
-			'data_s1_temp', 'data_s1_hum',
-			'data_s2_temp', 'data_s2_hum',
-			'data_s3_temp', 'data_s3_hum',
-			'data_s4_temp', 'data_s4_hum',
+			'data_dev_num',
+			'data_temp', 'data_hum',
 		])
 		return tuple(_list_display)
 
@@ -140,28 +138,11 @@ class InputDataHistoryAdmin(CustomAdmin):
 	# def has_delete_permission(self, request, obj=None):
 	# 	return admin_has_permission(request, InputDataHistory, "delete_inputdatahistory", obj)
 
+	def get_data_dev_num_description(self):
+		return "Número de dispositivo"
 
-
-	def get_data_s1_temp_description(self):
+	def get_data_temp_description(self):
 		return "Calle temp"
 
-	def get_data_s1_hum_description(self):
+	def get_data_hum_description(self):
 		return "Calle humidity"
-
-	def get_data_s2_temp_description(self):
-		return "Dormitorio matrimonio temp"
-
-	def get_data_s2_hum_description(self):
-		return "Dormitorio matrimonio humidity"
-
-	def get_data_s3_temp_description(self):
-		return "Oficina temp"
-
-	def get_data_s3_hum_description(self):
-		return "Oficina humidity"
-
-	def get_data_s4_temp_description(self):
-		return "Wc Arriba temp"
-
-	def get_data_s4_hum_description(self):
-		return "Wc Arriba humidity"

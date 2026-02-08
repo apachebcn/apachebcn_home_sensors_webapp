@@ -26,7 +26,7 @@ def superuser_required(view_func):
 	return _wrapped_view
 
 
-def apikey_required(app_name):
+def apikey_required():
 	"""
 	Decorador que permite el acceso solo a superusuarios.
 	Si el usuario no es un superusuario, devuelve un error 403.

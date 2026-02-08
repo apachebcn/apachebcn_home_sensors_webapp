@@ -29,14 +29,9 @@ class InputDataHistory(models.Model):
 
 	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
 	created_at = models.DateTimeField(blank = True, null = True)
-	data_s1_temp = models.FloatField(blank = True, null = True)
-	data_s1_hum = models.FloatField(blank = True, null = True)
-	data_s2_temp = models.FloatField(blank = True, null = True)
-	data_s2_hum = models.FloatField(blank = True, null = True)
-	data_s3_temp = models.FloatField(blank = True, null = True)
-	data_s3_hum = models.FloatField(blank = True, null = True)
-	data_s4_temp = models.FloatField(blank = True, null = True)
-	data_s4_hum = models.FloatField(blank = True, null = True)
+	data_dev_num = models.IntegerField(blank = True, null = True)
+	data_temp = models.FloatField(blank = True, null = True)
+	data_hum = models.FloatField(blank = True, null = True)
 
 	def save(self, *args, **kwargs):
 		if not self.created_at:

@@ -145,7 +145,6 @@ MY_APPS = [
 	'apps.home',
 	'apps.input_data',
 	'apps.graphic_history_settings',
-	'apps.graphic_realtime_settings',
 	'apps.input_data_history',
 	'apps.custom_user_admin',
 ]

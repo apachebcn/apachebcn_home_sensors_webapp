@@ -251,3 +251,20 @@ def get_realuser_is_superuser(request):
 		if is_superuser:
 			return True
 	return False
+
+
+def get_system_timezone():
+
+	from zoneinfo import ZoneInfo
+	from project.settings import TIME_ZONE
+	return ZoneInfo(TIME_ZONE)
+
+
+def get_user_admin():
+	from django.contrib.auth import get_user_model
+	User = get_user_model()
+	try:
+		user_apikey = User.objects.get(username="admin")
+		return user_apikey
+	except User.DoesNotExist:
+		return None
