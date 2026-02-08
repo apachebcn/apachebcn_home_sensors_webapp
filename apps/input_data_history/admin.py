@@ -111,19 +111,10 @@ class InputDataHistoryAdmin(CustomAdmin):
 
 		_list_display.extend([
 			'created_at',
-
-			'data_s1_temp',
-			'data_s1_hum',
-
-			'data_s2_temp',
-			'data_s2_hum',
-
-			'data_s3_temp',
-			'data_s3_hum',
-
-			'data_s4_temp',
-			'data_s4_hum',
-
+			'data_s1_temp', 'data_s1_hum',
+			'data_s2_temp', 'data_s2_hum',
+			'data_s3_temp', 'data_s3_hum',
+			'data_s4_temp', 'data_s4_hum',
 		])
 		return tuple(_list_display)
 
