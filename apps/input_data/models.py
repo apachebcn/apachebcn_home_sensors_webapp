@@ -36,11 +36,11 @@ class InputData(models.Model):
 
 	data_dev_num = models.IntegerField(null=False, blank=False, unique=True)
 	data_temp = models.FloatField(null = False, blank=False)
-	data_temp_min = models.FloatField(default = 0, null = True, blank=True)
-	data_temp_max = models.FloatField(default = 0, null = True, blank=True)
+	data_temp_min = models.FloatField(default = None, null = True, blank=True)
+	data_temp_max = models.FloatField(default = None, null = True, blank=True)
 	data_hum = models.FloatField(null = False, blank=False)
-	data_hum_min = models.FloatField(default = 0, null = True, blank=True)
-	data_hum_max = models.FloatField(default = 0, null = True, blank=True)
+	data_hum_min = models.FloatField(default = None, null = True, blank=True)
+	data_hum_max = models.FloatField(default = None, null = True, blank=True)
 
 	data_from_thermostate_local_ip = models.CharField(max_length = 30, default = None, null = True, blank=True)
 	data_from_thermostate_public_ip = models.CharField(max_length = 30, default = None, null = True, blank=True)
