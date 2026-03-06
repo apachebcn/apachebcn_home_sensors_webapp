@@ -32,7 +32,7 @@ def api_get_json_sensors_temp_graph(request):
 	"""
 	Es llamado por javascript desde la vista graph_history.html
 	"""
-	return get_json_sensors_graph(request, data_variable="data_temp")
+	return get_json_sensors_graph(request, data_variable="room_data_temp")
 
 
 @apikey_required()
@@ -41,7 +41,7 @@ def api_get_json_sensors_hum_graph(request):
 	"""
 	Es llamado por javascript desde la vista graph_history.html
 	"""
-	return get_json_sensors_graph(request, data_variable="data_hum")
+	return get_json_sensors_graph(request, data_variable="room_data_hum")
 
 
 @apikey_required()
@@ -145,36 +145,40 @@ def insert_input_data(request):
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	field_values["data_dev_num"] = room
-	field_values["data_temp"] = request.GET.get('temp', None)
-	field_values["data_hum"] = request.GET.get('hum', None)
+	field_values["room_id"] = room
+	field_values["room_data_temp"] = request.GET.get('temp', None)
+	field_values["room_data_hum"] = request.GET.get('hum', None)
 
-	input_data_row = InputData.objects.filter(data_dev_num=room).first()
+	input_data_row = InputData.objects.filter(room_id=room).first()
+
+	room_mark_to_update = False
+	if (input_data_row):
+		room_mark_to_update = input_data_row.room_mark_to_update
 
 	if not input_data_row:
 		input_data_row = InputData.objects.create(
-			data_dev_num = room,
-			data_temp = field_values["data_temp"],
-			data_hum = field_values["data_hum"]
+			room_id = room,
+			room_data_temp = field_values["room_data_temp"],
+			room_data_hum = field_values["room_data_hum"]
 		)
 	else:
-		input_data_row.data_dev_num = room
-		input_data_row.data_temp = field_values["data_temp"]
-		input_data_row.data_hum = field_values["data_hum"]
+		input_data_row.room_id = room
+		input_data_row.room_data_temp = field_values["room_data_temp"]
+		input_data_row.room_data_hum = field_values["room_data_hum"]
 		input_data_row.save()
 
-	set_min_value(input_data_row, 'data_temp')
-	set_max_value(input_data_row, 'data_temp')
+	set_min_value(input_data_row, 'room_data_temp')
+	set_max_value(input_data_row, 'room_data_temp')
 
-	set_min_value(input_data_row, 'data_hum')
-	set_max_value(input_data_row, 'data_hum')
+	set_min_value(input_data_row, 'room_data_hum')
+	set_max_value(input_data_row, 'room_data_hum')
 
 	input_data_row.save()
 
 	history_data = {
-		"data_dev_num": parse_int(input_data_row.data_dev_num),
-		"data_temp": parse_float(input_data_row.data_temp),
-		"data_hum": parse_float(input_data_row.data_hum),
+		"room_id": parse_int(input_data_row.room_id),
+		"room_data_temp": parse_float(input_data_row.room_data_temp),
+		"room_data_hum": parse_float(input_data_row.room_data_hum),
 	}
 
 	# Remover segundos y microsegundos
@@ -186,13 +190,16 @@ def insert_input_data(request):
 	# Obtener la versión truncada de created_at
 	created_at_trimmed = strip_seconds(created_at)
 
-	# Intentar encontrar un registro con el mismo data_dev_num y created_at (sin segundos)
+	# Intentar encontrar un registro con el mismo room_id y created_at (sin segundos)
 	obj, created = InputDataHistory.objects.update_or_create(
-		data_dev_num=input_data_row.data_dev_num,
+		room_id=input_data_row.room_id,
 		created_at__gte=created_at_trimmed,  # Buscar registros en el mismo minuto
 		created_at__lt=created_at_trimmed + timedelta(minutes=1),  # Evita valores de otros minutos
 		defaults=history_data  # Datos a actualizar si ya existe
 	)
 
-	result = "WEBAPP_OK"
+	result = "ok"
+	if room_mark_to_update:
+		result = "update"
+
 	return responseToThermostate(request, result = result)

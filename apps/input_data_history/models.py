@@ -17,19 +17,19 @@ class InputDataHistory(models.Model):
 		verbose_name = "Historial de Datos de Entrada de Termostato"
 		verbose_name_plural = "Historiales de Datos de Entradas de Termostatos"
 		constraints = [
-			models.UniqueConstraint(fields=['data_dev_num', 'created_at'], name='unique_user_created_at')
+			models.UniqueConstraint(fields=['room_id', 'created_at'], name='unique_user_created_at')
 		]
 
 	def __str__(self):
-		return "Dato historico ID [{id}] del sensor [{data_dev_num_str}]".format(
+		return "Dato historico ID [{id}] del sensor [{room_id_str}]".format(
 			id=self.pk,
-			data_dev_num_str=get_dev_num_str(self.data_dev_num)
+			room_id_str=get_dev_num_str(self.room_id)
 		)
 
 	created_at = models.DateTimeField(blank = True, null = True)
-	data_dev_num = models.IntegerField(blank = True, null = True)
-	data_temp = models.FloatField(blank = True, null = True)
-	data_hum = models.FloatField(blank = True, null = True)
+	room_id = models.IntegerField(blank = True, null = True)
+	room_data_temp = models.FloatField(blank = True, null = True)
+	room_data_hum = models.FloatField(blank = True, null = True)
 
 	def save(self, *args, **kwargs):
 		if not self.created_at:

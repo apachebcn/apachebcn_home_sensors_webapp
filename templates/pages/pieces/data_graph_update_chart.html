@@ -28,13 +28,13 @@ function updateChart(graph_title) {
         else {
             serie.connectNulls = true
         }
-        if (serie.object_name == 'data_dev_num') {
+        if (serie.object_name == 'room_id') {
             formatSerie(serie, "id_" + serie.object_name);
         }
-        if (serie.object_name === 'data_temp') {
+        if (serie.object_name === 'room_data_temp') {
             formatSerie(serie, "id_" + serie.object_name);
         }
-        if (serie.object_name === 'data_hum') {
+        if (serie.object_name === 'room_data_hum') {
             formatSerie(serie, "id_" + serie.object_name);
         }
         });

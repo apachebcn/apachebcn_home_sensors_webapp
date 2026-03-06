@@ -12,7 +12,7 @@ logger = logging.getLogger('django')
 
 class FilterDataDevNum(admin.SimpleListFilter):
 
-	parameter_name = 'data_dev_num'
+	parameter_name = 'room_id'
 
 	def title(self):
 		return "Dev num"
@@ -29,16 +29,16 @@ class FilterDataDevNum(admin.SimpleListFilter):
 
 	def queryset(self, request, queryset):
 		if self.value() == '0':
-			return queryset.filter(data_dev_num=0)
+			return queryset.filter(room_id=0)
 		if self.value() == '1':
-			return queryset.filter(data_dev_num=1)
+			return queryset.filter(room_id=1)
 		if self.value() == '2':
-			return queryset.filter(data_dev_num=2)
+			return queryset.filter(room_id=2)
 		if self.value() == '3':
-			return queryset.filter(data_dev_num=3)
+			return queryset.filter(room_id=3)
 		if self.value() == '4':
-			return queryset.filter(data_dev_num=4)
+			return queryset.filter(room_id=4)
 		if self.value() == '5':
-			return queryset.filter(data_dev_num=5)
+			return queryset.filter(room_id=5)
 		return queryset
 

@@ -21,12 +21,12 @@ logger = logging.getLogger('django')
 
 @login_required(login_url='/form_login/')
 def history_sensors_graph_temp_view(request):
-	return data_graph_view(request, message_error="", data_variable="data_temp")
+	return data_graph_view(request, message_error="", data_variable="room_data_temp")
 
 
 @login_required(login_url='/form_login/')
 def history_sensors_graph_hum_view(request):
-	return data_graph_view(request, message_error="", data_variable="data_hum")
+	return data_graph_view(request, message_error="", data_variable="room_data_hum")
 
 
 """
@@ -34,7 +34,7 @@ Es llamado por javascript desde la vista graph_history.html
 """
 @login_required(login_url='/form_login/')
 def get_json_sensors_graph_temp_view(request):
-	return get_json_sensors_graph(request, data_variable="data_temp")
+	return get_json_sensors_graph(request, data_variable="room_data_temp")
 
 
 """
@@ -42,10 +42,10 @@ Es llamado por javascript desde la vista graph_history.html
 """
 @login_required(login_url='/form_login/')
 def get_json_sensors_graph_hum_view(request):
-	return get_json_sensors_graph(request, data_variable="data_hum")
+	return get_json_sensors_graph(request, data_variable="room_data_hum")
 
 
-def data_graph_view(request, message_error = "", apikey = False, data_variable = "data_temp"):
+def data_graph_view(request, message_error = "", apikey = False, data_variable = "room_data_temp"):
 
 	start_local_date_str = get_GET_or_POST_start_datetime_str(request, False)
 	end_local_date_str = get_GET_or_POST_end_datetime_str(request, False)
@@ -69,7 +69,7 @@ def data_graph_view(request, message_error = "", apikey = False, data_variable =
 			start_local_date_str = str(week_start)
 			end_local_date_str = str(get_GET_or_POST_end_datetime_str(request, today_end))
 
-	if data_variable == "data_temp":
+	if data_variable == "room_data_temp":
 		graph_title = format_html(_("Histórico Gráfico Temperatura"))
 		page_title = format_html(_("Histórico Gráfico Temperatura"))
 	else:
@@ -86,7 +86,7 @@ def data_graph_view(request, message_error = "", apikey = False, data_variable =
 		'form_showDateControls': form_showDateControls,
 		'graph_tooltip_format_table': 0,
 		'data_variable': data_variable,
-		'form_action': "/get_json_sensors_graph_temp_view/" if data_variable == "data_temp" else "/get_json_sensors_graph_hum_view/",
+		'form_action': "/get_json_sensors_graph_temp_view/" if data_variable == "room_data_temp" else "/get_json_sensors_graph_hum_view/",
 	}
 
 	return render(request, 'pages/graph_history.html', context)

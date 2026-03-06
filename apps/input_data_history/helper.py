@@ -149,7 +149,7 @@ def get_history_sensors_graph_data(request, data_variable, start_local_date_str,
 	# Preparar los resultados
 	ids = []
 	dates = []
-	data_dev_num = []
+	room_id = []
 	values = []
 
 	for entry in data:
@@ -160,8 +160,8 @@ def get_history_sensors_graph_data(request, data_variable, start_local_date_str,
 		local_start = entry[index_time]
 		ids.append(convert_str_to_js_value(entry.get('id', None)))
 		dates.append(local_start.strftime('%Y-%m-%d %H:%M:%S'))
-		# Forzar siempre texto para data_dev_num
-		val = entry.get('data_dev_num', None)
+		# Forzar siempre texto para room_id
+		val = entry.get('room_id', None)
 		if val is not None:
 			# Si es float terminado en .0 o int, convertir a int primero
 			try:
@@ -173,16 +173,16 @@ def get_history_sensors_graph_data(request, data_variable, start_local_date_str,
 				pass
 			val = str(val)
 		if val is not None:
-			data_dev_num.append(val)
+			room_id.append(val)
 		else:
-			data_dev_num.append("")
+			room_id.append("")
 		# Solo un valor, depende de data_variable
 		values.append(convert_str_to_js_value(entry.get(data_variable, None)))
 
 	plot_data = {}
 	plot_data['id'] = ids
 	plot_data['dates'] = dates
-	plot_data['data_dev_num'] = data_dev_num
+	plot_data['room_id'] = room_id
 	plot_data['value'] = values
 
 	return plot_data
@@ -228,19 +228,19 @@ def get_json_sensors_graph(request, data_variable):
 		return JsonResponse({'status': 'error', 'error': msg})
 
 
-	# Agrupar por data_dev_num, usando plot_data['value'] como y
+	# Agrupar por room_id, usando plot_data['value'] como y
 	from collections import defaultdict
 	series_dict = defaultdict(list)
 	for i in range(len(plot_data['dates'])):
 		date_str = plot_data['dates'][i]
 		datetime_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
 		timestamp = datetime_obj.timestamp() * 1000  # Highcharts espera ms
-		data_dev_num = plot_data['data_dev_num'][i] if 'data_dev_num' in plot_data else None
+		room_id = plot_data['room_id'][i] if 'room_id' in plot_data else None
 		# Etiqueta legible usando función centralizada
 		try:
-			dev_label = get_dev_num_str(int(float(data_dev_num)))
+			dev_label = get_dev_num_str(int(float(room_id)))
 		except Exception:
-			dev_label = str(data_dev_num)
+			dev_label = str(room_id)
 		y_value = plot_data['value'][i] if 'value' in plot_data else None
 		if y_value is not None:
 			series_dict[dev_label].append([timestamp, y_value])
@@ -296,7 +296,7 @@ def get_sensors_rows(request, data_variable, days_difference, utc_start_date, ut
 	fields = [
 		'id',
 		'created_at',
-		'data_dev_num',
+		'room_id',
 	]
 	fields.append(data_variable)
 	data = data.values(*fields)
@@ -330,12 +330,12 @@ def get_sensors_rows(request, data_variable, days_difference, utc_start_date, ut
 	# REINDEXADO CON FRECUENCIA DINÁMICA PARA RELLENAR HUECOS
 	# Primero hacer resample de los datos originales
 	freq_str = f'{resample_time_value}{resample_time_name}'
-	# Solo promediar la columna de datos, no data_dev_num
+	# Solo promediar la columna de datos, no room_id
 	agg_dict = {data_variable: 'mean'}
 	if 'id' in df.columns:
 		agg_dict['id'] = 'first'
-	if 'data_dev_num' in df.columns:
-		agg_dict['data_dev_num'] = 'first'
+	if 'room_id' in df.columns:
+		agg_dict['room_id'] = 'first'
 	df_resampled = df.resample(freq_str).agg(agg_dict)
 
 	# siempre con los huecos
@@ -366,7 +366,7 @@ def get_sensors_rows(request, data_variable, days_difference, utc_start_date, ut
 	# logger.info(f"REINDEXED CHECK: user={request.user}, freq={freq_str}, total={len(data_list)}")
 	# for i, entry in enumerate(data_list[:5]):  # Solo primeros 5
 	# 	timestamp = entry.get('created_at', 'N/A')
-	# 	temp = entry.get('data_temp', 'NULL')
+	# 	temp = entry.get('room_data_temp', 'NULL')
 	# 	id_val = entry.get('id', 'NULL')
 	# 	logger.info(f"  [{i}] {timestamp} -> temp={temp}, id={id_val}")
 

@@ -18,15 +18,15 @@ class InputDataHistoryAdmin(CustomAdmin):
 	class Media:
 		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
 
-	readonly_fields = ('created_at', 'get_data_dev_num', )
+	readonly_fields = ('created_at', 'get_room_id', )
 
 	# Campos que se editan
 	def get_fields(self, request, obj=None):
 		return (
 			'created_at',
-			'get_data_dev_num',
-			'data_temp',
-			'data_hum',
+			'get_room_id',
+			'room_data_temp',
+			'room_data_hum',
 		)
 
 	# filtros
@@ -51,10 +51,10 @@ class InputDataHistoryAdmin(CustomAdmin):
 		return format_html(f"{t1:.2f}<br>({diff:.2f})")
 
 	def get_data_temp(self, obj):
-		"""Muestra data_temp junto con la diferencia respecto a data_temp_depdown."""
-		return self.format_col_temp_with_diff(obj.data_temp, obj.data_temp_depdown)
-	get_data_temp.short_description = 'data_temp'
-	get_data_temp.admin_order_field = 'data_temp'
+		"""Muestra room_data_temp junto con la diferencia respecto a data_temp_depdown."""
+		return self.format_col_temp_with_diff(obj.room_data_temp, obj.data_temp_depdown)
+	get_data_temp.short_description = 'room_data_temp'
+	get_data_temp.admin_order_field = 'room_data_temp'
 
 	# Campos que se muestran
 	def get_list_display(self, request):
@@ -63,8 +63,8 @@ class InputDataHistoryAdmin(CustomAdmin):
 		_list_display.extend([
 			'pk',
 			'created_at',
-			'get_data_dev_num',
-			'data_temp', 'data_hum',
+			'get_room_id',
+			'room_data_temp', 'room_data_hum',
 		])
 		return tuple(_list_display)
 
@@ -84,13 +84,13 @@ class InputDataHistoryAdmin(CustomAdmin):
 	# def has_delete_permission(self, request, obj=None):
 	# 	return admin_has_permission(request, InputDataHistory, "delete_inputdatahistory", obj)
 
-	def get_data_dev_num(self, obj):
-		"""Muestra data_dev_num formateado."""
-		return get_dev_num_str(obj.data_dev_num)
-	get_data_dev_num.short_description = 'data_dev_num'
-	get_data_dev_num.admin_order_field = 'data_dev_num'
+	def get_room_id(self, obj):
+		"""Muestra room_id formateado."""
+		return get_dev_num_str(obj.room_id)
+	get_room_id.short_description = 'room_id'
+	get_room_id.admin_order_field = 'room_id'
 
-	def get_data_dev_num_description(self):
+	def get_room_id_description(self):
 		return "Número de dispositivo"
 
 	def get_data_temp_description(self):
