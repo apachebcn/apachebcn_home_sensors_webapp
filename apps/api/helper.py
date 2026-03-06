@@ -55,7 +55,7 @@ def insert_input_data(request):
 			- Respondemos con los datos del modelo RemoteConfig, que son los valores de fuerces de reles que el usuario quiere comandar desde aquí
 
 	Ejemplo de input:
-		http://localhost/api/write_data/?apikey=APIKEY_PASS&ip=127.0.0.5&&num=1&t=12&h=22
+		https://sensors.pedroreinarojas.com/api/write_data/?apikey=APIKEY_PASS&ip=127.0.0.5&room=1&temp=12&hum=22
 	RESPUESTAS QUE SE ENVIARÁN AL TERMOSTATO:
 		WEBAPP_OK
 		WEBAPP_GET_CONFIG_FROM_THERMOSTATE
@@ -125,8 +125,9 @@ def insert_input_data(request):
 	if not user_apikey or user_apikey is None:
 		raise PermissionDenied("admin user not found")
 
-	num = request.GET.get('num', None)
-	logger.info(f"RECIBIENDO DATOS del sensor num {num} con IP {user_ip}")
+
+	room = request.GET.get('room', None)
+	logger.info(f"RECIBIENDO DATOS del sensor room {room} con IP {user_ip}")
 
 	data_from_thermostate_local_ip = request.GET.get('ip', None)
 	data_from_thermostate_public_ip = request.META.get('REMOTE_ADDR', 'unknown')
@@ -134,33 +135,33 @@ def insert_input_data(request):
 	field_values = {}
 
 	try:
-		num = int(num)
+		room = int(room)
 	except Exception as e:
 		message = str(e)
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	if num is None or not is_int(num):
-		message = "El parámetro 'num' es obligatorio y ha de ser un número entero"
+	if room is None or not is_int(room):
+		message = "El parámetro 'room' es obligatorio y ha de ser un número entero"
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	field_values["data_dev_num"] = num
-	field_values["data_temp"] = request.GET.get('t', None)
-	field_values["data_hum"] = request.GET.get('h', None)
+	field_values["data_dev_num"] = room
+	field_values["data_temp"] = request.GET.get('temp', None)
+	field_values["data_hum"] = request.GET.get('hum', None)
 
-	input_data_row = InputData.objects.filter(data_dev_num=num).first()
+	input_data_row = InputData.objects.filter(data_dev_num=room).first()
 
 	if not input_data_row:
 		input_data_row = InputData.objects.create(
-			data_dev_num = num,
+			data_dev_num = room,
 			data_temp = field_values["data_temp"],
 			data_hum = field_values["data_hum"],
 			data_from_thermostate_local_ip = data_from_thermostate_local_ip,
 			data_from_thermostate_public_ip = data_from_thermostate_public_ip,
 		)
 	else:
-		input_data_row.data_dev_num = num
+		input_data_row.data_dev_num = room
 		input_data_row.data_temp = field_values["data_temp"]
 		input_data_row.data_hum = field_values["data_hum"]
 		input_data_row.data_from_thermostate_local_ip = data_from_thermostate_local_ip
