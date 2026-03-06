@@ -20,7 +20,7 @@ from apps.input_data_history.helper import get_json_sensors_graph
 from apps.common_functions import test_is_numeric
 from project.settings import MODE
 
-from apps.common_functions import responseToThermostate, get_last_dev_num
+from apps.common_functions import responseToThermostate
 
 import logging
 logger = logging.getLogger('django')
@@ -142,11 +142,6 @@ def insert_input_data(request):
 
 	if num is None or not is_int(num):
 		message = "El parámetro 'num' es obligatorio y ha de ser un número entero"
-		result = "error"
-		return responseToThermostate(request, result = result, message = message)
-
-	if num < 1 or num > get_last_dev_num():
-		message = f"El parámetro 'num' ha de ser un número entero entre 1 y {get_last_dev_num()}"
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 

@@ -272,6 +272,8 @@ def get_user_admin():
 
 def get_dev_num_str(dev_num):
 
+	if dev_num is None:
+			return "Dev " + str(dev_num)
 	dev_num_str = str(dev_num)
 	if dev_num == 1:
 		dev_num_str = "Calle"
@@ -284,8 +286,3 @@ def get_dev_num_str(dev_num):
 	elif dev_num == 5:
 		dev_num_str = "Comedor"
 	return dev_num_str
-
-
-def get_last_dev_num():
-
-	return 5

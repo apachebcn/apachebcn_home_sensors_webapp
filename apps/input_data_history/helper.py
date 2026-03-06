@@ -190,11 +190,11 @@ def get_history_sensors_graph_data(request, data_variable, start_local_date_str,
 
 def get_json_sensors_graph(request, data_variable):
 
+	from datetime import datetime
 	from django.http import JsonResponse
 	from apps.common_functions_dates import get_GET_or_POST_start_datetime_str
 	from apps.common_functions_dates import get_GET_or_POST_end_datetime_str
-	import pytz
-	from datetime import datetime
+	from apps.common_functions import get_dev_num_str
 
 	def convert_timestamp(timestamp):  # Para pruebas, para ver el timestamp en formato legible
 		# Si el timestamp está en milisegundos, lo convertimos a segundos
@@ -236,22 +236,11 @@ def get_json_sensors_graph(request, data_variable):
 		datetime_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
 		timestamp = datetime_obj.timestamp() * 1000  # Highcharts espera ms
 		data_dev_num = plot_data['data_dev_num'][i] if 'data_dev_num' in plot_data else None
-		# Etiqueta legible
-		if data_dev_num is not None:
-			if data_dev_num == 1:
-				dev_label = "habitación matrimonio"
-			elif data_dev_num == 2:
-				dev_label = "habitación 2"
-			elif data_dev_num == 3:
-				dev_label = "habitación 3"
-			elif data_dev_num == 4:
-				dev_label = "habitación 4"
-			elif data_dev_num == 5:
-				dev_label = "habitación 5"
-			else:
-				dev_label = f"dispositivo {data_dev_num}"
-		else:
-			dev_label = "desconocido"
+		# Etiqueta legible usando función centralizada
+		try:
+			dev_label = get_dev_num_str(int(float(data_dev_num)))
+		except Exception:
+			dev_label = str(data_dev_num)
 		y_value = plot_data['value'][i] if 'value' in plot_data else None
 		if y_value is not None:
 			series_dict[dev_label].append([timestamp, y_value])
