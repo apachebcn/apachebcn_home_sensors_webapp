@@ -35,13 +35,10 @@ class InputDataAdmin(CustomAdmin):
 
 	# Campos que se muestran
 	def get_list_display(self, request):
-
 		_list_display = []
 		_list_display.extend([
 			'pk',
 			'updated_at',
-			'data_from_thermostate_local_ip',
-			'data_from_thermostate_public_ip',
 			'get_data_dev_num',
 			'data_temp', 'data_temp_min', 'data_temp_max',
 			'data_hum', 'data_hum_min', 'data_hum_max',

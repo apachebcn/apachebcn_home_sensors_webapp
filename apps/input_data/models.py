@@ -42,5 +42,3 @@ class InputData(models.Model):
 	data_hum_min = models.FloatField(default = None, null = True, blank=True)
 	data_hum_max = models.FloatField(default = None, null = True, blank=True)
 
-	data_from_thermostate_local_ip = models.CharField(max_length = 30, default = None, null = True, blank=True)
-	data_from_thermostate_public_ip = models.CharField(max_length = 30, default = None, null = True, blank=True)

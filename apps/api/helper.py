@@ -129,8 +129,7 @@ def insert_input_data(request):
 	room = request.GET.get('room', None)
 	logger.info(f"RECIBIENDO DATOS del sensor room {room} con IP {user_ip}")
 
-	data_from_thermostate_local_ip = request.GET.get('ip', None)
-	data_from_thermostate_public_ip = request.META.get('REMOTE_ADDR', 'unknown')
+	# Eliminado: data_from_thermostate_local_ip y data_from_thermostate_public_ip
 
 	field_values = {}
 
@@ -156,16 +155,12 @@ def insert_input_data(request):
 		input_data_row = InputData.objects.create(
 			data_dev_num = room,
 			data_temp = field_values["data_temp"],
-			data_hum = field_values["data_hum"],
-			data_from_thermostate_local_ip = data_from_thermostate_local_ip,
-			data_from_thermostate_public_ip = data_from_thermostate_public_ip,
+			data_hum = field_values["data_hum"]
 		)
 	else:
 		input_data_row.data_dev_num = room
 		input_data_row.data_temp = field_values["data_temp"]
 		input_data_row.data_hum = field_values["data_hum"]
-		input_data_row.data_from_thermostate_local_ip = data_from_thermostate_local_ip
-		input_data_row.data_from_thermostate_public_ip = data_from_thermostate_public_ip
 		input_data_row.save()
 
 	set_min_value(input_data_row, 'data_temp')
