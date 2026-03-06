@@ -148,6 +148,7 @@ def insert_input_data(request):
 	field_values["room_id"] = room
 	field_values["room_data_temp"] = request.GET.get('temp', None)
 	field_values["room_data_hum"] = request.GET.get('hum', None)
+	field_values["version"] = request.GET.get('version', None)
 
 	input_data_row = InputData.objects.filter(room_id=room).first()
 
