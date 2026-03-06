@@ -1,41 +1,19 @@
-function getScale(objectId) {
-    var value = null;
-    if (!document.getElementById(objectId)) console.error("NOT " + objectId)
-    if (document.getElementById(objectId).value !== null) {
-        value = parseFloat(document.getElementById(objectId).value);
-        if (value == 0) return null;
-        return value;
-    } else {
-        console.error("objectID " + objectId + " NOT EXIST");
-        return null;
-    }
-}
-
-function getAxisType(configItemType, configItemFill) {
-    var axisType = configItemType;
-    if (axisType == 'line' && configItemFill) axisType = 'area';
-    if (axisType == 'spline' && configItemFill) axisType = 'areaspline';
-    return axisType;
-}
 
 function getLegendConfig() {
-    if (!document.getElementById("id_legend_position")) return;
-    if (!document.getElementById("id_legend_horizontal_align")) return;
-    if (!document.getElementById("id_legend_vertical_align")) return;
-    if (!document.getElementById("id_legend_enable")) return;
+
     return {
-        layout: document.getElementById("id_legend_position").value, // 'horizontal' o 'vertical'
-        align: document.getElementById("id_legend_horizontal_align").value, // 'left', 'center', 'right'
-        verticalAlign: document.getElementById("id_legend_vertical_align").value, // 'top', 'middle', 'bottom'
+        layout: "horizontal", // 'horizontal' o 'vertical'
+        align: "right", // 'left', 'center', 'right'
+        verticalAlign: "top", // 'top', 'middle', 'bottom'
         x: 0, // Ajusta según necesites
         y: 0, // Ajusta según necesites
-        enabled: document.getElementById("id_legend_enable").checked // true o false
+        enabled: true // true o false
     };
 }
 
-function formatSerie(serie, objectId, isBoolean) {
+function formatSerie(serie, objectId) {
 
-    if (isBoolean) serie.yAxis = 0; else serie.yAxis = 1;
+    serie.yAxis = 1;
 
     if (!serie.hasOwnProperty('data')) {
         console.error(objectId + " has no data");
@@ -47,74 +25,18 @@ function formatSerie(serie, objectId, isBoolean) {
         return;
     }
 
-    attr = "_visible";
-    if (document.getElementById(objectId + attr) !== null) {
-        serie.visible = document.getElementById(objectId + attr).checked;
-    } else {
-        console.error("objectID " + objectId + attr + " NOT EXIST");
-        return serie;
-    }
+    serie.visible = true;
+    serie.type = "line";
+    serie.opacity = 1;
+    serie.color = null;
+    serie.points = false;
 
-    attr = "_type";
-    if (document.getElementById(objectId + attr) !== null && document.getElementById(objectId + "_fill") !== null) {
-        serie.type = getAxisType(document.getElementById(objectId + attr).value, document.getElementById(objectId + "_fill").checked);
-        console.log(objectId, serie.type);
-        if (serie.type=="widebars") {
-            // Aplicar configuración específica para widebars directamente a la serie
-            serie.type = "column";
-            serie.groupPadding = -0.1;
-            serie.pointPadding = 0;
-            serie.borderWidth = 0;
-            serie.grouping = false;
+    // Convertir los valores "None" en false
+    serie.data.forEach(point => {
+        if (point[1] == "None" || point[1] == "NaN") {
+            point[1] = false;
         }
-    } else {
-        console.error("objectID " + objectId + "_type or _fill" + " NOT EXIST");
-        return serie;
-    }
-
-    attr = "_opacity";
-    if (document.getElementById(objectId + attr) !== null) {
-        serie.fillOpacity = (document.getElementById(objectId + attr).value/100);
-    } else {
-        console.error("objectID " + objectId + attr + " NOT EXIST");
-        return serie;
-    }
- 
-    attr = "_color";
-    if (document.getElementById(objectId + attr) !== null) {
-        serie.color = document.getElementById(objectId + attr).value;
-    } else {
-        console.error("objectID " + objectId + attr + " NOT EXIST");
-        return serie;
-    }
-
-    attr = "_points";
-    if (document.getElementById(objectId + attr) !== null) {
-        serie.marker = {enabled: document.getElementById(objectId + attr).checked};
-    } else {
-        console.error("objectID " + objectId + attr + " NOT EXIST");
-        return serie;
-    }
-
-    if (isBoolean) {
-        attr = "_value_on";
-        if (document.getElementById(objectId + attr) !== null) {
-            serie.data.forEach(point => {
-                if (point[1] == "None" || point[1] == "NaN") {
-                    point[1] = false;
-                }
-                else if (point[1] == 1) {
-                    point[1]=(point[1]==1 ? parseFloat(document.getElementById(objectId + "_value_on").value) : 0);
-                }
-            });
-        }
-    } else {  // Convertir los valores "None" en false
-        serie.data.forEach(point => {
-            if (point[1] == "None" || point[1] == "NaN") {
-                point[1] = false;
-            }
-        });
-    }
+    });
 }
 
 // Función para vincular el evento input de los sliders con los outputs

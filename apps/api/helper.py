@@ -16,9 +16,7 @@ from datetime import timedelta
 
 from apps.input_data.models import InputData
 from apps.input_data_history.models import InputDataHistory
-from apps.input_data_history.helper import save_graphic_settings
-from apps.input_data_history.helper import get_json_data_graph
-from apps.input_data_history.views import data_graph_view
+from apps.input_data_history.helper import get_json_sensors_graph
 from apps.common_functions import test_is_numeric
 from project.settings import MODE
 
@@ -29,12 +27,21 @@ logger = logging.getLogger('django')
 
 
 @apikey_required()
-def api_get_json_data_graph(request):
+def api_get_json_sensors_temp_graph(request):
 
 	"""
 	Es llamado por javascript desde la vista graph_history.html
 	"""
-	return get_json_data_graph(request)
+	return get_json_sensors_graph(request, data_variable="data_temp")
+
+
+@apikey_required()
+def api_get_json_sensors_hum_graph(request):
+
+	"""
+	Es llamado por javascript desde la vista graph_history.html
+	"""
+	return get_json_sensors_graph(request, data_variable="data_hum")
 
 
 @apikey_required()
@@ -119,7 +126,7 @@ def insert_input_data(request):
 		raise PermissionDenied("admin user not found")
 
 	num = request.GET.get('num', None)
-	logger.info(f"RECIBIENDO DATOS del sensor num {num} del termostato con IP {user_ip}")
+	logger.info(f"RECIBIENDO DATOS del sensor num {num} con IP {user_ip}")
 
 	data_from_thermostate_local_ip = request.GET.get('ip', None)
 	data_from_thermostate_public_ip = request.META.get('REMOTE_ADDR', 'unknown')

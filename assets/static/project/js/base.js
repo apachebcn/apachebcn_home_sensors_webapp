@@ -22,20 +22,6 @@ function pausa(millis)
 	while(curDate-date < millis);
 }
 
-function enviar_seleccion_usuario(user_id) {
-	showDialogModMsg("Reload", "Changing user");
-	$.ajax({
-		type: "GET",
-		url: '/change_profile_user_selected/' + user_id,
-		success: function(data)
-		{
-			pausa(1000)
-			document.getElementById('sel_cliente').submit();
-			//alert(data); // show response from the php script.
-		}
-	});
-}
-
 function showDialogMod () {
 	var dialogmod = $('#DialogMod');
 	dialogmod.modal('show');

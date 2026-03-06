@@ -25,18 +25,6 @@ def context_procesor_user_env(request):
 	context = {
 		'django_version': get_version(),
 		'debug_mode': settings.DEBUG,
-		'list_users': {},
 	}
-
-	if user and is_superuser:
-		users = User.objects.exclude(id=user.id).all()
-		list_users = []
-		for user in users:
-			list_users.append({
-				'id': user.pk,
-				'nombre': user.username  # Puedes ajustar qué información quieres mostrar de cada usuario
-			})
-		if (list_users):
-			context['list_users'] = list_users
 
 	return context

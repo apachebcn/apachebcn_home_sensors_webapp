@@ -18,10 +18,11 @@ from . import views
 
 urlpatterns = [
 
-	# Inserta los datos recibidos del termostato en la base de datos
+	# Inserta los datos recibidos en la base de datos
 	path('api/write_data/', views.write_input_data_view, name='write_input_data_view'),
 
 	# Es llamado por javascript desde la vista graph_history.html
-	path('api/get_json_data_graph_view/', views.api_get_json_data_graph_view, name='api_get_json_data_graph_view'),
+	path('api/get_json_sensors_graph_temp_view/', views.api_get_json_sensors_graph_temp_view, name='api_get_json_sensors_graph_temp_view'),
+	path('api/get_json_sensors_graph_hum_view/', views.api_get_json_sensors_graph_hum_view, name='api_get_json_sensors_graph_hum_view'),
 
 ]

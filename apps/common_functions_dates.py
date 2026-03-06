@@ -17,19 +17,18 @@ def convert_local_datetime_str_to_utc(request, date_str):
 	Convierte una cadena de fecha y hora en formato '%Y-%m-%d %H:%M:%S' a un objeto datetime consciente de la zona horaria
 	local y luego a UTC.
 	"""
-	import pytz
-
 	# convierto a naive datetime
 	naive_datetime = parse_str_to_naive_datetime(date_str)
 
-	# cojo user timezone
+	# cojo user timezone (ZoneInfo)
 	user_timezone = get_system_timezone()
 
-	# La vinculo a hora local
-	local_datetime = user_timezone.localize(naive_datetime)
+	# Asigno zona horaria local usando ZoneInfo
+	local_datetime = naive_datetime.replace(tzinfo=user_timezone)
 
 	# La convierto a hora UTC que será la necesaria para la query
-	utc_datetime = local_datetime.astimezone(pytz.utc)
+	from datetime import timezone as dt_timezone
+	utc_datetime = local_datetime.astimezone(dt_timezone.utc)
 
 	return utc_datetime
 

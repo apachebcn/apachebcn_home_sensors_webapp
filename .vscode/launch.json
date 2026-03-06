@@ -8,7 +8,7 @@
             "name": "Remote CODE FROM LOCAL",
             "type": "python",
             "request": "attach",
-            "port": 3013,
+            "port": 3012,
             "host": "0.0.0.0",
             "pathMappings": [
                 {
@@ -23,7 +23,7 @@
             "name": "Remote CODE FROM DEVCONTAINER",
             "type": "python",
             "request": "attach",
-            "port": 3013,
+            "port": 3012,
             "host": "0.0.0.0",
             "pathMappings": [
                 {

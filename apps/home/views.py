@@ -31,7 +31,7 @@ def home_view(request):
 						input_data.save()
 				input_data = InputData.objects.filter(user_id=request.user).first()
 	context = {
-		'title': format_html(_("Datos del termostato")),
+		'title': format_html(_("Datos")),
 		'data_dev_num': "Número de dispositivo",
 		'data_temp_title':"Temperatura",
 		'data_hum_title':"Humedad",

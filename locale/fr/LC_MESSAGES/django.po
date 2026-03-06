@@ -106,7 +106,7 @@ msgid "Relé"
 msgstr ""
 
 #: apps/home/views.py:26
-msgid "Datos del termostato"
+msgid "Datos"
 msgstr ""
 
 #: apps/home/views.py:62
@@ -496,11 +496,11 @@ msgid "Función Bomba de agua"
 msgstr ""
 
 #: apps/input_data_history/views.py:119
-msgid "Histórico Gráfico del termostato"
+msgid "Histórico Gráfico"
 msgstr ""
 
 #: apps/input_data_history/views.py:228 apps/input_data_history/views.py:233
-msgid "Importador de datos del termostato"
+msgid "Importador de datos"
 msgstr ""
 
 #: apps/minicaptcha/helper.py:96
@@ -512,7 +512,7 @@ msgid "Captcha incorrecto"
 msgstr ""
 
 #: apps/remote_config/models.py:20
-msgid "Configuración del Termostato"
+msgid "Configuración"
 msgstr ""
 
 #: apps/remote_config/models.py:21
@@ -544,7 +544,7 @@ msgid "Enviar a termostato"
 msgstr ""
 
 #: apps/remote_config/views.py:29
-msgid "Gestión remota del Configuración del termostato"
+msgid "Gestión remota del Configuración"
 msgstr ""
 
 #: apps/remote_firmware/admin.py:58
@@ -552,11 +552,11 @@ msgid "Acciones"
 msgstr ""
 
 #: apps/remote_firmware/apps.py:12
-msgid "Firmware del termostato"
+msgid "Firmware"
 msgstr ""
 
 #: apps/remote_firmware/models.py:17
-msgid "Firmware del Termostato"
+msgid "Firmware"
 msgstr ""
 
 #: apps/remote_firmware/models.py:18
@@ -572,7 +572,7 @@ msgid "Versión informada por el termostato"
 msgstr ""
 
 #: apps/remote_firmware/views.py:27
-msgid "Gestión remota del remoteFirmware del termostato"
+msgid "Gestión remota del remoteFirmware"
 msgstr ""
 
 #: apps/user_alarm/admin.py:62 apps/user_alarm/admin.py:90
@@ -620,15 +620,15 @@ msgid "ENVIANDO EMAILS - INICIO"
 msgstr ""
 
 #: apps/user_alarm/models.py:19
-msgid "Alarma del termostato"
+msgid "Alarma"
 msgstr ""
 
 #: apps/user_alarm/models.py:20
-msgid "Alarmas del termostato"
+msgid "Alarmas"
 msgstr ""
 
 #: apps/user_alarm/models.py:26
-msgid "Tiempo de sincronización del termostato"
+msgid "Tiempo de sincronización"
 msgstr ""
 
 #: apps/user_alarm/models.py:27
@@ -684,11 +684,11 @@ msgid "Email"
 msgstr ""
 
 #: apps/user_alarm/models.py:58
-msgid "Evento de alarma del termostato"
+msgid "Evento de alarma"
 msgstr ""
 
 #: apps/user_alarm/models.py:59
-msgid "Eventos de alarmas del termostato"
+msgid "Eventos de alarmas"
 msgstr ""
 
 #: apps/user_alarm/models.py:66
@@ -772,7 +772,7 @@ msgid ""
 msgstr ""
 
 #: apps/user_option/models.py:15
-msgid "Opción del Termostato"
+msgid "Opción"
 msgstr ""
 
 #: apps/user_option/models.py:16

@@ -18,8 +18,9 @@ from . import views
 
 urlpatterns = [
 
-	path('realtime_data_graph_info_view/', views.realtime_data_graph_info_view, name='realtime_data_graph_info_view'),
-	path('get_json_data_graph_view/', views.get_json_data_graph_view, name='get_json_data_graph_view'),
-	path('history_data_graph_view/', views.history_data_graph_view, name='history_data_graph_view'),
+	path('get_json_sensors_graph_temp_view/', views.get_json_sensors_graph_temp_view, name='get_json_sensors_graph_temp_view'),
+	path('history_sensors_graph_temp_view/', views.history_sensors_graph_temp_view, name='history_sensors_graph_temp_view'),
+	path('get_json_sensors_graph_hum_view/', views.get_json_sensors_graph_hum_view, name='get_json_sensors_graph_hum_view'),
+	path('history_sensors_graph_hum_view/', views.history_sensors_graph_hum_view, name='history_sensors_graph_hum_view'),
 
 ]

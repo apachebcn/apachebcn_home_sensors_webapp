@@ -45,11 +45,20 @@
                 </li>
             {% endwith %}
 
-            {% with menu_url='/history_data_graph_view/' %}
+            {% with menu_url='/history_sensors_graph_temp_view/' %}
                 <li class="nav-item"></li>
-                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='history_data_graph_view'>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='history_sensors_graph_temp_view'>
                         <i class="fas fa-chart-line"></i>
-                        <p class='p-menu-item'>{% trans "Gráficos - Historial" %}</p>
+                        <p class='p-menu-item'>{% trans "Historial - Temperatura" %}</p>
+                    </a>
+                </li>
+            {% endwith %}
+
+            {% with menu_url='/history_sensors_graph_hum_view/' %}
+                <li class="nav-item"></li>
+                    <a href="{{ menu_url }}" class="nav-link {% if request.path_info == menu_url %} active{% endif %} show-loading" id='history_sensors_graph_hum_view'>
+                        <i class="fas fa-chart-line"></i>
+                        <p class='p-menu-item'>{% trans "Historial - Humedad" %}</p>
                     </a>
                 </li>
             {% endwith %}
