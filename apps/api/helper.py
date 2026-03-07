@@ -166,13 +166,13 @@ def insert_input_data(request):
 		input_data_row = InputData.objects.create(
 			room_id = room,
 			room_data_temp = field_values["room_data_temp"],
-			room_data_hum = field_values["room_data_hum"]
+			room_data_hum = field_values["room_data_hum"],
 			room_version = field_values["room_version"]
 		)
 	else:
 		input_data_row.room_id = room
 		input_data_row.room_data_temp = field_values["room_data_temp"]
-		input_data_row.room_data_hum = field_values["room_data_hum"]
+		input_data_row.room_data_hum = field_values["room_data_hum"],
 		input_data_row.room_version = field_values["room_version"]
 		input_data_row.save()
 
