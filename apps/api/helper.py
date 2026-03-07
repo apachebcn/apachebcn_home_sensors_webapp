@@ -202,5 +202,7 @@ def insert_input_data(request):
 	result = "ok"
 	if room_mark_to_update:
 		result = "update"
+		input_data_row.room_mark_to_update = False
+		input_data_row.save()
 
 	return responseToThermostate(request, result = result)
