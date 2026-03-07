@@ -25,8 +25,8 @@ class InputDataAdmin(CustomAdmin):
 			'get_room_id',
 			'room_version',
 			'room_mark_to_update',
-			'room_data_temp', 'room_data_temp_min', 'room_data_temp_max',
-			'room_data_hum', 'room_data_hum_min', 'room_data_hum_max',
+			'room_data_temp',
+			'room_data_hum'
 		)
 
 	# filtros
@@ -44,8 +44,10 @@ class InputDataAdmin(CustomAdmin):
 			'get_room_id',
 			'room_version',
 			'room_mark_to_update',
-			'room_data_temp', 'room_data_temp_min', 'room_data_temp_max',
-			'room_data_hum', 'room_data_hum_min', 'room_data_hum_max',
+			'room_data_temp',
+			'room_data_hum',
+			'room_data_temp_min', 'room_data_temp_max',
+			'room_data_hum_min', 'room_data_hum_max',
 		])
 		return _list_display
 
