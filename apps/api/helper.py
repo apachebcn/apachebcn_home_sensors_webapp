@@ -117,7 +117,7 @@ def insert_input_data(request):
 
 	if request.method != 'GET':
 		message = "Bad protocol"
-		logger.warning(user_ip + ": " + message)
+		logger.error(user_ip + ": " + message)
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
@@ -125,9 +125,12 @@ def insert_input_data(request):
 	if not user_apikey or user_apikey is None:
 		raise PermissionDenied("admin user not found")
 
-
 	room = request.GET.get('room', None)
-	logger.info(f"RECIBIENDO DATOS del sensor room {room} con IP {user_ip}")
+	if room is None:
+		message = "Missing 'room' parameter"
+		logger.error(user_ip + ": " + message)
+		result = "error"
+		return responseToThermostate(request, result = result, message = message)
 
 	# Eliminado: data_from_thermostate_local_ip y data_from_thermostate_public_ip
 
@@ -140,10 +143,13 @@ def insert_input_data(request):
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
 
-	if room is None or not is_int(room):
-		message = "El parámetro 'room' es obligatorio y ha de ser un número entero"
+	if room < 1 or room > 5:
+		message = "Invalid 'room' parameter value: {}".format(room)
+		logger.error(user_ip + ": " + message)
 		result = "error"
 		return responseToThermostate(request, result = result, message = message)
+
+	logger.info(f"RECIBIENDO DATOS del sensor room {room} con IP {user_ip}")
 
 	field_values["room_id"] = room
 	field_values["room_data_temp"] = request.GET.get('temp', None)
