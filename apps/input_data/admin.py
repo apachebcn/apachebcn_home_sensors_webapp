@@ -16,7 +16,7 @@ class InputDataAdmin(CustomAdmin):
 	class Media:
 		js = CustomAdmin.Media.js + ('/static/project/admin_override/js/admin_search_placeholder_for_user.js',)
 
-	readonly_fields = ('updated_at', 'room_id', 'get_room_id', )
+	readonly_fields = ('updated_at', 'room_id', 'get_room_id', 'room_versiion', )
 
 	# Campos que se editan
 	def get_fields(self, request, obj=None):
