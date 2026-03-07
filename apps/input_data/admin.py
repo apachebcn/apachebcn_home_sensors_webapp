@@ -23,6 +23,8 @@ class InputDataAdmin(CustomAdmin):
 		return (
 			'updated_at',
 			'get_room_id',
+			'room_version',
+			'room_mark_to_update',
 			'room_data_temp', 'room_data_temp_min', 'room_data_temp_max',
 			'room_data_hum', 'room_data_hum_min', 'room_data_hum_max',
 		)
